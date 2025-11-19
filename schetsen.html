@@ -9,49 +9,42 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- Google tag (gtag.js) -->
+
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0X2TF5F42D"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-0X2TF5F42D');
     </script>
-    <!-- Standard favicon -->
-    <link rel="icon" type="image/png" href="images/other/favicon.png">
 
-    <!-- High-resolution icons for different devices -->
+    <link rel="icon" type="image/png" href="images/other/favicon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/other/favicon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/other/favicon.png">
     <link rel="icon" type="image/png" sizes="48x48" href="images/other/favicon.png">
-
-    <!-- Apple Touch Icon (for iOS homescreen) -->
     <link rel="apple-touch-icon" href="images/other/favicon.png">
-
-    <!-- Safari pinned tab (macOS) -->
     <link rel="mask-icon" href="images/other/favicon.png" color="#111111">
-
-    <!-- Microsoft Tile (Windows 8/10 pinned sites) -->
     <meta name="msapplication-TileImage" content="images/other/favicon.png">
     <meta name="msapplication-TileColor" content="#ffffff">
-
 </head>
 
 <body>
 
     <nav class="sidebar">
-        <a href="index.html">
+        <a href="/">
             <img src="images/menu/cvdp1.png" alt="Portfolio Logo" class="sidebar-logo">
         </a>
         <button class="menu-toggle"></button>
+
         <ul class="nav-links">
-            <li><a href="index.html"><span>Illustraties</span></a></li>
+            <li><a href="/"><span>Illustraties</span></a></li>
             <li class="active"><a href="schetsen.html"><span>Schetsen</span></a></li>
-            <li><a href="projects.html"><span>Projecten</span></a></li>
-            <li><a href="about.html"><span>Over mij</span></a></li>
+            <li><a href="projecten.html"><span>Projecten</span></a></li>
+            <li><a href="over-mij.html"><span>Over mij</span></a></li>
             <li><a href="contact.html"><span>Contact</span></a></li>
         </ul>
+
         <div class="social-links">
             <a href="mailto:vandeputtecharlotte@outlook.com" target="_blank">
                 <img src="images/icons/mail.png" alt="Email">
@@ -67,14 +60,14 @@
 
     <div class="main-container">
         <main class="content">
-            <div class="image-grid" id="image-grid-container">
-            </div>
+            <div class="image-grid" id="image-grid-container"></div>
         </main>
+
         <footer class="site-footer">
-            <p>Copyright &copy;
-                <script>
-                    document.write(new Date().getFullYear())
-                </script> Charlotte Vandeputte
+            <p>
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear())</script>
+                Charlotte Vandeputte
             </p>
         </footer>
     </div>

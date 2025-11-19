@@ -5,45 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- Standard favicon -->
-    <link rel="icon" type="image/png" href="images/other/favicon.png">
 
-    <!-- High-resolution icons for different devices -->
+    <link rel="icon" type="image/png" href="images/other/favicon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/other/favicon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/other/favicon.png">
     <link rel="icon" type="image/png" sizes="48x48" href="images/other/favicon.png">
 
-    <!-- Apple Touch Icon (for iOS homescreen) -->
     <link rel="apple-touch-icon" href="images/other/favicon.png">
-
-    <!-- Safari pinned tab (macOS) -->
     <link rel="mask-icon" href="images/other/favicon.png" color="#111111">
 
-    <!-- Microsoft Tile (Windows 8/10 pinned sites) -->
     <meta name="msapplication-TileImage" content="images/other/favicon.png">
     <meta name="msapplication-TileColor" content="#ffffff">
-
 </head>
 
 <body>
 
     <nav class="sidebar">
-        <a href="index.html">
+        <a href="/">
             <img src="images/menu/cvdp1.png" alt="Portfolio Logo" class="sidebar-logo">
         </a>
 
         <button class="menu-toggle"></button>
+
         <ul class="nav-links">
-            <li><a href="index.html"><span>Illustraties</span></a></li>
+            <li><a href="/"><span>Illustraties</span></a></li>
             <li><a href="schetsen.html"><span>Schetsen</span></a></li>
-            <li><a href="projects.html"><span>Projecten</span></a></li>
-            <li><a href="about.html"><span>Over mij</span></a></li>
+            <li><a href="projecten.html"><span>Projecten</span></a></li>
+            <li><a href="over-mij.html"><span>Over mij</span></a></li>
             <li class="active"><a href="contact.html"><span>Contact</span></a></li>
         </ul>
+
         <div class="social-links">
             <a href="mailto:vandeputtecharlotte@outlook.com" target="_blank">
                 <img src="images/icons/mail.png" alt="Email">
@@ -60,8 +56,7 @@
     <div class="main-container">
         <main class="content">
             <h2 style="margin-bottom: 1rem;">Contact</h2>
-            <p>Neem gerust contact met mij op voor vragen, opmerkingen of om te praten over mogelijke projecten. Je kan
-                me steeds bereiken via onderstaande links of je kan een berichtje achterlaten.</p>
+            <p>Neem gerust contact met mij op voor vragen, opmerkingen of om te praten over mogelijke projecten.</p>
 
             <div class="contact-links" style="margin: 1.5rem 0;">
                 <p><a href="mailto:vandeputtecharlotte@outlook.com">Vandeputtecharlotte@outlook.com</a></p>
@@ -70,26 +65,27 @@
             </div>
 
             <form class="contact-form" action="https://formsubmit.co/vandeputtecharlotte@outlook.com" method="POST">
-                <!-- FormSubmit settings -->
                 <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_template" value="table"> <!-- nicer email format -->
-                <input type="hidden" name="_replyto" value=""> <!-- allows user confirmation -->
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_replyto" value="">
 
                 <div class="form-group">
                     <label for="name">Naam:</label>
                     <input type="text" id="name" name="name" required>
                 </div>
+
                 <div class="form-group">
                     <label for="email">E-mail:</label>
                     <input type="email" id="email" name="email" required>
                 </div>
+
                 <div class="form-group">
                     <label for="message">Bericht:</label>
                     <textarea id="message" name="message" rows="5" required></textarea>
                 </div>
+
                 <button type="submit" class="submit-button">Verstuur</button>
 
-                <!-- Success message (hidden by default) -->
                 <p id="form-success" style="display:none; margin-top:1rem;">
                     Bedankt voor je bericht :)<br>Ik bekijk het zo snel mogelijk.
                 </p>
@@ -97,15 +93,13 @@
         </main>
 
         <footer class="site-footer">
-            <p>Copyright &copy;
-                <script>
-                    document.write(new Date().getFullYear())
-                </script> Charlotte Vandeputte
-            </p>
             <p>
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear())</script>
+                Charlotte Vandeputte
+            </p>
         </footer>
     </div>
-
 
     <script src="script.js"></script>
 </body>
