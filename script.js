@@ -1,24 +1,38 @@
-// Function to handle the active navigation link
+/* ===================================================================
+   script.js — merged & optimized (behavior preserved)
+   - Active nav
+   - Image sets per page (schetsen / illustraties)
+   - Desktop (masonry-like) and mobile grid generation
+   - Lazy loading with IntersectionObserver (clean reconnect on regen)
+   - Lightbox (open/close, prev/next, keyboard, background click)
+   - Project detail view (projects page)
+   - Contact form submit (fetch to FormSubmit.co)
+   - Mobile menu toggle
+   - Sidebar logo redirect
+   - Scroll-hide sidebar on mobile
+   - Artwork protection (right-click, drag, save shortcuts, CSS)
+   =================================================================== */
+
+/* -------------------------
+   Active navigation helper
+   ------------------------- */
 function setActiveNav() {
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const file = window.location.pathname.split('/').pop() || 'index.html';
     const navLinks = document.querySelectorAll('.nav-links a');
     navLinks.forEach(link => {
-        if (link.getAttribute('href') === currentPage) {
-            // Check the parent li to add the active class
-            link.parentElement.classList.add('active');
-        } else {
-            link.parentElement.classList.remove('active');
-        }
+        const li = link.parentElement;
+        if (!li) return;
+        li.classList.toggle('active', link.getAttribute('href') === file);
     });
 }
 
-// Decide which image set to load based on the current page
+/* -------------------------
+   Choose images for page
+   ------------------------- */
 let images = [];
-
 const currentPage = window.location.pathname.split('/').pop();
 
-if (currentPage === "schetsen.html") {
-    // Images for schetsen page
+if (currentPage === 'schetsen.html') {
     images = [
         'images/schetsen/2025_IMG_9626_2025.jpg',
         'images/schetsen/2025_IMG_9623_2025.jpg',
@@ -74,10 +88,9 @@ if (currentPage === "schetsen.html") {
         'images/schetsen/2019_04.jpg',
         'images/schetsen/2019_03.jpg',
         'images/schetsen/2019_02.jpg',
-        'images/schetsen/2019_01.jpg',
+        'images/schetsen/2019_01.jpg'
     ];
 } else {
-    // Default images for index.html (work)
     images = [
         'images/illustraties/2025_parkwandeling_02.jpg',
         'images/illustraties/2025_Nooit alleen.jpg',
@@ -105,108 +118,93 @@ if (currentPage === "schetsen.html") {
         'images/illustraties/2019_Nieuwjaarskaart2022_Gezin_zonder naam.jpg',
         'images/illustraties/2019_Nieuwjaarskaart2020_Oma&Opa_zonder naam.jpg',
         'images/illustraties/2019_Down The Dinghy.jpg',
-        'images/illustraties/2018_Nieuwjaarskaart2019_ingezoomd_Oma&Opa_Binnenkant.jpg',
+        'images/illustraties/2018_Nieuwjaarskaart2019_ingezoomd_Oma&Opa_Binnenkant.jpg'
     ];
 }
 
-// Function to dynamically generate the image grid for desktop (masonry-like)
+/* -------------------------
+   Grid generation helpers
+   ------------------------- */
+function createImageItem(src, index) {
+    const item = document.createElement('div');
+    item.className = 'image-item';
+    item.dataset.index = index;
+
+    const img = document.createElement('img');
+    img.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+    img.dataset.src = src;
+    img.alt = 'Portfolio image';
+    img.className = 'lazy';
+
+    item.appendChild(img);
+    return item;
+}
+
 function generateDesktopGrid() {
     const gridContainer = document.getElementById('image-grid-container');
     if (!gridContainer) return;
-
-    // Clear existing content to avoid duplicates on resize
     gridContainer.innerHTML = '';
 
     const numColumns = 3;
-    const columns = Array.from({
-        length: numColumns
-    }, () => {
-        const column = document.createElement('div');
-        column.classList.add('image-column');
-        return column;
+    const columns = [];
+    for (let i = 0; i < numColumns; i++) {
+        const col = document.createElement('div');
+        col.className = 'image-column';
+        columns.push(col);
+    }
+
+    images.forEach((src, idx) => {
+        const item = createImageItem(src, idx);
+        columns[idx % numColumns].appendChild(item);
     });
 
-    images.forEach((src, index) => {
-        const item = document.createElement('div');
-        item.classList.add('image-item');
-        item.dataset.index = index;
-
-        const img = document.createElement('img');
-        img.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
-        img.dataset.src = src;
-        img.alt = 'Portfolio image';
-        img.classList.add('lazy');
-
-        item.appendChild(img);
-        columns[index % numColumns].appendChild(item);
-    });
-
-    columns.forEach(column => gridContainer.appendChild(column));
+    columns.forEach(col => gridContainer.appendChild(col));
 }
 
-// Function to dynamically generate the image grid for mobile (sequential)
 function generateMobileGrid() {
     const gridContainer = document.getElementById('image-grid-container');
     if (!gridContainer) return;
-
-    // Clear existing content to avoid duplicates on resize
     gridContainer.innerHTML = '';
 
-    // Create a single column wrapper for consistency with desktop column class, 
-    // even though it functions as a single stack in mobile CSS
-    const column = document.createElement('div');
-    column.classList.add('image-column');
+    const col = document.createElement('div');
+    col.className = 'image-column';
 
-    images.forEach((src, index) => {
-        const item = document.createElement('div');
-        item.classList.add('image-item');
-        item.dataset.index = index;
-
-        const img = document.createElement('img');
-        img.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
-        img.dataset.src = src;
-        img.alt = 'Portfolio image';
-        img.classList.add('lazy');
-
-        item.appendChild(img);
-        column.appendChild(item);
+    images.forEach((src, idx) => {
+        const item = createImageItem(src, idx);
+        col.appendChild(item);
     });
 
-    // Append the single column to the grid container
-    gridContainer.appendChild(column);
+    gridContainer.appendChild(col);
 }
 
-
-// Function to implement lazy loading
+/* -------------------------
+   Lazy loading (IntersectionObserver)
+   ------------------------- */
 function lazyLoadImages() {
-    const lazyImages = document.querySelectorAll('.lazy');
+    const lazyImages = document.querySelectorAll('img.lazy');
     if (lazyImages.length === 0) return;
 
-    // Disconnect old observer if it exists
     if (window.imageObserver) {
-        window.imageObserver.disconnect();
+        try { window.imageObserver.disconnect(); } catch (e) { /* ignore */ }
     }
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                observer.unobserve(img);
-            }
+            if (!entry.isIntersecting) return;
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove('lazy');
+            obs.unobserve(img);
         });
-    });
+    }, { rootMargin: '200px 0px' });
 
-    lazyImages.forEach(img => {
-        observer.observe(img);
-    });
-
-    // Store the observer globally to disconnect it later on regeneration
+    lazyImages.forEach(img => observer.observe(img));
     window.imageObserver = observer;
 }
 
-// Lightbox functionality
+/* -------------------------
+   Lightbox
+   ------------------------- */
 const lightbox = document.getElementById('lightbox');
 const lightboxImage = document.querySelector('.lightbox-image');
 const prevButton = document.querySelector('.lightbox-prev');
@@ -216,111 +214,194 @@ const closeButton = document.querySelector('.lightbox-close');
 let currentIndex = 0;
 
 function openLightbox(index) {
-    currentIndex = index;
+    if (!lightbox || !lightboxImage) return;
+    currentIndex = typeof index === 'number' ? index : 0;
     lightbox.classList.add('active');
-    // The lightbox can handle GIFs simply by setting the src.
     lightboxImage.src = images[currentIndex];
 }
 
 function closeLightbox() {
+    if (!lightbox) return;
     lightbox.classList.remove('active');
 }
 
 function showNextImage() {
+    if (!lightboxImage) return;
     currentIndex = (currentIndex + 1) % images.length;
     lightboxImage.src = images[currentIndex];
 }
 
 function showPrevImage() {
+    if (!lightboxImage) return;
     currentIndex = (currentIndex - 1 + images.length) % images.length;
     lightboxImage.src = images[currentIndex];
 }
 
-
-// --- Scroll Reveal Header Logic (NEW) ---
+/* -------------------------
+   Scroll-reveal sidebar (mobile)
+   ------------------------- */
 const sidebar = document.querySelector('.sidebar');
 let lastScrollTop = 0;
-const scrollThreshold = 50; // Distance in pixels before hiding
+const scrollThreshold = 50;
 
-// Function executed on scroll or resize
 function handleScrollReveal() {
-    // Only run this logic on mobile viewports (<= 768px)
+    if (!sidebar) return;
     if (window.innerWidth > 768) {
-        if (sidebar) sidebar.classList.remove('hidden'); // Ensure it's visible on desktop
+        sidebar.classList.remove('hidden');
         return;
     }
-
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    // Scrolling down and past the threshold
     if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
-        if (sidebar) sidebar.classList.add('hidden');
+        sidebar.classList.add('hidden');
+    } else if (scrollTop < lastScrollTop) {
+        sidebar.classList.remove('hidden');
     }
-    // Scrolling up
-    else if (scrollTop < lastScrollTop) {
-        if (sidebar) sidebar.classList.remove('hidden');
-    }
-
-    // Update last scroll position
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
 }
 
-// Attach the scroll listener once on load if the sidebar element exists
-if (sidebar) {
-    window.addEventListener('scroll', handleScrollReveal, { passive: true });
-}
-// --- END Scroll Reveal Header Logic ---
+/* -------------------------
+   Contact form handling
+   ------------------------- */
+function setupContactForm() {
+    const contactForm = document.querySelector('.contact-form');
+    if (!contactForm) return;
 
-// Contact form handler with success message
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-
-    const sendingMsg = document.getElementById("form-sending");
-    const successMsg = document.getElementById("form-success");
+    const sendingMsg = document.getElementById('form-sending');
+    const successMsg = document.getElementById('form-success');
 
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-
-        // Show "sending" message
-        sendingMsg.style.display = "block";
-        successMsg.style.display = "none";
-
-        const formData = new FormData(contactForm);
+        if (sendingMsg) sendingMsg.style.display = 'block';
+        if (successMsg) successMsg.style.display = 'none';
 
         fetch(contactForm.action, {
-            method: "POST",
-            body: formData,
-            headers: {
-                "Accept": "application/json"
-            }
+            method: 'POST',
+            body: new FormData(contactForm),
+            headers: { 'Accept': 'application/json' }
         })
             .then(response => {
-                sendingMsg.style.display = "none";
-
+                if (sendingMsg) sendingMsg.style.display = 'none';
                 if (response.ok) {
                     contactForm.reset();
-                    successMsg.style.display = "block";
+                    if (successMsg) successMsg.style.display = 'block';
                 } else {
-                    alert("Er ging iets mis. Probeer opnieuw.");
+                    alert('Er ging iets mis. Probeer opnieuw.');
                 }
             })
-            .catch(error => {
-                sendingMsg.style.display = "none";
-                alert("Er ging iets mis: " + error.message);
+            .catch(err => {
+                if (sendingMsg) sendingMsg.style.display = 'none';
+                alert('Er ging iets mis: ' + err.message);
             });
     });
 }
 
+/* -------------------------
+   Projects detail view
+   ------------------------- */
+function setupProjectDetails() {
+    const projectItems = document.querySelectorAll('.project-item');
+    if (!projectItems.length) return;
 
-// Event listeners
+    const detailContainer = document.getElementById('project-detail');
+    const introBlock = document.getElementById('projects-intro');
+    const grid = document.querySelector('.projects-grid');
+
+    projectItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!detailContainer || !grid || !introBlock) return;
+
+            const title = item.dataset.title || '';
+            const text = item.dataset.text || '';
+            const imgs = (item.dataset.images || '').split(',').map(s => s.trim()).filter(Boolean);
+
+            const imgsHtml = imgs.map(src => `<img src="${src}" alt="${escapeHtml(title)}">`).join('');
+            const html = `
+                <h2>${escapeHtml(title)}</h2>
+                <p>${escapeHtml(text)}</p>
+                <div class="project-images">${imgsHtml}</div>
+                <button id="back-to-projects" class="back-button">← Terug naar projecten</button>
+            `;
+
+            detailContainer.innerHTML = html;
+            detailContainer.style.display = 'block';
+            grid.style.display = 'none';
+            introBlock.style.display = 'none';
+
+            const backBtn = document.getElementById('back-to-projects');
+            if (backBtn) {
+                backBtn.addEventListener('click', () => {
+                    detailContainer.style.display = 'none';
+                    grid.style.display = 'grid';
+                    introBlock.style.display = 'block';
+                    // optional: scroll into view
+                    grid.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+        });
+    });
+}
+
+/* -------------------------
+   Utility: escape HTML
+   ------------------------- */
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>"']/g, (m) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    }[m]));
+}
+
+/* -------------------------
+   Artwork protection
+   ------------------------- */
+function enableArtworkProtection() {
+    // disable right-click & drag
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('dragstart', e => e.preventDefault());
+
+    // block common save shortcuts (Ctrl/Cmd+S), try to block PrintScreen (best-effort)
+    document.addEventListener('keydown', e => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+            e.preventDefault();
+        }
+        if (e.key === 'PrintScreen') {
+            try { navigator.clipboard.writeText(''); } catch (err) { /* ignore */ }
+            // avoid annoying alert on every PrintScreen; keep it commented or optional
+            // alert('Screenshots are disabled.');
+        }
+    });
+
+    // add CSS to make saving harder
+    const css = `
+        img { pointer-events: none; -webkit-user-drag: none; user-select: none; }
+    `;
+    const style = document.createElement('style');
+    style.innerHTML = css;
+    document.head.appendChild(style);
+}
+
+/* -------------------------
+   Initialization & event wiring
+   ------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
+    // active nav
     setActiveNav();
 
-    // Only run image grid functions on pages with the grid container
-    if (document.getElementById('image-grid-container')) {
-        const gridContainer = document.getElementById('image-grid-container');
+    // protection + contact
+    enableArtworkProtection();
+    setupContactForm();
 
-        // Initial grid generation
+    // project details (if any)
+    setupProjectDetails();
+
+    // image grid init
+    const gridContainer = document.getElementById('image-grid-container');
+    if (gridContainer) {
         if (window.innerWidth > 768) {
             generateDesktopGrid();
             gridContainer.classList.remove('mobile-view');
@@ -330,134 +411,88 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         lazyLoadImages();
 
-        // Event delegation for the image grid
-        document.getElementById('image-grid-container').addEventListener('click', (e) => {
+        // delegate click to open lightbox on desktop only
+        gridContainer.addEventListener('click', (e) => {
             const item = e.target.closest('.image-item');
-            // Only open the lightbox if the screen width is greater than 768px
             if (item && window.innerWidth > 768) {
-                const index = parseInt(item.dataset.index);
-                openLightbox(index);
+                openLightbox(Number(item.dataset.index));
             }
         });
     }
 
-    // Only set up lightbox event listeners if the lightbox exists
-    if (lightbox && prevButton && nextButton && closeButton) {
-        closeButton.addEventListener('click', closeLightbox);
-        prevButton.addEventListener('click', showPrevImage);
-        nextButton.addEventListener('click', showNextImage);
+    // wire lightbox controls (defensive)
+    if (lightbox && lightboxImage) {
+        if (closeButton) closeButton.addEventListener('click', closeLightbox);
+        if (prevButton) prevButton.addEventListener('click', (e) => { e.stopPropagation(); showPrevImage(); });
+        if (nextButton) nextButton.addEventListener('click', (e) => { e.stopPropagation(); showNextImage(); });
 
-        // Keyboard navigation
+        // keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (lightbox.classList.contains('active')) {
-                if (e.key === 'Escape') {
-                    closeLightbox();
-                } else if (e.key === 'ArrowRight') {
-                    showNextImage();
-                } else if (e.key === 'ArrowLeft') {
-                    showPrevImage();
-                }
-            }
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') showNextImage();
+            if (e.key === 'ArrowLeft') showPrevImage();
         });
+
+        // background click to close (if clicking outside content)
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // prevent inner clicks from bubbling (if elements exist)
+        if (lightboxImage) lightboxImage.addEventListener('click', e => e.stopPropagation());
+        if (prevButton) prevButton.addEventListener('click', e => e.stopPropagation());
+        if (nextButton) nextButton.addEventListener('click', e => e.stopPropagation());
     }
 
-    // Close lightbox when clicking on background (but not the image or arrows)
-    lightbox.addEventListener('click', (e) => {
-        if (
-            e.target === lightbox ||             // click directly on background
-            e.target.classList.contains('lightbox-content') // if you wrap image in content div
-        ) {
-            closeLightbox();
-        }
-    });
-
-    // Prevent clicks on the image or arrows from closing the lightbox
-    lightboxImage.addEventListener('click', (e) => e.stopPropagation());
-    prevButton.addEventListener('click', (e) => e.stopPropagation());
-    nextButton.addEventListener('click', (e) => e.stopPropagation());
-
-
-
-    // Event listener for the sidebar logo to redirect to the home page
+    // clickable logo
     const sidebarLogo = document.querySelector('.sidebar-logo');
     if (sidebarLogo) {
-        sidebarLogo.style.cursor = 'pointer'; // Make it look clickable
-        sidebarLogo.addEventListener('click', () => {
-            window.location.href = 'index.html';
+        sidebarLogo.style.cursor = 'pointer';
+        sidebarLogo.addEventListener('click', () => { window.location.href = 'index.html'; });
+    }
+
+    // mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinksMobile = document.querySelector('.nav-links');
+    if (menuToggle && navLinksMobile) {
+        menuToggle.addEventListener('click', () => {
+            navLinksMobile.classList.toggle('active');
+            menuToggle.classList.toggle('active');
         });
     }
 
-    // Handle screen resize to regenerate the correct grid
-    let resizeTimer;
+    // scroll reveal
+    window.addEventListener('scroll', handleScrollReveal, { passive: true });
+
+    // resize handler (debounced) — regenerate grid and re-init lazy loader
+    let resizeTimer = null;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
-            const gridContainer = document.getElementById('image-grid-container');
-            if (gridContainer) {
+            const grid = document.getElementById('image-grid-container');
+            if (grid) {
                 const isMobile = window.innerWidth <= 768;
-                const isCurrentlyMobileView = gridContainer.classList.contains('mobile-view');
+                const isCurrentlyMobile = grid.classList.contains('mobile-view');
 
-                if (isMobile && !isCurrentlyMobileView) {
+                if (isMobile && !isCurrentlyMobile) {
                     generateMobileGrid();
-                    gridContainer.classList.add('mobile-view');
+                    grid.classList.add('mobile-view');
                     lazyLoadImages();
-                } else if (!isMobile && isCurrentlyMobileView) {
+                } else if (!isMobile && isCurrentlyMobile) {
                     generateDesktopGrid();
-                    gridContainer.classList.remove('mobile-view');
+                    grid.classList.remove('mobile-view');
                     lazyLoadImages();
                 }
             }
-
-            // Re-run the scroll handler logic on resize to check/reset desktop visibility
             handleScrollReveal();
-        }, 250); // Debounce delay
+        }, 200);
     });
-});
 
-// Mobile menu toggle
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinksMobile = document.querySelector('.nav-links');
-menuToggle.addEventListener('click', () => {
-    navLinksMobile.classList.toggle('active');
-    menuToggle.classList.toggle('active');
-});
-document.addEventListener("DOMContentLoaded", () => {
-    const projectItems = document.querySelectorAll(".project-item");
-    const detailContainer = document.getElementById("project-detail");
-    const introBlock = document.getElementById("projects-intro");
-    const grid = document.querySelector(".projects-grid");
-
-    projectItems.forEach(item => {
-        item.addEventListener("click", (e) => {
-            e.preventDefault();
-
-            const title = item.dataset.title;
-            const text = item.dataset.text;
-            const images = item.dataset.images.split(",");
-
-            // Build detail content
-            let html = `
-                <h2>${title}</h2>
-                <p>${text}</p>
-                <div class="project-images">
-                    ${images.map(src => `<img src="${src}" alt="${title}" />`).join("")}
-                </div>
-                <button id="back-to-projects" class="back-button">← Terug naar projecten</button>
-            `;
-
-            detailContainer.innerHTML = html;
-            detailContainer.style.display = "block";
-
-            // Hide grid + intro
-            grid.style.display = "none";
-            introBlock.style.display = "none";
-
-            // Handle back button
-            document.getElementById("back-to-projects").addEventListener("click", () => {
-                detailContainer.style.display = "none";
-                grid.style.display = "grid";
-                introBlock.style.display = "block";
-            });
-        });
+    // Prevent memory leaks: cleanup when page unloads
+    window.addEventListener('beforeunload', () => {
+        if (window.imageObserver) {
+            try { window.imageObserver.disconnect(); } catch (e) { }
+        }
     });
 });

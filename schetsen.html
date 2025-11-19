@@ -1,41 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schetsen – Charlotte Vandeputte</title>
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/other/favicon.png">
+
+    <!-- SEO -->
+    <meta name="description"
+        content="Schetsen, tekeningen, creatieve studies en artistieke experimenten van illustrator Charlotte Vandeputte. Overzicht van analoge en digitale schetsen.">
+    <meta name="keywords"
+        content="schetsen, tekeningen, studie, artistieke schetsen, charlotte vandeputte, illustratie, digitaal tekenen, portfolio, kunst, visual storytelling, creatieve schetsen">
+    <meta name="author" content="Charlotte Vandeputte">
+
+    <!-- Canonical (GitHub Pages) -->
+    <link rel="canonical" href="https://charlottevandeputte.github.io/schetsen.html">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Schetsen – Charlotte Vandeputte">
+    <meta property="og:description"
+        content="Portfolio met schetsen en creatieve studies van illustrator Charlotte Vandeputte.">
+    <meta property="og:image" content="images/other/pf1.jpg">
+    <meta property="og:url" content="https://charlottevandeputte.github.io/schetsen.html">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Schetsen – Charlotte Vandeputte">
+    <meta name="twitter:description" content="Portfolio met schetsen, digitale tekeningen en studies.">
+    <meta name="twitter:image" content="images/other/pf1.jpg">
+
+    <!-- Basic security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0X2TF5F42D"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-0X2TF5F42D');
+        gtag("js", new Date());
+        gtag("config", "G-0X2TF5F42D");
     </script>
 
-    <link rel="icon" type="image/png" href="images/other/favicon.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="images/other/favicon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/other/favicon.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="images/other/favicon.png">
-    <link rel="apple-touch-icon" href="images/other/favicon.png">
-    <link rel="mask-icon" href="images/other/favicon.png" color="#111111">
-    <meta name="msapplication-TileImage" content="images/other/favicon.png">
-    <meta name="msapplication-TileColor" content="#ffffff">
 </head>
 
 <body>
 
     <nav class="sidebar">
-        <a href="/">
+        <a href="index.html">
             <img src="images/menu/cvdp1.png" alt="Portfolio Logo" class="sidebar-logo">
         </a>
+
         <button class="menu-toggle"></button>
 
         <ul class="nav-links">
@@ -73,6 +97,7 @@
         </footer>
     </div>
 
+    <!-- Lightbox -->
     <div id="lightbox" class="lightbox">
         <span class="lightbox-close">&times;</span>
         <div class="lightbox-nav lightbox-prev">&#10094;</div>
@@ -80,7 +105,9 @@
         <div class="lightbox-nav lightbox-next">&#10095;</div>
     </div>
 
+    <!-- Scripts -->
     <script src="script.js"></script>
+
 </body>
 
 </html>
