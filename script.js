@@ -274,8 +274,16 @@ if (sidebar) {
 // Contact form handler with success message
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
+
+    const sendingMsg = document.getElementById("form-sending");
+    const successMsg = document.getElementById("form-success");
+
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
+
+        // Show "sending" message
+        sendingMsg.style.display = "block";
+        successMsg.style.display = "none";
 
         const formData = new FormData(contactForm);
 
@@ -287,19 +295,21 @@ if (contactForm) {
             }
         })
             .then(response => {
+                sendingMsg.style.display = "none";
+
                 if (response.ok) {
                     contactForm.reset();
-                    document.getElementById("form-success").style.display = "block";
+                    successMsg.style.display = "block";
                 } else {
                     alert("Er ging iets mis. Probeer opnieuw.");
                 }
             })
             .catch(error => {
+                sendingMsg.style.display = "none";
                 alert("Er ging iets mis: " + error.message);
             });
     });
 }
-
 
 
 // Event listeners
