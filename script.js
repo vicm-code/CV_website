@@ -282,6 +282,9 @@ if (contactForm) {
         fetch(contactForm.action, {
             method: "POST",
             body: formData,
+            headers: {
+                "Accept": "application/json"
+            }
         })
             .then(response => {
                 if (response.ok) {
@@ -296,6 +299,7 @@ if (contactForm) {
             });
     });
 }
+
 
 
 // Event listeners
