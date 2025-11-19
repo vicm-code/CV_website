@@ -1,0 +1,148 @@
+// Function to handle the active navigation link
+function setActiveNav() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+        }
+    });
+}
+
+// Data array for the image gallery
+const images = [
+    'images/work/meisjemetvos.gif',
+    'images/work/kunstvanhettekenen_01.jpg',
+    'images/work/esmee.jpeg',
+    'images/work/draaien.gif',
+    'images/work/alseenvisinhetwater.jpg',
+    'images/work/Zeewiermonster_01.jpg',
+    'images/work/Zee_01.jpg',
+    'images/work/Wielrenners_01.png',
+    'images/work/Vos en kip_tekening.jpg',
+    'images/work/Nieuwjaarskaart2022_01.jpg',
+    'images/work/Monster_01.jpg',
+    'images/work/Halloween_tekening.jpg',
+    'images/work/Ditisvakantie_03.jpg',
+    'images/work/Dino.jpg',
+    'images/work/2021.07.24.jpg',
+];
+
+// Function to dynamically generate the image grid
+function generateImageGrid() {
+    const gridContainer = document.getElementById('image-grid-container');
+    const numColumns = 3;
+    const columns = Array.from({ length: numColumns }, () => {
+        const column = document.createElement('div');
+        column.classList.add('image-column');
+        return column;
+    });
+
+    images.forEach((src, index) => {
+        const item = document.createElement('div');
+        item.classList.add('image-item');
+        item.dataset.index = index;
+
+        const img = document.createElement('img');
+        // The placeholder is a transparent GIF, which is a common practice for lazy loading.
+        // It allows the browser to properly reserve space while the real image is loaded.
+        img.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
+        img.dataset.src = src;
+        img.alt = 'Portfolio image';
+        img.classList.add('lazy');
+
+        item.appendChild(img);
+        columns[index % numColumns].appendChild(item);
+    });
+
+    columns.forEach(column => gridContainer.appendChild(column));
+}
+
+// Function to implement lazy loading
+function lazyLoadImages() {
+    const lazyImages = document.querySelectorAll('.lazy');
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    lazyImages.forEach(img => {
+        observer.observe(img);
+    });
+}
+
+// Lightbox functionality
+const lightbox = document.getElementById('lightbox');
+const lightboxImage = document.querySelector('.lightbox-image');
+const prevButton = document.querySelector('.lightbox-prev');
+const nextButton = document.querySelector('.lightbox-next');
+const closeButton = document.querySelector('.lightbox-close');
+
+let currentIndex = 0;
+
+function openLightbox(index) {
+    currentIndex = index;
+    lightbox.classList.add('active');
+    // The lightbox can handle GIFs simply by setting the src.
+    lightboxImage.src = images[currentIndex];
+}
+
+function closeLightbox() {
+    lightbox.classList.remove('active');
+}
+
+function showNextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    lightboxImage.src = images[currentIndex];
+}
+
+function showPrevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    lightboxImage.src = images[currentIndex];
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    setActiveNav();
+    generateImageGrid();
+    lazyLoadImages();
+
+    // Event delegation for the image grid
+    document.getElementById('image-grid-container').addEventListener('click', (e) => {
+        const item = e.target.closest('.image-item');
+        if (item) {
+            const index = parseInt(item.dataset.index);
+            openLightbox(index);
+        }
+    });
+});
+
+closeButton.addEventListener('click', closeLightbox);
+prevButton.addEventListener('click', showPrevImage);
+nextButton.addEventListener('click', showNextImage);
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+    if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowRight') {
+            showNextImage();
+        } else if (e.key === 'ArrowLeft') {
+            showPrevImage();
+        }
+    }
+});
+
+// Mobile menu toggle
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinksMobile = document.querySelector('.nav-links');
+menuToggle.addEventListener('click', () => {
+    navLinksMobile.classList.toggle('active');
+});
