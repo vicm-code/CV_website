@@ -1,4 +1,28 @@
-/* CSS reset and basic styling */
+/* -----------------------
+   Variables & Global Settings
+   ----------------------- */
+:root {
+    /* Colors */
+    --bg-color: #ffffff;
+    --text-color: #111111;
+    --text-color-light: #888888;
+    --accent-color: #333333;
+    --overlay-bg: rgba(0, 0, 0, 0.8);
+
+    /* Dimensions & Layout */
+    --sidebar-width: clamp(300px, 28vw, 480px);
+    --sidebar-padding: 2rem 1rem;
+
+    /* Typography */
+    --font-main: 'JetBrains Mono', monospace;
+
+    /* Transitions */
+    --trans-std: 0.3s ease;
+}
+
+/* -----------------------
+   Reset & Base Styles
+   ----------------------- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -11,63 +35,59 @@ body {
 }
 
 body {
-    /* Main typography and color settings */
-    font-family: 'JetBrains Mono', monospace;
-    background-color: #ffffff;
-    color: #111111;
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-color);
     display: flex;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
 /* -----------------------
-    Left-side Navigation Menu
-    ----------------------- */
+   Sidebar (Left)
+   ----------------------- */
 .sidebar {
     position: fixed;
     left: 0;
     top: 0;
-    width: clamp(300px, 28vw, 480px);
-    /* minimum 300px, scales with screen, max 480px */
+    width: var(--sidebar-width);
     height: 100vh;
-    background-color: #ffffff;
-    border-right: none;
-    padding: 2rem 1rem;
-    /* a bit less padding on small screens */
+    background-color: var(--bg-color);
+    padding: var(--sidebar-padding);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    /* align content to left */
+    z-index: 100;
 }
 
-/* Logo styling */
+/* Logo */
 .sidebar-logo {
     width: 90%;
-    /* take full width of sidebar */
     max-width: 390px;
-    /* prevent it from being too big */
-    height: auto;
     object-fit: contain;
-    display: block;
-    margin: 0 0 0rem 0;
-    /* spacing below logo */
+    margin-bottom: 0;
 }
 
 .sidebar a.logo-link {
     display: block;
-    /* Removed width: 100% here to allow logo and toggle to sit side-by-side in mobile */
-    /* Removed line-height: 0; - This property can cause unexpected vertical shifts */
-    text-decoration: none;
+    width: 100%;
 }
 
 .sidebar a.logo-link .sidebar-logo {
-    display: block;
     width: 75%;
     max-width: 300px;
-    height: auto;
 }
 
-
-
-/* Navigation link list */
+/* Navigation */
 .nav-links {
     list-style: none;
     width: 100%;
@@ -75,72 +95,59 @@ body {
     margin-bottom: 6px;
 }
 
-/* Individual navigation link item */
 .nav-links li {
     margin-bottom: 0.2rem;
-    padding: 0;
     position: relative;
 }
 
-/* Link styling */
 .nav-links a {
-    text-decoration: none;
-    color: #111;
     font-weight: 400;
-    font-style: normal;
     font-size: 1rem;
     display: block;
-    /* Adjusted padding to create more space for the square */
     padding: 0.5rem 1rem 0.5rem 2.7rem;
-    transition: font-weight 0.3s ease;
-    font-family: 'JetBrains Mono', monospace;
+    transition: font-weight var(--trans-std);
+    font-family: var(--font-main);
 }
 
-/* Hover effect for links */
-.nav-links li:hover a {
-    /* Made font bolder on hover */
-    font-weight: 900;
-}
-
-/* Active link styling */
+/* Nav States (Hover/Active) */
+.nav-links li:hover a,
 .nav-links li.active a {
-    /* Made font bolder on active page */
     font-weight: 900;
 }
 
-/* Active page indicator (square) */
-.nav-links li.active a::before {
-    content: "";
-    position: absolute;
-    /* Adjusted left position for more space */
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    background-color: #111;
-    border-radius: 4px;
-    /* Changed to make it a square */
-}
-
-/* Light square on hover for inactive pages */
-.nav-links li:not(.active):hover a::before {
+/* Square Indicators */
+.nav-links li a::before {
     content: "";
     position: absolute;
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
+    border-radius: 2px;
+    /* Default slightly rounded square */
+    transition: all var(--trans-std);
+    opacity: 0;
     width: 4px;
     height: 4px;
     background-color: rgba(17, 17, 17, 0.3);
-    border-radius: 2px;
-    /* Changed to make it a square */
-    transition: all 0.3s ease;
 }
 
+/* Active Square */
+.nav-links li.active a::before {
+    opacity: 1;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: var(--text-color);
+}
+
+/* Hover (Inactive) Square */
+.nav-links li:not(.active):hover a::before {
+    opacity: 1;
+}
+
+/* Mobile Toggle (Hamburger) */
 .menu-toggle {
     display: none;
-    font-size: 1.5rem;
     background: none;
     border: none;
     cursor: pointer;
@@ -158,8 +165,8 @@ body {
     left: 50%;
     width: 100%;
     height: 3px;
-    background-color: #111;
-    transition: transform 0.3s ease;
+    background-color: var(--text-color);
+    transition: transform var(--trans-std);
 }
 
 .menu-toggle::before {
@@ -178,58 +185,41 @@ body {
     transform: translate(-50%, -50%) rotate(-45deg);
 }
 
-/* -----------------------
-    Social Media Icons (Desktop)
-    ----------------------- */
+/* Social Icons (Desktop) */
 .social-links {
     margin-top: auto;
-    /* push to bottom */
     display: flex;
     gap: 0.8rem;
-    /* tighter spacing */
     padding: 1rem 0 1rem 2.7rem;
-    /* align with nav link text (same left indent) */
-    justify-content: flex-start;
-    /* align items to the left */
     align-self: flex-start;
-    /* override sidebar's center alignment */
 }
 
-
 .social-links a {
-    display: block;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .social-links img {
     width: 22px;
-    /* Small icon size */
     height: 22px;
-    display: block;
     filter: grayscale(100%);
     transition: transform 0.2s ease, opacity 0.2s ease;
-    /* Optional: Desaturate for a sleek look */
 }
 
 .social-links a:hover img {
     opacity: 0.7;
     transform: scale(1.1);
     filter: none;
-    /* Revert to color on hover */
 }
 
-
 /* -----------------------
-    Right-side Image Grid (Masonry Layout)
-    ----------------------- */
+   Main Content Area
+   ----------------------- */
 .main-container {
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin-left: clamp(300px, 28vw, 480px);
-    /* match sidebar width ! */
+    margin-left: var(--sidebar-width);
 }
-
 
 .content {
     flex: 1;
@@ -237,16 +227,14 @@ body {
     width: 100%;
 }
 
-/* Image grid layout */
+/* Image Grid (Masonry Layout) */
 .image-grid {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    flex-wrap: nowrap;
     gap: 1.5rem;
 }
 
-/* Image column styling */
 .image-column {
     width: calc(33.333% - 1rem);
     display: flex;
@@ -254,313 +242,70 @@ body {
     gap: 1.5rem;
 }
 
-/* Individual image item */
 .image-item {
-    border-radius: 0;
-    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
 
-/* Hover effect */
 .image-item:hover {
     transform: translateY(-5px);
 }
 
-.image-item img {
-    display: block;
-    width: 100%;
-    height: auto;
+/* Projects Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 1.5rem;
 }
 
-/* -----------------------
-    Lightbox/Modal for Image Preview
-    ----------------------- */
-.lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+.project-item {
+    text-align: left;
 }
 
-.lightbox.active {
-    display: flex;
+.project-item img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.lightbox-content {
-    position: relative;
-    max-width: calc(100vw - 100px);
-    max-height: calc(100vh - 100px);
-    padding: 20px;
+.project-item img:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0);
+    /* Keep 0 alpha as per original */
 }
 
-.lightbox-image {
-    display: block;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+.project-item h3 {
+    margin-top: 0.75rem;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
-.lightbox-close {
-    position: absolute;
-    top: 50px;
-    right: 50px;
-    color: #ffffff;
-    /* Changed to white */
-    font-size: 32px;
-    /* Made larger */
-    font-weight: 300;
-    /* Made thinner */
-    cursor: pointer;
-    transition: color 0.3s ease;
-    background-color: rgba(0, 0, 0, 0.7);
-    /* Dark circle background */
-    width: 62px;
-    height: 62px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Project Details */
+.project-detail h2 {
+    margin-bottom: 1rem;
 }
 
-.lightbox-close:hover {
-    color: rgba(255, 255, 255, 0.5);
-    /* A lighter shade of white on hover */
+.project-detail p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
 }
 
-.lightbox-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #ffffff;
-    /* Changed to white */
-    font-size: 48px;
-    /* Made larger */
-    font-weight: 100;
-    /* Made thinner */
-    cursor: pointer;
-    user-select: none;
-    transition: color 0.3s ease;
-    background-color: rgba(0, 0, 0, 0.7);
-    /* Dark circle background */
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.project-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
 }
 
-.lightbox-nav:hover {
-    color: rgba(255, 255, 255, 0.5);
-    /* A lighter shade of white on hover */
+.project-images img {
+    object-fit: cover;
 }
 
-.lightbox-prev {
-    left: 40px;
-    /* Adjusted for new button size */
-}
-
-.lightbox-next {
-    right: 40px;
-    /* Adjusted for new button size */
-}
-
-/* -----------------------
-    Site Footer
-    ----------------------- */
-.site-footer {
-    padding: 2rem 0;
-    text-align: center;
-    color: #888;
-    font-size: 0.875rem;
-    border-top: none;
-    margin-top: 2rem;
-}
-
-.site-footer a {
-    color: #888;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.site-footer a:hover {
-    color: #333;
-}
-
-/* -----------------------
-    Responsive Design for Mobile
-    ----------------------- */
-@media (max-width: 768px) {
-
-    body {
-        flex-direction: column;
-        min-height: 100vh;
-    }
-
-    .main-container {
-        flex: 1;
-        margin-left: 0;
-    }
-
-    .sidebar {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        height: auto;
-        min-height: 0;
-        /* REMOVED: Rely on padding and content for height */
-        border-right: none;
-        border-bottom: 1px solid #ddd;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        /* Ensures logo and toggle are vertically centered on their line */
-        align-content: flex-start;
-        /* Prevents content wrap (menu links) from causing a shift in the first line */
-        padding: 0.625rem 0.5rem;
-        /* FIX: Set 10px (0.625rem) top/bottom padding for perfect 48px (3rem) total height */
-        flex-wrap: wrap;
-        z-index: 999;
-        background-color: #ffffff;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-out;
-        box-sizing: border-box;
-    }
-
-    .sidebar a.logo-link {
-        display: flex;
-        /* USE FLEXBOX to center the logo image within the link */
-        align-items: center;
-        /* Center the image vertically */
-        width: auto;
-        flex-shrink: 0;
-        /* Prevents shrinking */
-    }
-
-    .sidebar.hidden {
-        transform: translateY(-100%);
-    }
-
-    .social-links {
-        display: none;
-    }
-
-    .sidebar-logo {
-        width: auto;
-        /* Ensure the image itself doesn't take 100% width of its parent link */
-        max-height: 28px;
-        /* FIX: Must match menu-toggle height (28px) for perfect centering */
-        margin: 0;
-        object-fit: contain;
-    }
-
-    .menu-toggle {
-        display: block;
-        width: 28px;
-        height: 28px;
-        flex-shrink: 0;
-        /* Prevents shrinking */
-    }
-
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        margin: 1.5rem 0;
-        /* 🔑 add top and bottom margin */
-        padding: 0;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .nav-links li {
-        margin: 0;
-        padding: 0;
-    }
-
-    .nav-links a {
-        padding: 0.5rem 1rem 0.5rem 2rem;
-        font-size: 0.95rem;
-    }
-
-    .nav-links li.active a::before {
-        left: 0.8rem;
-        width: 6px;
-        height: 6px;
-    }
-
-    .nav-links li:not(.active):hover a::before {
-        left: 0.8rem;
-        width: 4px;
-        height: 4px;
-    }
-
-    .image-item:hover {
-        transform: none;
-    }
-
-    .content {
-        margin-left: 0;
-        padding: 1rem;
-        padding-top: 4rem;
-    }
-
-    .image-grid {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .image-column {
-        width: 100%;
-        gap: 1rem;
-    }
-
-    .lightbox-close {
-        top: 20px;
-        right: 20px;
-        font-size: 20px;
-        /* smaller X symbol */
-        width: 40px;
-        /* smaller circle */
-        height: 40px;
-    }
-
-    .lightbox-nav {
-        font-size: 28px;
-        /* smaller arrows */
-        width: 60px;
-        /* smaller circle */
-        height: 60px;
-    }
-
-    .lightbox-prev {
-        left: 20px;
-        /* move closer to edge */
-    }
-
-    .lightbox-next {
-        right: 20px;
-    }
-}
-
-/* Styling for the About page photo */
+/* About & Contact */
 .about-photo {
-    max-width: 100%;
-    height: auto;
-    display: block;
     margin-top: 1rem;
 }
 
-/* Styling for the Contact form */
 .contact-form {
     max-width: 600px;
     margin-top: 2rem;
@@ -581,97 +326,274 @@ body {
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-family: var(--font-main);
 }
 
-.submit-button {
+.submit-button,
+.back-button {
     padding: 0.75rem 1.5rem;
-    background-color: #333;
+    background-color: var(--accent-color);
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-/* Projects Grid */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* 2 columns */
-    gap: 2rem;
-    margin-top: 1.5rem;
-}
-
-.project-item {
-    text-align: left;
-    /* titles left aligned */
-}
-
-.project-item img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    /* keep square covers */
-    object-fit: cover;
-    /* crop nicely */
-    border-radius: 0px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.project-item img:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0);
-    /* (0, 0, 0, 0.15) voor schaduw bij hover */
-}
-
-.project-item h3 {
-    margin-top: 0.75rem;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #111;
-}
-
-.project-detail h2 {
-    margin-bottom: 1rem;
-}
-
-.project-detail p {
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-}
-
-.project-images {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-}
-
-.project-images img {
-    width: 100%;
-    border-radius: 0px;
-    object-fit: cover;
+    font-family: var(--font-main);
 }
 
 .back-button {
     margin-top: 2rem;
     padding: 0.6rem 1.2rem;
-    border: none;
-    background-color: #333;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
 }
 
+.submit-button:hover,
 .back-button:hover {
     background-color: #555;
 }
 
 .contact-links a {
-    color: #000;
-    /* black text */
     text-decoration: underline;
-    /* keep underline */
 }
 
 .contact-links a:hover {
-    color: #333;
-    /* subtle darker hover effect */
+    color: var(--accent-color);
+}
+
+/* -----------------------
+   Lightbox / Modal
+   ----------------------- */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-bg);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: calc(100vw - 100px);
+    max-height: calc(100vh - 100px);
+    padding: 20px;
+}
+
+.lightbox-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Shared styles for Lightbox Controls */
+.lightbox-close,
+.lightbox-nav {
+    position: absolute;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+.lightbox-close:hover,
+.lightbox-nav:hover {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.lightbox-close {
+    top: 50px;
+    right: 50px;
+    font-size: 32px;
+    font-weight: 300;
+    width: 62px;
+    height: 62px;
+}
+
+.lightbox-nav {
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 48px;
+    font-weight: 100;
+    width: 96px;
+    height: 96px;
+}
+
+.lightbox-prev {
+    left: 40px;
+}
+
+.lightbox-next {
+    right: 40px;
+}
+
+/* -----------------------
+   Footer
+   ----------------------- */
+.site-footer {
+    padding: 2rem 0;
+    text-align: center;
+    color: var(--text-color-light);
+    font-size: 0.875rem;
+    margin-top: 2rem;
+}
+
+.site-footer a {
+    color: var(--text-color-light);
+    transition: color var(--trans-std);
+}
+
+.site-footer a:hover {
+    color: var(--accent-color);
+}
+
+/* -----------------------
+   Responsive (Mobile)
+   ----------------------- */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    /* Reset Sidebar for Mobile Header */
+    .sidebar {
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        border-bottom: 1px solid #ddd;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        align-content: flex-start;
+        padding: 0.625rem 0.5rem;
+        flex-wrap: wrap;
+        z-index: 999;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-out;
+    }
+
+    .sidebar.hidden {
+        transform: translateY(-100%);
+    }
+
+    .sidebar a.logo-link {
+        display: flex;
+        align-items: center;
+        width: auto;
+        flex-shrink: 0;
+    }
+
+    .sidebar-logo {
+        width: auto;
+        max-height: 28px;
+        /* Matches toggle height */
+        margin: 0;
+    }
+
+    .menu-toggle {
+        display: block;
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin: 1.5rem 0;
+        padding: 0;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        margin: 0;
+    }
+
+    .nav-links a {
+        padding: 0.5rem 1rem 0.5rem 2rem;
+        font-size: 0.95rem;
+    }
+
+    .nav-links li.active a::before {
+        left: 0.8rem;
+        width: 6px;
+        height: 6px;
+    }
+
+    .nav-links li:not(.active):hover a::before {
+        left: 0.8rem;
+        width: 4px;
+        height: 4px;
+    }
+
+    .social-links {
+        display: none;
+    }
+
+    /* Main Content Adjustments */
+    .main-container {
+        margin-left: 0;
+    }
+
+    .content {
+        padding: 1rem;
+        padding-top: 4rem;
+    }
+
+    .image-grid {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .image-column {
+        width: 100%;
+        gap: 1rem;
+    }
+
+    .image-item:hover {
+        transform: none;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        /* Single column projects on mobile */
+    }
+
+    /* Lightbox Adjustments */
+    .lightbox-close {
+        top: 20px;
+        right: 20px;
+        font-size: 20px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .lightbox-nav {
+        font-size: 28px;
+        width: 60px;
+        height: 60px;
+    }
+
+    .lightbox-prev {
+        left: 20px;
+    }
+
+    .lightbox-next {
+        right: 20px;
+    }
 }
