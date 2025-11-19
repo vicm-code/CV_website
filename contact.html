@@ -86,6 +86,7 @@
             </div>
 
             <form class="contact-form" action="https://formsubmit.co/vandeputtecharlotte@outlook.com" method="POST">
+                <!-- FormSubmit instellingen -->
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_template" value="table">
 
@@ -106,7 +107,13 @@
 
                 <button type="submit" class="submit-button">Verstuur</button>
 
-                <p id="form-success" style="display:none; margin-top:1rem;">
+                <!-- NIEUW: Het laad-bericht -->
+                <p id="form-sending" style="display:none; margin-top:1rem; color: #666;">
+                    Een moment, je bericht wordt verzonden...
+                </p>
+
+                <!-- Het succes-bericht -->
+                <p id="form-success" style="display:none; margin-top:1rem; font-weight: bold;">
                     Bedankt voor je bericht :)<br>Ik bekijk het zo snel mogelijk.
                 </p>
             </form>

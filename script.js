@@ -268,29 +268,53 @@ function setupContactForm() {
 
     const sendingMsg = document.getElementById('form-sending');
     const successMsg = document.getElementById('form-success');
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
 
     contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Voorkom dat de pagina herlaadt
+
+        // 1. Toon 'wordt verzonden' en verberg succes
         if (sendingMsg) sendingMsg.style.display = 'block';
         if (successMsg) successMsg.style.display = 'none';
 
+        // 2. Disable de knop (visueel + functioneel)
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.6';
+            submitBtn.textContent = 'Verzenden...';
+        }
+
+        // 3. Verstuur de data
         fetch(contactForm.action, {
             method: 'POST',
             body: new FormData(contactForm),
             headers: { 'Accept': 'application/json' }
         })
             .then(response => {
+                // Verberg het laad-bericht
                 if (sendingMsg) sendingMsg.style.display = 'none';
+
                 if (response.ok) {
+                    // SUCCES
                     contactForm.reset();
                     if (successMsg) successMsg.style.display = 'block';
                 } else {
-                    alert('Er ging iets mis. Probeer opnieuw.');
+                    // ERROR BIJ FORMSUBMIT
+                    alert('Oeps, er ging iets mis bij de server. Probeer het later opnieuw.');
                 }
             })
             .catch(err => {
+                // ERROR NETWERK
                 if (sendingMsg) sendingMsg.style.display = 'none';
-                alert('Er ging iets mis: ' + err.message);
+                alert('Er ging iets mis met de verbinding: ' + err.message);
+            })
+            .finally(() => {
+                // 4. Reset de knop altijd (ook bij error)
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                    submitBtn.textContent = 'Verstuur';
+                }
             });
     });
 }
