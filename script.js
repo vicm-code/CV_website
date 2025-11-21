@@ -1,9 +1,10 @@
 /* ===================================================================
    script.js — merged & optimized (behavior preserved)
    - Active nav
-   - Image sets per page (schetsen / illustraties)
+   - Image sets per page (schetsen / illustraties) - HARDCODED
+   - SEO optimized (Dynamic Alt Tags)
    - Desktop (masonry-like) and mobile grid generation
-   - Lazy loading with IntersectionObserver (clean reconnect on regen)
+   - Lazy loading with IntersectionObserver
    - Lightbox (open/close, prev/next, keyboard, background click)
    - Project detail view (projects page)
    - Contact form submit (fetch to FormSubmit.co)
@@ -17,21 +18,30 @@
    Active navigation helper
    ------------------------- */
 function setActiveNav() {
-    const file = window.location.pathname.split('/').pop() || 'index.html';
+    const path = window.location.pathname;
+    const file = path.split('/').pop() || 'index.html';
+
     const navLinks = document.querySelectorAll('.nav-links a');
     navLinks.forEach(link => {
         const li = link.parentElement;
         if (!li) return;
-        li.classList.toggle('active', link.getAttribute('href') === file);
+        const href = link.getAttribute('href');
+        // Check if exact match or if root matches index.html
+        if (href === file || (file === '' && href === 'index.html')) {
+            li.classList.add('active');
+        } else {
+            li.classList.remove('active');
+        }
     });
 }
 
 /* -------------------------
-   Choose images for page
+   Data: Image Arrays
    ------------------------- */
 let images = [];
 const currentPage = window.location.pathname.split('/').pop();
 
+// Check if we are on the schetsen page, otherwise default to illustraties (index)
 if (currentPage === 'schetsen.html') {
     images = [
         'images/schetsen/2025_IMG_9626_2025.jpg',
@@ -91,6 +101,7 @@ if (currentPage === 'schetsen.html') {
         'images/schetsen/2019_01.jpg'
     ];
 } else {
+    // Default to Illustraties (index.html or illustraties.html)
     images = [
         'images/illustraties/2025_parkwandeling_02.jpg',
         'images/illustraties/2025_Nooit alleen.jpg',
@@ -123,6 +134,18 @@ if (currentPage === 'schetsen.html') {
 }
 
 /* -------------------------
+   SEO Helper: Dynamic Alt Text
+   ------------------------- */
+function generateAltText(src) {
+    if (!src) return 'Portfolio Artwork';
+    // Extract filename from path
+    const filename = src.split('/').pop().split('.')[0];
+    // Remove year prefix (e.g. 2025_) and replace separators with spaces
+    const cleanName = filename.replace(/^\d{4}[_]/, '').replace(/[_-]/g, ' ');
+    return cleanName;
+}
+
+/* -------------------------
    Grid generation helpers
    ------------------------- */
 function createImageItem(src, index) {
@@ -131,20 +154,19 @@ function createImageItem(src, index) {
     item.dataset.index = index;
 
     const img = document.createElement('img');
+    // Base64 transparent placeholder to prevent layout thrashing before lazy load
     img.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=';
     img.dataset.src = src;
-    img.alt = 'Portfolio image';
+    // SEO: Set dynamic alt tag
+    img.alt = generateAltText(src);
     img.className = 'lazy';
 
     item.appendChild(img);
     return item;
 }
 
-function generateDesktopGrid() {
-    const gridContainer = document.getElementById('image-grid-container');
-    if (!gridContainer) return;
-    gridContainer.innerHTML = '';
-
+function generateDesktopGrid(container) {
+    container.innerHTML = '';
     const numColumns = 3;
     const columns = [];
     for (let i = 0; i < numColumns; i++) {
@@ -158,14 +180,11 @@ function generateDesktopGrid() {
         columns[idx % numColumns].appendChild(item);
     });
 
-    columns.forEach(col => gridContainer.appendChild(col));
+    columns.forEach(col => container.appendChild(col));
 }
 
-function generateMobileGrid() {
-    const gridContainer = document.getElementById('image-grid-container');
-    if (!gridContainer) return;
-    gridContainer.innerHTML = '';
-
+function generateMobileGrid(container) {
+    container.innerHTML = '';
     const col = document.createElement('div');
     col.className = 'image-column';
 
@@ -174,7 +193,30 @@ function generateMobileGrid() {
         col.appendChild(item);
     });
 
-    gridContainer.appendChild(col);
+    container.appendChild(col);
+}
+
+function initGrid() {
+    const gridContainer = document.getElementById('image-grid-container');
+    if (!gridContainer) return;
+
+    if (window.innerWidth > 768) {
+        generateDesktopGrid(gridContainer);
+        gridContainer.classList.remove('mobile-view');
+    } else {
+        generateMobileGrid(gridContainer);
+        gridContainer.classList.add('mobile-view');
+    }
+    lazyLoadImages();
+
+    // Grid Click Delegation for Lightbox (Desktop)
+    // Mobile usually just scrolls, but we can enable click for both or just desktop
+    gridContainer.addEventListener('click', (e) => {
+        const item = e.target.closest('.image-item');
+        if (item && window.innerWidth > 768) {
+            openLightbox(Number(item.dataset.index));
+        }
+    });
 }
 
 /* -------------------------
@@ -213,11 +255,18 @@ const closeButton = document.querySelector('.lightbox-close');
 
 let currentIndex = 0;
 
+function updateLightboxImage() {
+    if (!lightboxImage || images.length === 0) return;
+    const src = images[currentIndex];
+    lightboxImage.src = src;
+    lightboxImage.alt = generateAltText(src);
+}
+
 function openLightbox(index) {
     if (!lightbox || !lightboxImage) return;
     currentIndex = typeof index === 'number' ? index : 0;
     lightbox.classList.add('active');
-    lightboxImage.src = images[currentIndex];
+    updateLightboxImage();
 }
 
 function closeLightbox() {
@@ -228,13 +277,13 @@ function closeLightbox() {
 function showNextImage() {
     if (!lightboxImage) return;
     currentIndex = (currentIndex + 1) % images.length;
-    lightboxImage.src = images[currentIndex];
+    updateLightboxImage();
 }
 
 function showPrevImage() {
     if (!lightboxImage) return;
     currentIndex = (currentIndex - 1 + images.length) % images.length;
-    lightboxImage.src = images[currentIndex];
+    updateLightboxImage();
 }
 
 /* -------------------------
@@ -271,45 +320,43 @@ function setupContactForm() {
     const submitBtn = contactForm.querySelector('button[type="submit"]');
 
     contactForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Voorkom dat de pagina herlaadt
+        e.preventDefault(); // Prevent page reload
 
-        // 1. Toon 'wordt verzonden' en verberg succes
+        // 1. UI Update: Sending state
         if (sendingMsg) sendingMsg.style.display = 'block';
         if (successMsg) successMsg.style.display = 'none';
 
-        // 2. Disable de knop (visueel + functioneel)
         if (submitBtn) {
             submitBtn.disabled = true;
             submitBtn.style.opacity = '0.6';
             submitBtn.textContent = 'Verzenden...';
         }
 
-        // 3. Verstuur de data
+        // 2. Submit Data
         fetch(contactForm.action, {
             method: 'POST',
             body: new FormData(contactForm),
             headers: { 'Accept': 'application/json' }
         })
             .then(response => {
-                // Verberg het laad-bericht
                 if (sendingMsg) sendingMsg.style.display = 'none';
 
                 if (response.ok) {
-                    // SUCCES
+                    // Success
                     contactForm.reset();
                     if (successMsg) successMsg.style.display = 'block';
                 } else {
-                    // ERROR BIJ FORMSUBMIT
+                    // Server Error
                     alert('Oeps, er ging iets mis bij de server. Probeer het later opnieuw.');
                 }
             })
             .catch(err => {
-                // ERROR NETWERK
+                // Network Error
                 if (sendingMsg) sendingMsg.style.display = 'none';
                 alert('Er ging iets mis met de verbinding: ' + err.message);
             })
             .finally(() => {
-                // 4. Reset de knop altijd (ook bij error)
+                // 3. Reset Button
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.style.opacity = '1';
@@ -358,7 +405,6 @@ function setupProjectDetails() {
                     detailContainer.style.display = 'none';
                     grid.style.display = 'grid';
                     introBlock.style.display = 'block';
-                    // optional: scroll into view
                     grid.scrollIntoView({ behavior: 'smooth' });
                 });
             }
@@ -388,15 +434,13 @@ function enableArtworkProtection() {
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('dragstart', e => e.preventDefault());
 
-    // block common save shortcuts (Ctrl/Cmd+S), try to block PrintScreen (best-effort)
+    // block common save shortcuts (Ctrl/Cmd+S), block PrintScreen
     document.addEventListener('keydown', e => {
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
             e.preventDefault();
         }
         if (e.key === 'PrintScreen') {
             try { navigator.clipboard.writeText(''); } catch (err) { /* ignore */ }
-            // avoid annoying alert on every PrintScreen; keep it commented or optional
-            // alert('Screenshots are disabled.');
         }
     });
 
@@ -413,38 +457,20 @@ function enableArtworkProtection() {
    Initialization & event wiring
    ------------------------- */
 document.addEventListener('DOMContentLoaded', () => {
-    // active nav
+    // 1. Active nav
     setActiveNav();
 
-    // protection + contact
+    // 2. Init Grid (Synchronous since data is hardcoded now)
+    initGrid();
+
+    // 3. Protection + Contact
     enableArtworkProtection();
     setupContactForm();
 
-    // project details (if any)
+    // 4. Project details (if any)
     setupProjectDetails();
 
-    // image grid init
-    const gridContainer = document.getElementById('image-grid-container');
-    if (gridContainer) {
-        if (window.innerWidth > 768) {
-            generateDesktopGrid();
-            gridContainer.classList.remove('mobile-view');
-        } else {
-            generateMobileGrid();
-            gridContainer.classList.add('mobile-view');
-        }
-        lazyLoadImages();
-
-        // delegate click to open lightbox on desktop only
-        gridContainer.addEventListener('click', (e) => {
-            const item = e.target.closest('.image-item');
-            if (item && window.innerWidth > 768) {
-                openLightbox(Number(item.dataset.index));
-            }
-        });
-    }
-
-    // wire lightbox controls (defensive)
+    // 5. Lightbox Controls
     if (lightbox && lightboxImage) {
         if (closeButton) closeButton.addEventListener('click', closeLightbox);
         if (prevButton) prevButton.addEventListener('click', (e) => { e.stopPropagation(); showPrevImage(); });
@@ -458,25 +484,25 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'ArrowLeft') showPrevImage();
         });
 
-        // background click to close (if clicking outside content)
+        // background click to close
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) closeLightbox();
         });
 
-        // prevent inner clicks from bubbling (if elements exist)
+        // stop propagation
         if (lightboxImage) lightboxImage.addEventListener('click', e => e.stopPropagation());
         if (prevButton) prevButton.addEventListener('click', e => e.stopPropagation());
         if (nextButton) nextButton.addEventListener('click', e => e.stopPropagation());
     }
 
-    // clickable logo
+    // 6. Clickable logo
     const sidebarLogo = document.querySelector('.sidebar-logo');
     if (sidebarLogo) {
         sidebarLogo.style.cursor = 'pointer';
         sidebarLogo.addEventListener('click', () => { window.location.href = 'index.html'; });
     }
 
-    // mobile menu toggle
+    // 7. Mobile menu toggle
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinksMobile = document.querySelector('.nav-links');
     if (menuToggle && navLinksMobile) {
@@ -486,10 +512,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // scroll reveal
+    // 8. Scroll reveal
     window.addEventListener('scroll', handleScrollReveal, { passive: true });
 
-    // resize handler (debounced) — regenerate grid and re-init lazy loader
+    // 9. Resize handler (debounced)
     let resizeTimer = null;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
@@ -500,11 +526,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isCurrentlyMobile = grid.classList.contains('mobile-view');
 
                 if (isMobile && !isCurrentlyMobile) {
-                    generateMobileGrid();
+                    generateMobileGrid(grid);
                     grid.classList.add('mobile-view');
                     lazyLoadImages();
                 } else if (!isMobile && isCurrentlyMobile) {
-                    generateDesktopGrid();
+                    generateDesktopGrid(grid);
                     grid.classList.remove('mobile-view');
                     lazyLoadImages();
                 }
@@ -513,7 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 200);
     });
 
-    // Prevent memory leaks: cleanup when page unloads
+    // 10. Cleanup
     window.addEventListener('beforeunload', () => {
         if (window.imageObserver) {
             try { window.imageObserver.disconnect(); } catch (e) { }
