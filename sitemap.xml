@@ -2,32 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <url>
-        <loc>https://<vicm-code>.github.io/index.html</loc>
+        <loc>https://vicm-code.github.io/index.html</loc>
         <priority>1.00</priority>
     </url>
 
     <url>
-        <loc>https://<vicm-code>.github.io/illustraties.html</loc>
+        <loc>https://vicm-code.github.io/illustraties.html</loc>
         <priority>0.90</priority>
     </url>
 
     <url>
-        <loc>https://<vicm-code>.github.io/schetsen.html</loc>
+        <loc>https://vicm-code.github.io/schetsen.html</loc>
         <priority>0.80</priority>
     </url>
 
     <url>
-        <loc>https://<vicm-code>.github.io/projecten.html</loc>
+        <loc>https://vicm-code.github.io/projecten.html</loc>
         <priority>0.80</priority>
     </url>
 
     <url>
-        <loc>https://<vicm-code>.github.io/over-mij.html</loc>
+        <loc>https://vicm-code.github.io/over-mij.html</loc>
         <priority>0.70</priority>
     </url>
 
     <url>
-        <loc>https://<vicm-code>.github.io/contact.html</loc>
+        <loc>https://vicm-code.github.io/contact.html</loc>
         <priority>0.50</priority>
     </url>
 
