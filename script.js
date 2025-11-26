@@ -44,12 +44,7 @@ const currentPage = window.location.pathname.split('/').pop();
 // Check if we are on the schetsen page, otherwise default to illustraties (index)
 if (currentPage === 'schetsen.html') {
     images = [
-        'images/schetsen/2025_IMG_9626_2025.jpg',
-        'images/schetsen/2025_IMG_9623_2025.jpg',
-        'images/schetsen/2025_IMG_9622_2025.jpg',
-        'images/schetsen/2025_IMG_9577_2025.jpg',
         'images/schetsen/2025_IMG_9576_2025.jpg',
-        'images/schetsen/2025_IMG_9575_2025.jpg',
         'images/schetsen/2025_IMG_9571_2025.jpg',
         'images/schetsen/2025_IMG_20250902_0020.jpg',
         'images/schetsen/2025_IMG_20250902_0019.jpg',
