@@ -160,8 +160,8 @@ img {
 .mobile-name {
     display: none;
     /* Hidden on Desktop */
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 400;
     color: var(--text-color);
     text-align: center;
     /* Allows text to take up space between logo and toggle */
