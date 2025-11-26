@@ -1,6 +1,6 @@
 /* -----------------------
-   Variables & Global Settings
-   ----------------------- */
+   Variables & Global Settings
+   ----------------------- */
 :root {
     /* Colors */
     --bg-color: #ffffff;
@@ -21,8 +21,8 @@
 }
 
 /* -----------------------
-   Reset & Base Styles
-   ----------------------- */
+   Reset & Base Styles
+   ----------------------- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -53,8 +53,8 @@ img {
 }
 
 /* -----------------------
-   Sidebar (Left)
-   ----------------------- */
+   Sidebar (Left)
+   ----------------------- */
 .sidebar {
     position: fixed;
     left: 0;
@@ -179,6 +179,24 @@ img {
     transform: translate(-50%, -50%) rotate(-45deg);
 }
 
+/* Mobile Name Text */
+.mobile-name {
+    display: none;
+    /* Hidden on Desktop */
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-align: center;
+    /* Allows text to take up space between logo and toggle */
+    flex-grow: 1;
+    /* Ensure text doesn't wrap and handles overflow gracefully */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Small padding to prevent touching logo/toggle */
+    margin: 0 10px;
+}
+
 /* Social Icons (Desktop) */
 .social-links {
     margin-top: auto;
@@ -206,8 +224,8 @@ img {
 }
 
 /* -----------------------
-   Main Content Area
-   ----------------------- */
+   Main Content Area
+   ----------------------- */
 .main-container {
     display: flex;
     flex-direction: column;
@@ -353,8 +371,8 @@ img {
 }
 
 /* -----------------------
-   Lightbox / Modal
-   ----------------------- */
+   Lightbox / Modal
+   ----------------------- */
 .lightbox {
     position: fixed;
     top: 0;
@@ -432,8 +450,8 @@ img {
 }
 
 /* -----------------------
-   Footer
-   ----------------------- */
+   Footer
+   ----------------------- */
 .site-footer {
     padding: 2rem 0;
     text-align: center;
@@ -452,8 +470,8 @@ img {
 }
 
 /* -----------------------
-   Responsive (Mobile)
-   ----------------------- */
+   Responsive (Mobile)
+   ----------------------- */
 @media (max-width: 768px) {
     body {
         flex-direction: column;
@@ -493,6 +511,17 @@ img {
         max-height: 28px;
         /* Matches toggle height */
         margin: 0;
+    }
+
+    /* Show and center the mobile name */
+    .mobile-name {
+        display: block;
+        /* Re-center the text which is now allowed to grow */
+        text-align: center;
+        /* Ensure it still doesn't shrink unnecessarily */
+        flex-shrink: 1;
+        min-width: 0;
+        /* Allows content to shrink beyond its natural size if necessary */
     }
 
     .menu-toggle {
