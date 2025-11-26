@@ -116,29 +116,6 @@ img {
     /* Remove transition for instant bold */
 }
 
-/* Navigation Arrow */
-.nav-links li a::before {
-    content: "ᐳ";
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.75rem;
-    opacity: 0;
-    color: var(--text-color-light);
-    transition: all var(--trans-std);
-}
-
-.nav-links li.active a::before {
-    opacity: 1;
-    color: #000;
-}
-
-.nav-links li:not(.active):hover a::before {
-    opacity: 1;
-    color: var(--text-color-light);
-}
-
 /* Mobile Toggle (Hamburger) */
 .menu-toggle {
     display: none;
@@ -552,31 +529,6 @@ img {
         position: relative;
     }
 
-    /* ✔ Unified arrow positioning */
-    .nav-links li a::before {
-        left: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 0.75rem;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    /* Active arrow */
-    .nav-links li.active a::before {
-        opacity: 1;
-        color: #000;
-        width: auto;
-        height: auto;
-    }
-
-    /* Hover arrow */
-    .nav-links li:not(.active):hover a::before {
-        opacity: 1;
-        color: var(--text-color-light);
-        width: auto;
-        height: auto;
-    }
 
     .social-links {
         display: none;
