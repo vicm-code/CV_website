@@ -470,9 +470,10 @@ img {
 }
 
 /* -----------------------
-   Responsive (Mobile)
-   ----------------------- */
+   Responsive (Mobile)
+   ----------------------- */
 @media (max-width: 768px) {
+
     body {
         flex-direction: column;
         min-height: 100vh;
@@ -509,19 +510,15 @@ img {
     .sidebar-logo {
         width: auto;
         max-height: 28px;
-        /* Matches toggle height */
         margin: 0;
     }
 
     /* Show and center the mobile name */
     .mobile-name {
         display: block;
-        /* Re-center the text which is now allowed to grow */
         text-align: center;
-        /* Ensure it still doesn't shrink unnecessarily */
         flex-shrink: 1;
         min-width: 0;
-        /* Allows content to shrink beyond its natural size if necessary */
     }
 
     .menu-toggle {
@@ -545,23 +542,40 @@ img {
 
     .nav-links li {
         margin: 0;
+        position: relative;
     }
 
+    /* ✔ Fix alignment */
     .nav-links a {
-        padding: 0.5rem 1rem 0.5rem 2rem;
+        padding: 0.5rem 1rem 0.5rem 2.2rem;
         font-size: 0.95rem;
+        position: relative;
     }
 
+    /* ✔ Unified arrow positioning */
+    .nav-links li a::before {
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.75rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Active arrow */
     .nav-links li.active a::before {
-        left: 0.8rem;
-        width: 6px;
-        height: 6px;
+        opacity: 1;
+        color: #000;
+        width: auto;
+        height: auto;
     }
 
+    /* Hover arrow */
     .nav-links li:not(.active):hover a::before {
-        left: 0.8rem;
-        width: 4px;
-        height: 4px;
+        opacity: 1;
+        color: var(--text-color-light);
+        width: auto;
+        height: auto;
     }
 
     .social-links {
@@ -594,7 +608,6 @@ img {
 
     .projects-grid {
         grid-template-columns: 1fr;
-        /* Single column projects on mobile */
     }
 
     /* Lightbox Adjustments */
