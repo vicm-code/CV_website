@@ -112,7 +112,7 @@ img {
 /* Nav States (Hover/Active) */
 .nav-links li:hover a,
 .nav-links li.active a {
-    font-weight: 900;
+    font-weight: 650;
 }
 
 /* Square Indicators */
