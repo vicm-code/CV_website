@@ -128,6 +128,7 @@ img {
     height: 2rem;
 }
 
+/* thinner lines and slightly rounded ends */
 .menu-toggle::before,
 .menu-toggle::after {
     content: '';
@@ -135,8 +136,10 @@ img {
     top: 50%;
     left: 50%;
     width: 100%;
-    height: 3px;
+    height: 2px;
+    /* reduced from 3px */
     background-color: var(--text-color);
+    border-radius: 1px;
     transition: transform var(--trans-std);
 }
 
@@ -160,6 +163,7 @@ img {
 .mobile-name {
     display: none;
     /* Hidden on Desktop */
+    font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     font-weight: 400;
     color: var(--text-color);
@@ -461,7 +465,7 @@ img {
         width: 100%;
         height: auto;
         min-height: 0;
-        border-bottom: 1px solid #ddd;
+        /*border-bottom: 1px solid #ddd;*/
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
@@ -469,7 +473,7 @@ img {
         padding: 0.625rem 0.5rem;
         flex-wrap: wrap;
         z-index: 999;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
         transition: transform 0.3s ease-out;
     }
 
