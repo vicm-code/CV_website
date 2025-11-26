@@ -14,7 +14,7 @@
     --sidebar-padding: 2rem 1rem;
 
     /* Typography */
-    --font-main: 'Roboto', sans-serif;
+    --font-main: 'Cambria', serif;
 
     /* Transitions */
     --trans-std: 0.3s ease;
@@ -163,7 +163,7 @@ img {
 .mobile-name {
     display: none;
     /* Hidden on Desktop */
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Cambria', serif;
     font-size: 1rem;
     font-weight: 400;
     color: var(--text-color);
