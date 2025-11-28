@@ -221,7 +221,7 @@ img {
 
 /* Max width container for text flow, now left-aligned */
 .text-box-wrapper {
-    max-width: 750px;
+    max-width: 600px;
     /* Align to the left instead of centering */
     margin: 0;
     width: 100%;
@@ -234,7 +234,7 @@ img {
 
 .text-box-wrapper p {
     margin-bottom: 1rem;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .text-box-wrapper p.final-paragraph {
