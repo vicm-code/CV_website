@@ -219,20 +219,34 @@ img {
     width: 100%;
 }
 
-/* Typography and Spacing Fixes (moved from inline styles) */
-.content h2 {
+/* Max width container for text flow, now left-aligned */
+.text-box-wrapper {
+    max-width: 750px;
+    /* Align to the left instead of centering */
+    margin: 0;
+    width: 100%;
+}
+
+/* Typography and Spacing Fixes */
+.text-box-wrapper h2 {
     margin-bottom: 2rem;
 }
 
-.content p {
+.text-box-wrapper p {
     margin-bottom: 1rem;
     line-height: 1.6;
-    /* Ensure good line spacing for readability */
 }
 
-/* Give the final paragraph a bit more space before the image/footer */
-.content p.final-paragraph {
+.text-box-wrapper p.final-paragraph {
     margin-bottom: 2rem;
+}
+
+/* About & Contact Image - added margin-top for spacing from text */
+.about-photo {
+    margin-top: 1rem;
+    /* Existing */
+    margin-bottom: 2rem;
+    /* Added for consistency with previous text layout */
 }
 
 
@@ -311,9 +325,7 @@ img {
 }
 
 /* About & Contact */
-.about-photo {
-    margin-top: 1rem;
-}
+/* .about-photo styling is above */
 
 .contact-form {
     max-width: 600px;
@@ -552,6 +564,12 @@ img {
 
     .social-links {
         display: none;
+    }
+
+    /* For mobile, remove max-width constraints on wrapper inside content */
+    .text-box-wrapper {
+        max-width: none;
+        margin: 0;
     }
 
     /* Main Content Adjustments */
