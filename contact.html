@@ -54,7 +54,7 @@
             <img src="images/menu/cvdp2.png" alt="Portfolio Logo" class="sidebar-logo">
         </a>
 
-        <div class="mobile-name">Charlotte Vandeputte</div> <!-- Add this -->
+        <div class="mobile-name">Charlotte Vandeputte</div>
 
         <button class="menu-toggle"></button>
 
@@ -81,48 +81,52 @@
 
     <div class="main-container">
         <main class="content">
-            <h2 style="margin-bottom: 2rem;">Contact</h2>
-            <p>Neem gerust contact met mij op voor vragen, opmerkingen of om te praten over mogelijke projecten.</p>
+            <!-- Apply the text-box-wrapper for alignment and max-width -->
+            <div class="text-box-wrapper">
+                <h2>Contact</h2>
+                <p>Neem gerust contact met mij op voor vragen, opmerkingen of om te praten over mogelijke projecten.</p>
 
-            <div class="contact-links" style="margin: 1.5rem 0;">
-                <p><a href="mailto:vandeputtecharlotte@outlook.com">vandeputtecharlotte@outlook.com</a><br>
-                    <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank">LinkedIn</a><br>
-                    <a href="https://www.instagram.com/charlotteillustratie" target="_blank">Instagram</a>
-                </p>
+                <div class="contact-links">
+                    <p>
+                        <a href="mailto:vandeputtecharlotte@outlook.com">vandeputtecharlotte@outlook.com</a><br>
+                        <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank">LinkedIn</a><br>
+                        <a href="https://www.instagram.com/charlotteillustratie" target="_blank">Instagram</a>
+                    </p>
+                </div>
+
+                <form class="contact-form" action="https://formsubmit.co/vandeputtecharlotte@outlook.com" method="POST">
+                    <!-- FormSubmit instellingen -->
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+
+                    <div class="form-group">
+                        <label for="name">Naam:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Bericht:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-button">Verstuur</button>
+
+                    <!-- NIEUW: Het laad-bericht -->
+                    <p id="form-sending" style="display:none; margin-top:1rem; color: #666;">
+                        Een moment, je bericht wordt verzonden...
+                    </p>
+
+                    <!-- Het succes-bericht -->
+                    <p id="form-success" style="display:none; margin-top:1rem; font-weight: bold;">
+                        Bedankt voor je bericht :)<br>Ik bekijk het zo snel mogelijk.
+                    </p>
+                </form>
             </div>
-
-            <form class="contact-form" action="https://formsubmit.co/vandeputtecharlotte@outlook.com" method="POST">
-                <!-- FormSubmit instellingen -->
-                <input type="hidden" name="_captcha" value="false">
-                <input type="hidden" name="_template" value="table">
-
-                <div class="form-group">
-                    <label for="name">Naam:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Bericht:</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-
-                <button type="submit" class="submit-button">Verstuur</button>
-
-                <!-- NIEUW: Het laad-bericht -->
-                <p id="form-sending" style="display:none; margin-top:1rem; color: #666;">
-                    Een moment, je bericht wordt verzonden...
-                </p>
-
-                <!-- Het succes-bericht -->
-                <p id="form-success" style="display:none; margin-top:1rem; font-weight: bold;">
-                    Bedankt voor je bericht :)<br>Ik bekijk het zo snel mogelijk.
-                </p>
-            </form>
         </main>
 
         <footer class="site-footer">
