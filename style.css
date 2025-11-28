@@ -163,7 +163,6 @@ img {
 .mobile-name {
     display: none;
     /* Hidden on Desktop */
-    font-family: 'Cambria', serif;
     font-size: 1rem;
     font-weight: 400;
     color: var(--text-color);
