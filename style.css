@@ -14,7 +14,7 @@
     --sidebar-padding: 2rem 1rem;
 
     /* Typography */
-    --font-main: 'Cambria', serif;
+    --font-main: 'Arial Rounded MT Bold', 'Arial', sans-serif;
 
     /* Transitions */
     --trans-std: 0.3s ease;
