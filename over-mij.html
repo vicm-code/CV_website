@@ -96,28 +96,28 @@
 
     <div class="main-container">
         <main class="content">
-            <h2 style="margin-bottom: 2rem;">Over mij</h2>
+            <h2>Over mij</h2>
 
-            <p style="margin-bottom: 1rem;">
+            <p>
                 Hallo, ik ben Charlotte!
             </p>
 
-            <p style="margin-bottom: 1rem;">
+            <p>
                 Na het afronden van mijn master Graphic Storytelling aan LUCA School of Arts volgde ik een opleiding
                 Concept Art.
             </p>
 
-            <p style="margin-bottom: 1rem;">
+            <p>
                 Vandaag illustreer ik kinderboeken, maak ik schilderijen en muurschilderingen, en creëer ik tekeningen
                 op maat. Mijn werk herken je aan de speelse toets die altijd een stukje emotie met zich meedraagt.
             </p>
 
-            <p style="margin-bottom: 1rem;">
+            <p>
                 Ik vertel graag gevoelige of complexe onderwerpen op een zachte, toegankelijke manier, zodat elke kijker
                 zich in mijn beelden kan herkennen en even kan wegdromen.
             </p>
 
-            <p style="margin-bottom: 2rem;">
+            <p class="final-paragraph">
                 Heb je vragen of wil je graag samenwerken? Neem gerust contact op!
             </p>
 
@@ -134,27 +134,6 @@
     </div>
 
     <script src="script.js"></script>
-
-    <!-- Word wrapping script -->
-    <script>
-        function wrapTextByWords(selector, wordsPerLine = 13) {
-            const elements = document.querySelectorAll(selector);
-
-            elements.forEach(el => {
-                const words = el.innerText.trim().split(/\s+/);
-
-                let result = [];
-
-                for (let i = 0; i < words.length; i += wordsPerLine) {
-                    result.push(words.slice(i, i + wordsPerLine).join(" "));
-                }
-
-                el.innerHTML = result.join("<br>");
-            });
-        }
-
-        wrapTextByWords("p", 13);
-    </script>
 
 </body>
 

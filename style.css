@@ -219,6 +219,23 @@ img {
     width: 100%;
 }
 
+/* Typography and Spacing Fixes (moved from inline styles) */
+.content h2 {
+    margin-bottom: 2rem;
+}
+
+.content p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    /* Ensure good line spacing for readability */
+}
+
+/* Give the final paragraph a bit more space before the image/footer */
+.content p.final-paragraph {
+    margin-bottom: 2rem;
+}
+
+
 /* Image Grid (Masonry Layout) */
 .image-grid {
     display: flex;
@@ -450,8 +467,8 @@ img {
 }
 
 /* -----------------------
-   Responsive (Mobile)
-   ----------------------- */
+   Responsive (Mobile)
+   ----------------------- */
 @media (max-width: 768px) {
 
     body {
