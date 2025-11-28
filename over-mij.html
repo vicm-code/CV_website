@@ -20,7 +20,6 @@
     <link rel="icon" href="https://charlottevandeputte.com/favicon.ico">
     <link rel="apple-touch-icon" href="https://charlottevandeputte.com/favicon.png">
 
-
     <!-- SEO -->
     <meta name="description"
         content="Meer over illustrator Charlotte Vandeputte: achtergrond, creatieve visie, ontwerpstijl en artistieke vaardigheden.">
@@ -71,14 +70,13 @@
             <img src="images/menu/cvdp2.png" alt="Portfolio Logo" class="sidebar-logo">
         </a>
 
-        <div class="mobile-name">Charlotte Vandeputte</div> <!-- Add this -->
+        <div class="mobile-name">Charlotte Vandeputte</div>
 
         <button class="menu-toggle"></button>
 
         <ul class="nav-links">
             <li><a href="illustraties.html"><span>Illustraties</span></a></li>
             <li><a href="schetsen.html"><span>Schetsen</span></a></li>
-            <!-- <li><a href="projecten.html"><span>Projecten</span></a></li> -->
             <li class="active"><a href="over-mij.html"><span>Over mij</span></a></li>
             <li><a href="contact.html"><span>Contact</span></a></li>
         </ul>
@@ -98,20 +96,30 @@
 
     <div class="main-container">
         <main class="content">
-            <h2 style="margin-bottom: 1rem;">Over mij</h2>
+            <h2 style="margin-bottom: 2rem;">Over mij</h2>
 
-            <p style="margin-bottom: 0.5rem;">
-                Welkom! Mijn naam is Charlotte Vandeputte. Ik ben illustrator en creatief ontwerper met een passie voor
-                verfijnde details, visuele verhalen en sfeervolle beelden.
+            <p style="margin-bottom: 1rem;">
+                Hallo, ik ben Charlotte!
             </p>
 
             <p style="margin-bottom: 1rem;">
-                Mijn werk combineert esthetiek, concept en emotie. Inspiratie haal ik uit alledaagse momenten,
-                natuur, vormen, kleuren en persoonlijke verhalen. Ik experimenteer graag met zowel digitale als
-                analoge technieken om unieke en herkenbare illustraties te creëren.
+                Na het afronden van mijn master Graphic Storytelling aan LUCA School of Arts volgde ik een opleiding
+                Concept Art.
             </p>
 
-            <br>
+            <p style="margin-bottom: 1rem;">
+                Vandaag illustreer ik kinderboeken, maak ik schilderijen en muurschilderingen, en creëer ik tekeningen
+                op maat. Mijn werk herken je aan de speelse toets die altijd een stukje emotie met zich meedraagt.
+            </p>
+
+            <p style="margin-bottom: 1rem;">
+                Ik vertel graag gevoelige of complexe onderwerpen op een zachte, toegankelijke manier, zodat elke kijker
+                zich in mijn beelden kan herkennen en even kan wegdromen.
+            </p>
+
+            <p style="margin-bottom: 2rem;">
+                Heb je vragen of wil je graag samenwerken? Neem gerust contact op!
+            </p>
 
             <img src="images/over-mij/pf1.jpg" alt="Foto Charlotte" class="about-photo">
         </main>
@@ -126,6 +134,28 @@
     </div>
 
     <script src="script.js"></script>
+
+    <!-- Word wrapping script -->
+    <script>
+        function wrapTextByWords(selector, wordsPerLine = 13) {
+            const elements = document.querySelectorAll(selector);
+
+            elements.forEach(el => {
+                const words = el.innerText.trim().split(/\s+/);
+
+                let result = [];
+
+                for (let i = 0; i < words.length; i += wordsPerLine) {
+                    result.push(words.slice(i, i + wordsPerLine).join(" "));
+                }
+
+                el.innerHTML = result.join("<br>");
+            });
+        }
+
+        wrapTextByWords("p", 13);
+    </script>
+
 </body>
 
 </html>
