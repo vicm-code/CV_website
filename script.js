@@ -372,8 +372,8 @@ function setupContactForm() {
 }
 
 /* -------------------------
-   Projects detail view
-   ------------------------- */
+    Projects detail view
+    ------------------------- */
 function setupProjectDetails() {
     const projectItems = document.querySelectorAll('.project-item');
     if (!projectItems.length) return;
@@ -391,11 +391,17 @@ function setupProjectDetails() {
             const text = item.dataset.text || '';
             const imgs = (item.dataset.images || '').split(',').map(s => s.trim()).filter(Boolean);
 
-            const imgsHtml = imgs.map(src => `<img src="${src}" alt="${escapeHtml(title)}">`).join('');
+            const imgsHtml = imgs.map((src, idx) => `
+                <div class="image-item" data-index="${idx}">
+                    <img class="lazy" data-src="${src}" alt="${escapeHtml(title)} - ${idx + 1}">
+                </div>
+            `).join('');
+
+            // 💡 BELANGRIJK: We gebruiken GEEN inline styles hier. We geven het een ID.
             const html = `
                 <h2>${escapeHtml(title)}</h2>
                 <p>${escapeHtml(text)}</p>
-                <div class="project-images">${imgsHtml}</div>
+                <div class="image-grid project-images" id="project-detail-grid">${imgsHtml}</div>
                 <button id="back-to-projects" class="back-button">← Terug naar projecten</button>
             `;
 
@@ -403,6 +409,13 @@ function setupProjectDetails() {
             detailContainer.style.display = 'block';
             grid.style.display = 'none';
             introBlock.style.display = 'none';
+
+            lazyLoadImages();
+
+            // 🚀 Lay-out aanpassen op basis van schermgrootte:
+            if (typeof applyResponsiveProjectGrid === 'function') {
+                applyResponsiveProjectGrid();
+            }
 
             const backBtn = document.getElementById('back-to-projects');
             if (backBtn) {
@@ -415,6 +428,35 @@ function setupProjectDetails() {
             }
         });
     });
+}
+
+/* -------------------------
+    Helper: Apply Responsive Grid Style via JS (CORRECTED)
+    ------------------------- */
+function applyResponsiveProjectGrid() {
+    const detailGrid = document.getElementById('project-detail-grid');
+    if (!detailGrid) return;
+
+    // 1. Wis eerst ALLE inline stijlen om een schone lei te hebben.
+    detailGrid.removeAttribute('style');
+
+    if (window.innerWidth > 768) {
+        // 2. Desktop: 3 kolommen GRID (Forceer inline stijl)
+        detailGrid.style.display = 'grid';
+        detailGrid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+        detailGrid.style.gap = '1.5rem';
+        detailGrid.style.alignItems = 'start';
+    } else {
+        // 3. Mobiel: Doe NIETS anders dan de styles verwijderen.
+        // Dit zorgt ervoor dat de browser de lay-out gebruikt die gedefinieerd is
+        // in uw externe CSS-bestand voor de classes .image-grid / .project-images,
+        // wat hopelijk de gewenste 1-koloms, gestapelde weergave is.
+
+        // Optioneel: Als uw CSS GEEN lay-out heeft voor mobiel, KUNT u deze flex-stijlen gebruiken:
+        // detailGrid.style.display = 'flex';
+        // detailGrid.style.flexDirection = 'column';
+        // detailGrid.style.gap = '1rem';
+    }
 }
 
 /* -------------------------
