@@ -113,7 +113,6 @@ img {
 .nav-links li.active a {
     font-weight: 650;
     transition: none;
-    /* Remove transition for instant bold */
 }
 
 /* Mobile Toggle (Hamburger) */
