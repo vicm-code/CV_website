@@ -43,9 +43,16 @@ const currentPage = window.location.pathname.split('/').pop();
 
 // Check if we are on the schetsen page, otherwise default to illustraties (index)
 if (currentPage === 'schetsen.html') {
+
     images = [
         'images/schetsen/2025_IMG_9576_2025.jpg',
         'images/schetsen/2025_IMG_9571_2025.jpg',
+        'images/schetsen/2025_IMG_20251205_0002.jpg',
+        'images/schetsen/2025_IMG_20251205_0001.jpg',
+        'images/schetsen/2025_IMG_20251102_0003.jpg',
+        'images/schetsen/2025_IMG_20251102_0001.jpg',
+        'images/schetsen/2025_IMG_20251031_0001.jpg',
+        'images/schetsen/2025_IMG_20251030_0002.jpg',
         'images/schetsen/2025_IMG_20250902_0020.jpg',
         'images/schetsen/2025_IMG_20250902_0019.jpg',
         'images/schetsen/2025_IMG_20250902_0018.jpg',
@@ -93,10 +100,11 @@ if (currentPage === 'schetsen.html') {
         'images/schetsen/2019_04.jpg',
         'images/schetsen/2019_03.jpg',
         'images/schetsen/2019_02.jpg',
-        'images/schetsen/2019_01.jpg'
+        'images/schetsen/2019_01.jpg',
     ];
+
 } else {
-    // Default to Illustraties (index.html or illustraties.html)
+
     images = [
         'images/illustraties/2025_zingende kinderen.jpg',
         'images/illustraties/2025_verjaardagstaart.jpg',
@@ -106,25 +114,31 @@ if (currentPage === 'schetsen.html') {
         'images/illustraties/2025_parkwandeling_02.jpg',
         'images/illustraties/2025_overzicht magneten.jpg',
         'images/illustraties/2025_Nooit alleen.jpg',
+        'images/illustraties/2025_Meisje-met-vos_REEL.jpg',
         'images/illustraties/2025_Meisje-met-vos_REEL.gif',
         'images/illustraties/2025_meisje hond.jpg',
         'images/illustraties/2025_losse tekening_De Koninklijke Kat.jpg',
+        'images/illustraties/2025_Iedereen Prinses.jpg',
         'images/illustraties/2025_DeKoninklijkeKat.jpg',
         'images/illustraties/2025_Dansend in de lucht_02.jpg',
         'images/illustraties/2025_CMYK Ontwerp_Geboortekaartje_Coppin_voorkant_01 copy.jpg',
         'images/illustraties/2025_auto sneeuw.jpg',
         'images/illustraties/2025_Als een vis in het water.jpg',
+        'images/illustraties/2025_01_De Koninklijke Kat.jpg',
+        'images/illustraties/2024_kerstmanmagneet.jpg',
+        'images/illustraties/2024_Geboortekaartje_foto.jpg',
         'images/illustraties/2024_Geboortekaarte zonder tekst.jpg',
         'images/illustraties/2024_Dino_ingezoomd.jpg',
         'images/illustraties/2023_Vos en kip_tekening.jpg',
         'images/illustraties/2023_TourElentrik_Kraainem_03_2023.jpg',
         'images/illustraties/2023_Monsters in het zwembad_vingezoomd.jpg',
         'images/illustraties/2023_Halloween_tekening.jpg',
+        'images/illustraties/2023_Draaien en draaien.jpg',
         'images/illustraties/2023_Draaien en draaien.gif',
-        'images/illustraties/2023_Dit is vakantie_ingezoomd.jpg',
+        'images/illustraties/2023_Dit is vakantie_ingezoomd.JPG',
         'images/illustraties/2023_APaperADay.jpg',
         'images/illustraties/2022_Copy of KULeuven mural_03_2022.jpg',
-        'images/illustraties/2022_Aan zee_ingezoomd.jpg',
+        'images/illustraties/2022_Aan zee_ingezoomd.JPG',
         'images/illustraties/2021_Zeewier_02.jpg',
         'images/illustraties/2021_Zeewier_01.jpg',
         'images/illustraties/2021_Testpagina (RGB).jpg',
