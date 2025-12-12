@@ -130,7 +130,7 @@ if (currentPage === 'schetsen.html') {
         'images/illustraties/2023_Monsters in het zwembad_vingezoomd.jpg',
         'images/illustraties/2023_Halloween_tekening.jpg',
         'images/illustraties/2023_Draaien en draaien.gif',
-        'images/illustraties/2023_Dit is vakantie_ingezoomd.JPG',
+        'images/illustraties/2023_Dit_is_vakantie_ingezoomd.jpg',
         'images/illustraties/2023_APaperADay.jpg',
         'images/illustraties/2022_Copy of KULeuven mural_03_2022.jpg',
         'images/illustraties/2022_Aan zee_ingezoomd.JPG',
