@@ -133,7 +133,7 @@ if (currentPage === 'schetsen.html') {
         'images/illustraties/2023_Dit_is_vakantie_ingezoomd.jpg',
         'images/illustraties/2023_APaperADay.jpg',
         'images/illustraties/2022_Copy of KULeuven mural_03_2022.jpg',
-        'images/illustraties/2022_Aan zee_ingezoomd.JPG',
+        'images/illustraties/2022_Aan zee_ingezoomd.jpg',
         'images/illustraties/2021_Zeewier_02.jpg',
         'images/illustraties/2021_Zeewier_01.jpg',
         'images/illustraties/2021_Testpagina (RGB).jpg',
