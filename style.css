@@ -393,7 +393,7 @@ img {
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    padding: 40px 40px 80px;
+    padding: 40px 40px 40px;
     /* top | sides | bottom */
 }
 
@@ -402,18 +402,20 @@ img {
 }
 
 .lightbox-caption {
-    margin-top: 16px;
+    margin-top: 14px;
     color: #ffffff;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-align: center;
-    opacity: 0.8;
+    opacity: 0.75;
+    pointer-events: none;
 }
+
 
 .lightbox-content {
     position: relative;
     max-width: calc(100vw - 100px);
     max-height: calc(100vh - 100px);
-    padding: 20px;
+    padding: 100px;
 }
 
 .lightbox-image {

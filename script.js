@@ -17,135 +17,49 @@
 /* -------------------------
    Active navigation helper
    ------------------------- */
+/* -------------------------
+   Active navigation helper (FIXED)
+------------------------- */
 function setActiveNav() {
     const path = window.location.pathname;
     const file = path.split('/').pop() || 'index.html';
 
     const navLinks = document.querySelectorAll('.nav-links a');
+
     navLinks.forEach(link => {
         const li = link.parentElement;
         if (!li) return;
+        li.classList.remove('active');
+    });
+
+    // 🔹 Nested projecten pages
+    if (path.includes('/projecten/')) {
+        const projectenLink = document.querySelector(
+            '.nav-links a[href$="projecten.html"]'
+        );
+        if (projectenLink) {
+            projectenLink.parentElement.classList.add('active');
+        }
+        return;
+    }
+
+    // 🔹 Normal pages
+    navLinks.forEach(link => {
+        const li = link.parentElement;
         const href = link.getAttribute('href');
-        // Check if exact match or if root matches index.html
         if (href === file || (file === '' && href === 'index.html')) {
             li.classList.add('active');
-        } else {
-            li.classList.remove('active');
         }
     });
 }
 
+
 /* -------------------------
-   Data: Image Arrays
+   Global gallery state
    ------------------------- */
 let images = [];
-const currentPage = window.location.pathname.split('/').pop();
+let currentIndex = 0;
 
-// Check if we are on the schetsen page, otherwise default to illustraties (index)
-if (currentPage === 'schetsen.html') {
-
-    images = [
-        'images/schetsen/2025_IMG_9576_2025.jpg',
-        'images/schetsen/2025_IMG_9571_2025.jpg',
-        'images/schetsen/2025_IMG_20251205_0002.jpg',
-        'images/schetsen/2025_IMG_20251205_0001.jpg',
-        'images/schetsen/2025_IMG_20251102_0003.jpg',
-        'images/schetsen/2025_IMG_20251102_0001.jpg',
-        'images/schetsen/2025_IMG_20251031_0001.jpg',
-        'images/schetsen/2025_IMG_20251030_0002.jpg',
-        'images/schetsen/2025_IMG_20250902_0020.jpg',
-        'images/schetsen/2025_IMG_20250902_0019.jpg',
-        'images/schetsen/2025_IMG_20250902_0018.jpg',
-        'images/schetsen/2025_IMG_20250902_0017.jpg',
-        'images/schetsen/2025_IMG_20250902_0015.jpg',
-        'images/schetsen/2025_IMG_20250902_0003.jpg',
-        'images/schetsen/2025_IMG_20250902_0003 copy.jpg',
-        'images/schetsen/2025_IMG_20250902_0002.jpg',
-        'images/schetsen/2025_IMG_20250902_0001.jpg',
-        'images/schetsen/2025_IMG_20250902_0001 copy.jpg',
-        'images/schetsen/2025_IMG_20250902_0001 copy 4.jpg',
-        'images/schetsen/2023_05.jpg',
-        'images/schetsen/2023_04.jpg',
-        'images/schetsen/2023_03.jpg',
-        'images/schetsen/2023_02.jpg',
-        'images/schetsen/2023_01.jpg',
-        'images/schetsen/2022_07.jpg',
-        'images/schetsen/2022_06.jpg',
-        'images/schetsen/2022_05.jpg',
-        'images/schetsen/2022_04.jpg',
-        'images/schetsen/2022_03.jpg',
-        'images/schetsen/2022_02.jpg',
-        'images/schetsen/2022_01jpg.jpg',
-        'images/schetsen/2022.10.23_zee.jpg',
-        'images/schetsen/2021_02.jpg',
-        'images/schetsen/2021_01.jpg',
-        'images/schetsen/2020_blind tekenen7.jpg',
-        'images/schetsen/2020_blind tekenen6.jpg',
-        'images/schetsen/2020_blind tekenen2.jpg',
-        'images/schetsen/2020_blind tekenen1.jpg',
-        'images/schetsen/2020_12.jpg',
-        'images/schetsen/2020_11.jpg',
-        'images/schetsen/2020_10.jpg',
-        'images/schetsen/2020_09.jpg',
-        'images/schetsen/2020_08.jpg',
-        'images/schetsen/2020_07.jpg',
-        'images/schetsen/2020_06.jpg',
-        'images/schetsen/2020_05.jpg',
-        'images/schetsen/2020_04.jpg',
-        'images/schetsen/2020_03.jpg',
-        'images/schetsen/2020_02.jpg',
-        'images/schetsen/2020_01.jpg',
-        'images/schetsen/2019_06.jpg',
-        'images/schetsen/2019_05.jpg',
-        'images/schetsen/2019_04.jpg',
-        'images/schetsen/2019_03.jpg',
-        'images/schetsen/2019_02.jpg',
-        'images/schetsen/2019_01.jpg',
-    ];
-
-} else {
-
-    images = [
-        'images/illustraties/2025_verjaardagstaart.jpg',
-        'images/illustraties/2025_verjaardag.jpg',
-        'images/illustraties/2025_vallende sneeuw.jpg',
-        'images/illustraties/2025_parkwandeling_02.jpg',
-        'images/illustraties/2025_overzicht magneten.jpg',
-        'images/illustraties/2025_Nooit alleen.jpg',
-        'images/illustraties/2025_Meisje-met-vos_REEL.gif',
-        'images/illustraties/2025_meisje hond.jpg',
-        'images/illustraties/2025_losse tekening_De Koninklijke Kat.jpg',
-        'images/illustraties/2025_Iedereen Prinses.jpg',
-        'images/illustraties/2025_DeKoninklijkeKat.jpg',
-        'images/illustraties/2025_Dansend in de lucht_02.jpg',
-        'images/illustraties/2025_CMYK Ontwerp_Geboortekaartje_Coppin_voorkant_01 copy.jpg',
-        'images/illustraties/2025_auto sneeuw.jpg',
-        'images/illustraties/2025_Als een vis in het water.jpg',
-        'images/illustraties/2025_01_De Koninklijke Kat.jpg',
-        'images/illustraties/2024_kerstmanmagneet.jpg',
-        'images/illustraties/2024_Geboortekaartje_foto.jpg',
-        'images/illustraties/2024_Dino_ingezoomd.jpg',
-        'images/illustraties/2023_Vos en kip_tekening.jpg',
-        'images/illustraties/2023_TourElentrik_Kraainem_03_2023.jpg',
-        'images/illustraties/2023_Monsters in het zwembad_vingezoomd.jpg',
-        'images/illustraties/2023_Halloween_tekening.jpg',
-        'images/illustraties/2023_Draaien en draaien.gif',
-        'images/illustraties/2023_Dit_is_vakantie_ingezoomd.jpg',
-        'images/illustraties/2023_APaperADay.jpg',
-        'images/illustraties/2022_Copy of KULeuven mural_03_2022.jpg',
-        'images/illustraties/2022_Aan zee_ingezoomd.jpg',
-        'images/illustraties/2021_Zeewier_02.jpg',
-        'images/illustraties/2021_Zeewier_01.jpg',
-        'images/illustraties/2021_Testpagina (RGB).jpg',
-        'images/illustraties/2021_02.jpg',
-        'images/illustraties/2021_01.jpg',
-        'images/illustraties/2020_Leporello.jpg',
-        'images/illustraties/2019_Nieuwjaarskaart2022_Gezin_zonder naam.jpg',
-        'images/illustraties/2019_Nieuwjaarskaart2020_Oma&Opa_zonder naam.jpg',
-        'images/illustraties/2019_Down The Dinghy.jpg',
-        'images/illustraties/2018_Nieuwjaarskaart2019_ingezoomd_Oma&Opa_Binnenkant.jpg',
-    ];
-}
 
 /* -------------------------
    SEO Helper: Dynamic Alt Text
@@ -210,6 +124,18 @@ function generateMobileGrid(container) {
     container.appendChild(col);
 }
 
+function loadImagesFromHTML() {
+    const container = document.getElementById('image-grid-container');
+    if (!container) return;
+
+    const htmlImages = container.querySelectorAll('img[data-src]');
+    images = Array.from(htmlImages).map(img => img.dataset.src);
+
+    // Clear HTML — JS will rebuild the grid correctly
+    container.innerHTML = '';
+}
+
+
 function initGrid() {
     const gridContainer = document.getElementById('image-grid-container');
     if (!gridContainer) return;
@@ -266,15 +192,21 @@ const lightboxImage = document.querySelector('.lightbox-image');
 const prevButton = document.querySelector('.lightbox-prev');
 const nextButton = document.querySelector('.lightbox-next');
 const closeButton = document.querySelector('.lightbox-close');
-
-let currentIndex = 0;
+const lightboxCaption = document.querySelector('.lightbox-caption');
 
 function updateLightboxImage() {
     if (!lightboxImage || images.length === 0) return;
+
     const src = images[currentIndex];
     lightboxImage.src = src;
     lightboxImage.alt = generateAltText(src);
+
+    if (lightboxCaption) {
+        const filename = src.split('/').pop().split('.').slice(0, -1).join('.');
+        lightboxCaption.textContent = filename.replace(/[_-]/g, ' ');
+    }
 }
+
 
 function openLightbox(index) {
     if (!lightbox || !lightboxImage) return;
@@ -482,6 +414,7 @@ function escapeHtml(str) {
     }[m]));
 }
 
+
 /* -------------------------
    Artwork protection
    ------------------------- */
@@ -517,7 +450,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setActiveNav();
 
     // 2. Init Grid (Synchronous since data is hardcoded now)
+    loadImagesFromHTML();
     initGrid();
+
 
     // 3. Protection + Contact
     enableArtworkProtection();
