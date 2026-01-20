@@ -220,7 +220,7 @@ img {
 
 /* Max width container for text flow, now left-aligned */
 .text-box-wrapper {
-    max-width: 450px;
+    max-width: 520px;
     /* Align to the left instead of centering */
     margin: 0;
     width: 100%;
