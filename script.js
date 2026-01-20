@@ -451,9 +451,6 @@ document.addEventListener('DOMContentLoaded', () => {
     enableArtworkProtection();
     setupContactForm();
 
-    // 4. Project details (if any)
-    setupProjectDetails();
-
     // 5. Lightbox Controls
     if (lightbox && lightboxImage) {
         if (closeButton) closeButton.addEventListener('click', closeLightbox);
