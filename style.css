@@ -265,11 +265,14 @@ img {
 }
 
 .image-item {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
 
-.image-item:hover {
+.image-item img {
+    transition: transform 0.3s ease;
+}
+
+.image-item:hover img {
     transform: translateY(-5px);
 }
 
@@ -633,5 +636,10 @@ img {
 
     .lightbox-next {
         right: 20px;
+    }
+
+    .image-grid-hover .hover-info::after,
+    .image-grid-hover .hover-text {
+        display: none;
     }
 }

@@ -192,7 +192,6 @@ const lightboxImage = document.querySelector('.lightbox-image');
 const prevButton = document.querySelector('.lightbox-prev');
 const nextButton = document.querySelector('.lightbox-next');
 const closeButton = document.querySelector('.lightbox-close');
-const lightboxCaption = document.querySelector('.lightbox-caption');
 
 function updateLightboxImage() {
     if (!lightboxImage || images.length === 0) return;
@@ -200,13 +199,7 @@ function updateLightboxImage() {
     const src = images[currentIndex];
     lightboxImage.src = src;
     lightboxImage.alt = generateAltText(src);
-
-    if (lightboxCaption) {
-        const filename = src.split('/').pop().split('.').slice(0, -1).join('.');
-        lightboxCaption.textContent = filename.replace(/[_-]/g, ' ');
-    }
 }
-
 
 function openLightbox(index) {
     if (!lightbox || !lightboxImage) return;
