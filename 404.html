@@ -4,29 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 – Pagina niet gevonden</title>
 
+    <title>404 – Pagina niet gevonden | Charlotte Vandeputte</title>
+
+    <!-- Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="style.css" as="style">
+
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
-    <link rel="icon" type="image/png" href="images/other/favicon.png">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
 
+    <!-- SEO -->
     <meta name="robots" content="noindex">
 </head>
 
 <body>
 
     <nav class="sidebar">
-        <a href="/">
-            <img src="images/menu/cvdp1.png" alt="Portfolio Logo" class="sidebar-logo">
+        <a href="./">
+            <img src="images/menu/cvdp2.png" alt="Portfolio Logo" class="sidebar-logo">
         </a>
 
+        <div class="mobile-name">Charlotte Vandeputte</div>
         <button class="menu-toggle"></button>
 
         <ul class="nav-links">
-            <li><a href="illustraties.html"><span>Illustraties</span></a></li>
+            <li><a href="portfolio.html"><span>Portfolio</span></a></li>
             <li><a href="schetsen.html"><span>Schetsen</span></a></li>
             <li><a href="projecten.html"><span>Projecten</span></a></li>
             <li><a href="over-mij.html"><span>Over mij</span></a></li>
@@ -34,7 +43,7 @@
         </ul>
 
         <div class="social-links">
-            <a href="mailto:vandeputtecharlotte@outlook.com" target="_blank">
+            <a href="mailto:vandeputtecharlotte@outlook.com">
                 <img src="images/icons/mail.png" alt="Email">
             </a>
             <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank">
@@ -47,28 +56,28 @@
     </nav>
 
     <div class="main-container">
-        <main class="content" style="
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-            align-items:center;
-            text-align:center;
-            min-height:70vh;
-            padding:2rem;
-        ">
-            <h1 style="font-size:3rem; margin-bottom:1rem;">404</h1>
-            <p style="margin-bottom:1rem;">De pagina die je zoekt bestaat niet.</p>
+        <main class="content">
+            <section class="error-page">
+                <h1>404</h1>
+                <p>Deze pagina bestaat niet (meer).</p>
+
+                <div class="error-actions">
+                    <a href="portfolio.html" class="button">Ga naar portfolio</a>
+                    <a href="./" class="button secondary">Terug naar start</a>
+                </div>
+            </section>
         </main>
 
         <footer class="site-footer">
             <p>
-                Copyright &copy;
+                &copy;
                 <script>document.write(new Date().getFullYear())</script>
                 Charlotte Vandeputte
             </p>
         </footer>
     </div>
 
+    <script src="script.js"></script>
 </body>
 
 </html>
