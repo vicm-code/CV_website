@@ -33,7 +33,7 @@ function setActiveNav() {
     });
 
     // 🔹 Nested project pages (same folder as index)
-    const projectPages = ['kuleuven_muurschildering.html', 'schilderijen.html', 'tour_elentrik.html'];
+    const projectPages = ['kuleuven_muurschildering.html', 'boeken.html', 'schilderijen.html', 'tour_elentrik.html'];
     if (projectPages.includes(file)) {
         const projectenLink = document.querySelector(
             '.nav-links a[href$="projecten.html"]'
