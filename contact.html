@@ -7,29 +7,22 @@
 
     <title>Contact – Charlotte Vandeputte</title>
 
-    <!-- Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="style.css" as="style">
-
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
 
     <!-- SEO -->
     <meta name="description"
-        content="Charlotte Vandeputte illustrator van prentenboeken, geboortekaartjes en schilderijen op maat, muurschilderingen | Brussel, België">
+        content="Neem contact op met illustrator Charlotte Vandeputte voor opdrachten, geboortekaartjes, schilderijen of samenwerkingen.">
     <meta name="author" content="Charlotte Vandeputte">
-    <meta name="keywords"
-        content="contact, illustratie, kunstenaar, illustrator, charlotte vandeputte, samenwerking, portfolio, kunstcontact, freelance illustratie, creative projects, artistiek werk">
-
-    <!-- Canonical URL -->
     <link rel="canonical" href="https://charlottevandeputte.com/contact.html">
 
     <!-- Open Graph -->
@@ -45,23 +38,24 @@
     <meta name="twitter:title" content="Contact – Charlotte Vandeputte">
     <meta name="twitter:description" content="Stuur een bericht voor illustraties, projecten of vragen.">
     <meta name="twitter:image" content="images/other/pf1.jpg">
-
 </head>
 
 <body>
 
-    <nav class="sidebar">
-        <a href="./">
-            <img src="images/menu/cvdp2.png" alt="Portfolio Logo" class="sidebar-logo">
+    <nav class="sidebar" aria-label="Hoofdnavigatie">
+        <a href="./" class="logo-link">
+            <img src="images/menu/cvdp2.png" alt="Charlotte Vandeputte Logo" class="sidebar-logo">
         </a>
 
-
         <div class="mobile-name">Charlotte Vandeputte</div>
-
-        <button class="menu-toggle"></button>
+        <button class="menu-toggle" aria-label="Menu openen" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
         <ul class="nav-links">
-            <li><a href="portfolio.html"><span>Portfolio</span></a></li>
+            <li><a href="./"><span>Portfolio</span></a></li>
             <li><a href="schetsen.html"><span>Schetsen</span></a></li>
             <li><a href="projecten.html"><span>Projecten</span></a></li>
             <li><a href="over-mij.html"><span>Over mij</span></a></li>
@@ -69,21 +63,22 @@
         </ul>
 
         <div class="social-links">
-            <a href="mailto:vandeputtecharlotte@outlook.com" target="_blank">
-                <img src="images/icons/mail.png" alt="Email">
+            <a href="mailto:vandeputtecharlotte@outlook.com" target="_blank" aria-label="E-mail sturen">
+                <img src="images/icons/mail.png" alt="Email icon">
             </a>
-            <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank">
-                <img src="images/icons/linkedin.png" alt="LinkedIn">
+            <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank" rel="noopener"
+                aria-label="LinkedIn Profiel">
+                <img src="images/icons/linkedin.png" alt="LinkedIn icon">
             </a>
-            <a href="https://www.instagram.com/charlotteillustratie" target="_blank">
-                <img src="images/icons/instagram.png" alt="Instagram">
+            <a href="https://www.instagram.com/charlotteillustratie" target="_blank" rel="noopener"
+                aria-label="Instagram Profiel">
+                <img src="images/icons/instagram.png" alt="Instagram icon">
             </a>
         </div>
     </nav>
 
     <div class="main-container">
         <main class="content">
-            <!-- Apply the text-box-wrapper for alignment and max-width -->
             <div class="text-box-wrapper">
                 <h2>Contact</h2>
                 <p>Wil je graag een geboortekaartje, tekening of schilderij op maat? Heb je zin in een samenwerking? Of
@@ -93,13 +88,14 @@
                 <div class="contact-links">
                     <p>
                         <a href="mailto:vandeputtecharlotte@outlook.com">vandeputtecharlotte@outlook.com</a><br>
-                        <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank">LinkedIn</a><br>
-                        <a href="https://www.instagram.com/charlotteillustratie" target="_blank">Instagram</a>
+                        <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank"
+                            rel="noopener">LinkedIn</a><br>
+                        <a href="https://www.instagram.com/charlotteillustratie" target="_blank"
+                            rel="noopener">Instagram</a>
                     </p>
                 </div>
 
                 <form class="contact-form" action="https://formsubmit.co/vandeputtecharlotte@outlook.com" method="POST">
-                    <!-- FormSubmit instellingen -->
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
 
@@ -120,12 +116,10 @@
 
                     <button type="submit" class="submit-button">Verstuur</button>
 
-                    <!-- NIEUW: Het laad-bericht -->
                     <p id="form-sending" style="display:none; margin-top:1rem; color: #666;">
                         Een moment, je bericht wordt verzonden...
                     </p>
 
-                    <!-- Het succes-bericht -->
                     <p id="form-success" style="display:none; margin-top:1rem; font-weight: bold;">
                         Bedankt voor je bericht :)<br>Ik bekijk het zo snel mogelijk.
                     </p>
@@ -134,11 +128,7 @@
         </main>
 
         <footer class="site-footer">
-            <p>
-                &copy;
-                <script>document.write(new Date().getFullYear())</script>
-                Charlotte Vandeputte
-            </p>
+            <p>&copy; <span id="year"></span> Charlotte Vandeputte</p>
         </footer>
     </div>
 

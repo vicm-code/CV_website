@@ -7,37 +7,40 @@
 
     <title>Schilderijen – Charlotte Vandeputte</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="style.css">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
 
     <!-- SEO -->
-    <meta name="description" content="Schilderijen op maat en vrij werk van illustrator Charlotte Vandeputte.">
+    <meta name="description" content="Schilderijen op maat en vrij werk op hout van illustrator Charlotte Vandeputte.">
+    <meta name="author" content="Charlotte Vandeputte">
     <link rel="canonical" href="https://charlottevandeputte.com/schilderijen.html">
 </head>
 
 <body>
 
-    <nav class="sidebar">
-        <a href="./">
-            <img src="images/menu/cvdp2.png" alt="Portfolio Logo" class="sidebar-logo">
+    <nav class="sidebar" aria-label="Hoofdnavigatie">
+        <a href="./" class="logo-link">
+            <img src="images/menu/cvdp2.png" alt="Charlotte Vandeputte Logo" class="sidebar-logo">
         </a>
 
         <div class="mobile-name">Charlotte Vandeputte</div>
-        <button class="menu-toggle"></button>
+        <button class="menu-toggle" aria-label="Menu openen" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
         <ul class="nav-links">
-            <li><a href="portfolio.html"><span>Portfolio</span></a></li>
+            <li><a href="./"><span>Portfolio</span></a></li>
             <li><a href="schetsen.html"><span>Schetsen</span></a></li>
             <li class="active"><a href="projecten.html"><span>Projecten</span></a></li>
             <li><a href="over-mij.html"><span>Over mij</span></a></li>
@@ -45,14 +48,16 @@
         </ul>
 
         <div class="social-links">
-            <a href="mailto:vandeputtecharlotte@outlook.com">
-                <img src="images/icons/mail.png" alt="Email">
+            <a href="mailto:vandeputtecharlotte@outlook.com" target="_blank" aria-label="E-mail sturen">
+                <img src="images/icons/mail.png" alt="Email icon">
             </a>
-            <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank">
-                <img src="images/icons/linkedin.png" alt="LinkedIn">
+            <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank" rel="noopener"
+                aria-label="LinkedIn Profiel">
+                <img src="images/icons/linkedin.png" alt="LinkedIn icon">
             </a>
-            <a href="https://www.instagram.com/charlotteillustratie" target="_blank">
-                <img src="images/icons/instagram.png" alt="Instagram">
+            <a href="https://www.instagram.com/charlotteillustratie" target="_blank" rel="noopener"
+                aria-label="Instagram Profiel">
+                <img src="images/icons/instagram.png" alt="Instagram icon">
             </a>
         </div>
     </nav>
@@ -60,7 +65,6 @@
     <div class="main-container">
         <main class="content">
 
-            <!-- Intro -->
             <div class="text-box-wrapper">
                 <h2>Schilderijen</h2>
                 <p>
@@ -68,59 +72,65 @@
                         href="contact.html"><u>hier</u></a> contacteren.
                 </p>
                 <p>
-                    <br>2026 Walvis (meisjes in boot)<br> acryl op hout, 21 cm x 24 cm
-                    <br><br>2025 Als een vis in het water (meisje in aquarium)<br> acryl op hout, 12 cm x 21 cm
-                    <br><br>2025 Nooit alleen (lezende jongen)<br> acryl op hout, 11 cm x 20 cm
-                    <br><br>2023 Monsters in het zwembad (vrouw met badmuts)<br> acryl op hout, 17 cm x 20 cm
-                    <br><br>2023 Dit is vakantie (autofile)<br> acryl op hout, 12 cm x 20 cm
-                    <br><br>2022 Aan zee (man op strandhanddoek)<br> acryl op hout, 11 cm x 20 cm
-                </p>
-                <p>
-                    <br>
+                    <strong>2026</strong> Walvis (meisjes in boot) – acryl op hout, 21x24<br>
+                    <strong>2025</strong> Als een vis in het water (meisje in aquarium) – acryl op hout, 12x21<br>
+                    <strong>2025</strong> Nooit alleen (lezende jongen) – acryl op hout, 11x20<br>
+                    <strong>2023</strong> Monsters in het zwembad (vrouw met badmuts) – acryl op hout, 17x20<br>
+                    <strong>2023</strong> Dit is vakantie (autofile) – acryl op hout, 12x20<br>
+                    <strong>2022</strong> Aan zee (man op strandhanddoek) – acryl op hout, 11x20
                 </p>
             </div>
-            <!-- Image grid -->
 
             <div class="image-grid" id="image-grid-container" data-source="html">
-                <img data-src="images/projecten/schilder/2026_bootjewalvis_02.jpg">
-                <img data-src="images/projecten/schilder/2026_bootjewalvis_01.jpg">
-                <img data-src="images/projecten/schilder/2025_Nooit alleen_rechts.jpg">
-                <img data-src="images/projecten/schilder/2025_Nooit alleen_detail.jpg">
-                <img data-src="images/projecten/schilder/2025_Als een vis in het water_04.jpg">
-                <img data-src="images/projecten/schilder/2025_Als een vis in het water_03.jpg">
-                <img data-src="images/projecten/schilder/2025_Als een vis in het water_01.jpg">
-                <img data-src="images/projecten/schilder/2023_Monsters in het zwembad_vooraan.jpg">
-                <img data-src="images/projecten/schilder/2023_Monsters in het zwembad_detail.jpg">
-                <img data-src="images/projecten/schilder/2023_Dit is vakantie_01.jpg">
-                <img data-src="images/projecten/schilder/2022_Aan zee_detail_onder.jpg">
-                <img data-src="images/projecten/schilder/2022_Aan zee.jpg">
+                <img data-src="images/projecten/schilder/2026_bootjewalvis_02.jpg" alt="Walvis schilderij overzicht">
+                <img data-src="images/projecten/schilder/2026_bootjewalvis_01.jpg" alt="Walvis schilderij detail">
+                <img data-src="images/projecten/schilder/2025_Nooit alleen_rechts.jpg" alt="Nooit alleen schilderij">
+                <img data-src="images/projecten/schilder/2025_Nooit alleen_detail.jpg" alt="Nooit alleen detail">
+                <img data-src="images/projecten/schilder/2025_Als een vis in het water_04.jpg"
+                    alt="Als een vis in het water 4">
+                <img data-src="images/projecten/schilder/2025_Als een vis in het water_03.jpg"
+                    alt="Als een vis in het water 3">
+                <img data-src="images/projecten/schilder/2025_Als een vis in het water_01.jpg"
+                    alt="Als een vis in het water 1">
+                <img data-src="images/projecten/schilder/2023_Monsters in het zwembad_vooraan.jpg"
+                    alt="Monsters in het zwembad overzicht">
+                <img data-src="images/projecten/schilder/2023_Monsters in het zwembad_detail.jpg"
+                    alt="Monsters in het zwembad detail">
+                <img data-src="images/projecten/schilder/2023_Dit is vakantie_01.jpg" alt="Dit is vakantie schilderij">
+                <img data-src="images/projecten/schilder/2022_Aan zee_detail_onder.jpg" alt="Aan zee detail">
+                <img data-src="images/projecten/schilder/2022_Aan zee.jpg" alt="Aan zee overzicht">
             </div>
         </main>
 
         <footer class="site-footer">
-            <p>
-                &copy;
-                <script>document.write(new Date().getFullYear())</script>
-                Charlotte Vandeputte
-            </p>
+            <p>&copy; <span id="year"></span> Charlotte Vandeputte</p>
         </footer>
     </div>
 
-    <!-- Lightbox -->
-    <div id="lightbox" class="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <div class="lightbox-nav lightbox-prev">&#10094;</div>
-
-        <div class="lightbox-inner">
-            <img class="lightbox-image" src="" alt="Schilderij">
-        </div>
-
-        <div class="lightbox-nav lightbox-next">&#10095;</div>
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+        <button class="lightbox-close" aria-label="Sluiten">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Vorige afbeelding">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <img class="lightbox-image" src="" alt="">
+        <button class="lightbox-nav lightbox-next" aria-label="Volgende afbeelding">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
     </div>
 
-    <!-- Script -->
     <script src="script.js"></script>
-
 </body>
 
 </html>

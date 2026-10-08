@@ -9,9 +9,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="style.css" as="style">
-
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
     <link rel="stylesheet" href="style.css">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0X2TF5F42D"></script>
@@ -23,19 +21,35 @@
     </script>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
 
     <meta name="description"
         content="Charlotte Vandeputte | Illustrator van prentenboeken, schilderijen en geboortekaartjes op maat | Brussel, België">
     <meta name="author" content="Charlotte Vandeputte">
-    <meta name="keywords" content="Belgische illustrator, Illustrator Brussel, Illustrator Tervuren, Muurschilderingen, Kinderboeken illustraties, Verhalende kunst, Digitale tekeningen, Schilderijen, Creatieve illustraties, Kunstboeken, Karakterontwerp, Editorial illustraties, Kunstenares België, Visuele verhalen, Mixed media kunst,
-    Illustratie portfolio, Grafisch ontwerp, Concept art, Kunst en illustratie, Illustratie projecten,Illustratrice belge, Illustratrice Bruxelles, Illustratrice Tervuren, Peintures murales, Dessin numérique, Illustrations jeunesse, Art narratif, Livre illustré, Portfolio artistique, Création visuelle, Design graphique, Croquis artistiques, Conte visuel, Artiste belge, Illustration éditoriale,
-    Art en illustration, Projets d'illustration, Belgian illustrator, Brussels illustrator, Tervuren illustrator, Mural painting, Digital drawing, Storytelling art, Book illustration, Creative artwork, Character design, Editorial illustration, Visual storytelling artist, Art sketches, Illustration portfolio, Mixed media illustrator, Contemporary illustration,
-    Graphic design, Concept art, Art and illustration, Illustration projects">
+
+    <!-- Structured Data for Artists/Illustrators (replaces legacy meta keywords) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Charlotte Vandeputte",
+      "jobTitle": "Illustrator",
+      "url": "https://charlottevandeputte.com/",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Brussel",
+        "addressCountry": "BE"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/charlottevandeputte",
+        "https://www.instagram.com/charlotteillustratie"
+      ]
+    }
+    </script>
 
     <link rel="canonical" href="https://charlottevandeputte.com/">
 
@@ -50,21 +64,24 @@
     <meta name="twitter:title" content="Charlotte Vandeputte">
     <meta name="twitter:description" content="Digitale illustraties en kunst.">
     <meta name="twitter:image" content="images/other/pf1.jpg">
-
 </head>
 
 <body>
 
-    <nav class="sidebar">
-        <a href="./">
-            <img src="images/menu/cvdp2.png" alt="Portfolio Logo" class="sidebar-logo">
+    <nav class="sidebar" aria-label="Hoofdnavigatie">
+        <a href="./" class="logo-link">
+            <img src="images/menu/cvdp2.png" alt="Charlotte Vandeputte Logo" class="sidebar-logo">
         </a>
 
-        <div class="mobile-name">Charlotte Vandeputte</div> <button class="menu-toggle"></button>
-
+        <div class="mobile-name">Charlotte Vandeputte</div>
+        <button class="menu-toggle" aria-label="Menu openen" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
         <ul class="nav-links">
-            <li class="active"><a href="./"><span style="font-weight: 650;">Portfolio</span></a></li>
+            <li class="active"><a href="./"><span>Portfolio</span></a></li>
             <li><a href="schetsen.html"><span>Schetsen</span></a></li>
             <li><a href="projecten.html"><span>Projecten</span></a></li>
             <li><a href="over-mij.html"><span>Over mij</span></a></li>
@@ -72,84 +89,102 @@
         </ul>
 
         <div class="social-links">
-            <a href="mailto:vandeputtecharlotte@outlook.com" target="_blank">
-                <img src="images/icons/mail.png" alt="Email">
+            <a href="mailto:vandeputtecharlotte@outlook.com" target="_blank" aria-label="E-mail sturen">
+                <img src="images/icons/mail.png" alt="Email icon">
             </a>
-            <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank">
-                <img src="images/icons/linkedin.png" alt="LinkedIn">
+            <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank" aria-label="LinkedIn Profiel">
+                <img src="images/icons/linkedin.png" alt="LinkedIn icon">
             </a>
-            <a href="https://www.instagram.com/charlotteillustratie" target="_blank">
-                <img src="images/icons/instagram.png" alt="Instagram">
+            <a href="https://www.instagram.com/charlotteillustratie" target="_blank" aria-label="Instagram Profiel">
+                <img src="images/icons/instagram.png" alt="Instagram icon">
             </a>
         </div>
     </nav>
 
     <div class="main-container">
         <main class="content">
-            <div class="image-grid" id="image-grid-container" data-source="html">
-                <img data-src="images/illustraties/2026_Walvis_ingezoomd.jpg">
-                <img data-src="images/illustraties/2026_04Florence.jpg">
-                <img data-src="images/illustraties/2026_03vogelaar02.jpg">
-                <img data-src="images/illustraties/2026_02strandtekening03.jpg">
-                <img data-src="images/illustraties/2025_weerbetoon aan mama_ingezoomd.jpg">
-                <img data-src="images/illustraties/2025_verjaardagstaart.1.jpg">
-                <img data-src="images/illustraties/2025_verjaardag.1.jpg">
-                <img data-src="images/illustraties/2025_vallende sneeuw.jpg">
-                <img data-src="images/illustraties/2025_parkwandeling_02.jpg">
-                <img data-src="images/illustraties/2025_overzicht magneten.jpg">
-                <img data-src="images/illustraties/2025_Nooit alleen_ingezoomd.jpg">
-                <img data-src="images/illustraties/2025_Meisje-met-vos_REEL.gif">
-                <img data-src="images/illustraties/2025_meisje hond.jpg">
-                <img data-src="images/illustraties/2025_losse tekening_De Koninklijke Kat.jpg">
-                <img data-src="images/illustraties/2025_Instagrambeeld-voorkant_ingezoomd.jpg">
-                <img data-src="images/illustraties/2025_Iedereen Prinses.jpg">
-                <img data-src="images/illustraties/2025_familieportret.jpg">
-                <img data-src="images/illustraties/2025_DeKoninklijkeKat_02.jpg">
-                <img data-src="images/illustraties/2025_DeKoninklijkeKat.jpg">
-                <img data-src="images/illustraties/2025_Dansend in de lucht_07..jpg">
-                <img data-src="images/illustraties/2025_auto sneeuw.jpg">
-                <img data-src="images/illustraties/2025_Als een vis in het water.jpg">
-                <img data-src="images/illustraties/2024_kerstmanmagneet.jpg">
-                <img data-src="images/illustraties/2024_Geboortekaartje_foto.jpg">
-                <img data-src="images/illustraties/2024_Dino_ingezoomd.jpg">
-                <img data-src="images/illustraties/2023_Vos en kip_tekening.jpg">
-                <img data-src="images/illustraties/2023_TourElentrik_St-Agatha-Berchem_03.jpg">
-                <img data-src="images/illustraties/2023_TourElentrik_Kraainem_03_2023.jpg">
-                <img data-src="images/illustraties/2023_Monsters in het zwembad_ingezoomd.jpg">
-                <img data-src="images/illustraties/2023_Halloween_tekening.jpg">
-                <img data-src="images/illustraties/2023_Draaien en draaien.gif">
-                <img data-src="images/illustraties/2023_Dit is vakantie.3.jpg">
-                <img data-src="images/illustraties/2023_APaperADay.jpg">
-                <img data-src="images/illustraties/2022_Copy of KULeuven mural_03_2022.jpg">
-                <img data-src="images/illustraties/2022_Aan zee_ingezoomd.jpg">
-                <img data-src="images/illustraties/2021_Zeewier_02.jpg">
-                <img data-src="images/illustraties/2021_Zeewier_01.jpg">
-                <img data-src="images/illustraties/2021_Testpagina (RGB).jpg">
-                <img data-src="images/illustraties/2021_02.jpg">
-                <img data-src="images/illustraties/2021_01.jpg">
-                <img data-src="images/illustraties/2020_Leporello.jpg">
-                <img data-src="images/illustraties/2019_Nieuwjaarskaart2022_Gezin_zonder naam.jpg">
-                <img data-src="images/illustraties/2019_Nieuwjaarskaart2020_Oma&Opa_zonder naam.jpg">
-                <img data-src="images/illustraties/2019_Down The Dinghy.jpg">
-                <img data-src="images/illustraties/2018_Nieuwjaarskaart2019_ingezoomd_Oma&Opa_Binnenkant.jpg">
+            <div class="image-grid" id="image-grid-container">
+                <img data-src="images/illustraties/2026_Walvis_ingezoomd.jpg" alt="Walvis illustratie">
+                <img data-src="images/illustraties/2026_04Florence.jpg" alt="Florence illustratie">
+                <img data-src="images/illustraties/2026_03vogelaar02.jpg" alt="Vogelaar illustratie">
+                <img data-src="images/illustraties/2026_02strandtekening03.jpg" alt="Strandtekening">
+                <img data-src="images/illustraties/2025_weerbetoon aan mama_ingezoomd.jpg" alt="Eerbetoon aan mama">
+                <img data-src="images/illustraties/2025_verjaardagstaart.1.jpg" alt="Verjaardagstaart">
+                <img data-src="images/illustraties/2025_verjaardag.1.jpg" alt="Verjaardag">
+                <img data-src="images/illustraties/2025_vallende sneeuw.jpg" alt="Vallende sneeuw">
+                <img data-src="images/illustraties/2025_parkwandeling_02.jpg" alt="Parkwandeling">
+                <img data-src="images/illustraties/2025_overzicht magneten.jpg" alt="Overzicht magneten">
+                <img data-src="images/illustraties/2025_Nooit alleen_ingezoomd.jpg" alt="Nooit alleen">
+                <img data-src="images/illustraties/2025_Meisje-met-vos_REEL.gif" alt="Meisje met vos">
+                <img data-src="images/illustraties/2025_meisje hond.jpg" alt="Meisje met hond">
+                <img data-src="images/illustraties/2025_losse tekening_De Koninklijke Kat.jpg" alt="De Koninklijke Kat">
+                <img data-src="images/illustraties/2025_Instagrambeeld-voorkant_ingezoomd.jpg"
+                    alt="Instagram illustratie">
+                <img data-src="images/illustraties/2025_Iedereen Prinses.jpg" alt="Iedereen Prinses">
+                <img data-src="images/illustraties/2025_familieportret.jpg" alt="Familieportret">
+                <img data-src="images/illustraties/2025_DeKoninklijkeKat_02.jpg" alt="De Koninklijke Kat detail">
+                <img data-src="images/illustraties/2025_DeKoninklijkeKat.jpg" alt="De Koninklijke Kat overzicht">
+                <img data-src="images/illustraties/2025_Dansend in de lucht_07..jpg" alt="Dansend in de lucht">
+                <img data-src="images/illustraties/2025_auto sneeuw.jpg" alt="Auto in de sneeuw">
+                <img data-src="images/illustraties/2025_Als een vis in het water.jpg" alt="Als een vis in het water">
+                <img data-src="images/illustraties/2024_kerstmanmagneet.jpg" alt="Kerstman magneet">
+                <img data-src="images/illustraties/2024_Geboortekaartje_foto.jpg" alt="Geboortekaartje">
+                <img data-src="images/illustraties/2024_Dino_ingezoomd.jpg" alt="Dinosaurus illustratie">
+                <img data-src="images/illustraties/2023_Vos en kip_tekening.jpg" alt="Vos en kip">
+                <img data-src="images/illustraties/2023_TourElentrik_St-Agatha-Berchem_03.jpg"
+                    alt="Tour Elentrik Berchem">
+                <img data-src="images/illustraties/2023_TourElentrik_Kraainem_03_2023.jpg" alt="Tour Elentrik Kraainem">
+                <img data-src="images/illustraties/2023_Monsters in het zwembad_ingezoomd.jpg"
+                    alt="Monsters in het zwembad">
+                <img data-src="images/illustraties/2023_Halloween_tekening.jpg" alt="Halloween tekening">
+                <img data-src="images/illustraties/2023_Draaien en draaien.gif" alt="Draaien en draaien animatie">
+                <img data-src="images/illustraties/2023_Dit is vakantie.3.jpg" alt="Dit is vakantie">
+                <img data-src="images/illustraties/2023_APaperADay.jpg" alt="A Paper A Day project">
+                <img data-src="images/illustraties/2022_Copy of KULeuven mural_03_2022.jpg"
+                    alt="KU Leuven muurschildering">
+                <img data-src="images/illustraties/2022_Aan zee_ingezoomd.jpg" alt="Aan zee">
+                <img data-src="images/illustraties/2021_Zeewier_02.jpg" alt="Zeewier studie 2">
+                <img data-src="images/illustraties/2021_Zeewier_01.jpg" alt="Zeewier studie 1">
+                <img data-src="images/illustraties/2021_Testpagina (RGB).jpg" alt="Testpagina">
+                <img data-src="images/illustraties/2021_02.jpg" alt="Illustratie 2021-02">
+                <img data-src="images/illustraties/2021_01.jpg" alt="Illustratie 2021-01">
+                <img data-src="images/illustraties/2020_Leporello.jpg" alt="Leporello boek">
+                <img data-src="images/illustraties/2019_Nieuwjaarskaart2022_Gezin_zonder naam.jpg"
+                    alt="Nieuwjaarskaart gezin">
+                <img data-src="images/illustraties/2019_Nieuwjaarskaart2020_Oma&Opa_zonder naam.jpg"
+                    alt="Nieuwjaarskaart grootouders">
+                <img data-src="images/illustraties/2019_Down The Dinghy.jpg" alt="Down The Dinghy">
+                <img data-src="images/illustraties/2018_Nieuwjaarskaart2019_ingezoomd_Oma&Opa_Binnenkant.jpg"
+                    alt="Nieuwjaarskaart binnenkant">
             </div>
-
         </main>
 
         <footer class="site-footer">
-            <p>
-                &copy;
-                <script>document.write(new Date().getFullYear())</script>
-                Charlotte Vandeputte
-            </p>
+            <p>&copy; <span id="year"></span> Charlotte Vandeputte</p>
         </footer>
     </div>
 
-    <div id="lightbox" class="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <div class="lightbox-nav lightbox-prev">&#10094;</div>
-        <img class="lightbox-image" src="" alt="Fullscreen afbeelding">
-        <div class="lightbox-nav lightbox-next">&#10095;</div>
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+        <button class="lightbox-close" aria-label="Sluiten">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Vorige afbeelding">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <img class="lightbox-image" src="" alt="">
+        <button class="lightbox-nav lightbox-next" aria-label="Volgende afbeelding">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
     </div>
 
     <script src="script.js"></script>

@@ -21,22 +21,27 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <!-- SEO -->
-    <meta name="description" content="Creatieve projecten en muurschilderingen van illustrator Charlotte Vandeputte.">
+    <meta name="description"
+        content="Creatieve projecten, boeken en muurschilderingen van illustrator Charlotte Vandeputte.">
     <link rel="canonical" href="https://charlottevandeputte.com/projecten.html">
 </head>
 
 <body>
 
-    <nav class="sidebar">
-        <a href="./">
-            <img src="images/menu/cvdp2.png" alt="Portfolio Logo" class="sidebar-logo">
+    <nav class="sidebar" aria-label="Hoofdnavigatie">
+        <a href="./" class="logo-link">
+            <img src="images/menu/cvdp2.png" alt="Charlotte Vandeputte Logo" class="sidebar-logo">
         </a>
 
         <div class="mobile-name">Charlotte Vandeputte</div>
-        <button class="menu-toggle" aria-label="Menu"></button>
+        <button class="menu-toggle" aria-label="Menu openen" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
         <ul class="nav-links">
-            <li><a href="portfolio.html"><span>Portfolio</span></a></li>
+            <li><a href="./"><span>Portfolio</span></a></li>
             <li><a href="schetsen.html"><span>Schetsen</span></a></li>
             <li class="active"><a href="projecten.html"><span>Projecten</span></a></li>
             <li><a href="over-mij.html"><span>Over mij</span></a></li>
@@ -44,14 +49,16 @@
         </ul>
 
         <div class="social-links">
-            <a href="mailto:vandeputtecharlotte@outlook.com">
-                <img src="images/icons/mail.png" alt="Email">
+            <a href="mailto:vandeputtecharlotte@outlook.com" target="_blank" aria-label="E-mail sturen">
+                <img src="images/icons/mail.png" alt="Email icon">
             </a>
-            <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank" rel="noopener">
-                <img src="images/icons/linkedin.png" alt="LinkedIn">
+            <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank" rel="noopener"
+                aria-label="LinkedIn Profiel">
+                <img src="images/icons/linkedin.png" alt="LinkedIn icon">
             </a>
-            <a href="https://www.instagram.com/charlotteillustratie" target="_blank" rel="noopener">
-                <img src="images/icons/instagram.png" alt="Instagram">
+            <a href="https://www.instagram.com/charlotteillustratie" target="_blank" rel="noopener"
+                aria-label="Instagram Profiel">
+                <img src="images/icons/instagram.png" alt="Instagram icon">
             </a>
         </div>
     </nav>
@@ -64,33 +71,44 @@
                 <!-- Schilderijen -->
                 <div class="project-item">
                     <a href="schilderijen.html" class="project-link">
-                        <img src="images/projecten/schilder/preview.jpg" alt="Schilderijen preview">
+                        <div class="project-image-wrapper">
+                            <img src="images/projecten/schilder/preview.jpg"
+                                alt="Schilderijen van Charlotte Vandeputte">
+                        </div>
+                        <h3>Schilderijen</h3>
                     </a>
-                    <h3>Schilderijen</h3>
                 </div>
 
                 <!-- Boeken -->
                 <div class="project-item">
                     <a href="boeken.html" class="project-link">
-                        <img src="images/projecten/boeken/preview.jpg" alt="Boeken preview">
+                        <div class="project-image-wrapper">
+                            <img src="images/projecten/boeken/preview.jpg"
+                                alt="Geïllustreerde boeken van Charlotte Vandeputte">
+                        </div>
+                        <h3>Boeken</h3>
                     </a>
-                    <h3>Boeken</h3>
                 </div>
 
                 <!-- Tour Elentrik -->
                 <div class="project-item">
                     <a href="tour_elentrik.html" class="project-link">
-                        <img src="images/projecten/tour_elentrik/preview.jpg" alt="Tour Elentrik preview">
+                        <div class="project-image-wrapper">
+                            <img src="images/projecten/tour_elentrik/preview.jpg"
+                                alt="Tour Elentrik straatkunst project">
+                        </div>
+                        <h3>Tour Elentrik</h3>
                     </a>
-                    <h3>Tour Elentrik</h3>
                 </div>
 
                 <!-- KULeuven muurschildering -->
                 <div class="project-item">
                     <a href="kuleuven_muurschildering.html" class="project-link">
-                        <img src="images/projecten/kul_muur/preview.jpg" alt="KULeuven muurschildering preview">
+                        <div class="project-image-wrapper">
+                            <img src="images/projecten/kul_muur/preview.jpg" alt="KU Leuven muurschildering">
+                        </div>
+                        <h3>KU Leuven Muurschildering</h3>
                     </a>
-                    <h3>KULeuven muurschildering</h3>
                 </div>
 
             </div>
@@ -98,11 +116,7 @@
         </main>
 
         <footer class="site-footer">
-            <p>
-                &copy;
-                <script>document.write(new Date().getFullYear())</script>
-                Charlotte Vandeputte
-            </p>
+            <p>&copy; <span id="year"></span> Charlotte Vandeputte</p>
         </footer>
     </div>
 

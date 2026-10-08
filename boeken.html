@@ -10,31 +10,38 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="style.css">
 
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
 
-    <meta name="description" content="Boeken en illustraties van illustrator Charlotte Vandeputte.">
+    <!-- SEO -->
+    <meta name="description"
+        content="Geïllustreerde boeken en verhalende projecten van illustrator Charlotte Vandeputte.">
+    <meta name="author" content="Charlotte Vandeputte">
     <link rel="canonical" href="https://charlottevandeputte.com/boeken.html">
 </head>
 
 <body>
 
-    <nav class="sidebar">
-        <a href="./">
-            <img src="images/menu/cvdp2.png" alt="Portfolio Logo" class="sidebar-logo">
+    <nav class="sidebar" aria-label="Hoofdnavigatie">
+        <a href="./" class="logo-link">
+            <img src="images/menu/cvdp2.png" alt="Charlotte Vandeputte Logo" class="sidebar-logo">
         </a>
 
         <div class="mobile-name">Charlotte Vandeputte</div>
-        <button class="menu-toggle"></button>
+        <button class="menu-toggle" aria-label="Menu openen" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
         <ul class="nav-links">
-            <li><a href="portfolio.html"><span>Portfolio</span></a></li>
+            <li><a href="./"><span>Portfolio</span></a></li>
             <li><a href="schetsen.html"><span>Schetsen</span></a></li>
             <li class="active"><a href="projecten.html"><span>Projecten</span></a></li>
             <li><a href="over-mij.html"><span>Over mij</span></a></li>
@@ -42,14 +49,16 @@
         </ul>
 
         <div class="social-links">
-            <a href="mailto:vandeputtecharlotte@outlook.com">
-                <img src="images/icons/mail.png" alt="Email">
+            <a href="mailto:vandeputtecharlotte@outlook.com" target="_blank" aria-label="E-mail sturen">
+                <img src="images/icons/mail.png" alt="Email icon">
             </a>
-            <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank">
-                <img src="images/icons/linkedin.png" alt="LinkedIn">
+            <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank" rel="noopener"
+                aria-label="LinkedIn Profiel">
+                <img src="images/icons/linkedin.png" alt="LinkedIn icon">
             </a>
-            <a href="https://www.instagram.com/charlotteillustratie" target="_blank">
-                <img src="images/icons/instagram.png" alt="Instagram">
+            <a href="https://www.instagram.com/charlotteillustratie" target="_blank" rel="noopener"
+                aria-label="Instagram Profiel">
+                <img src="images/icons/instagram.png" alt="Instagram icon">
             </a>
         </div>
     </nav>
@@ -60,55 +69,65 @@
             <div class="text-box-wrapper">
                 <h2>Boeken</h2>
                 <p>
-                    2025 De Koninklijke Kat, auteur Raymond De Bruyne
-                    <br>2022 E19, Masterproef
-                    <br>2021 Papa, Bachelorproef
-                </p>
-                <p>
-                    <br>
+                    <strong>2025</strong> De Koninklijke Kat (auteur Raymond De Bruyne)<br>
+                    <strong>2022</strong> E19 (Masterproef)<br>
+                    <strong>2021</strong> Papa (Bachelorproef)
                 </p>
             </div>
+
             <div class="image-grid" id="image-grid-container" data-source="html">
-                <img data-src="images/projecten/boeken/2025_DeKoninklijkeKat_01.jpg">
-                <img data-src="images/projecten/boeken/2025_DeKoninklijkeKat_05.jpg">
-                <img data-src="images/projecten/boeken/2025_DeKoninklijkeKat_04.jpg">
-                <img data-src="images/projecten/boeken/2025_DeKoninklijkeKat_03.jpg">
-                <img data-src="images/projecten/boeken/2025_DeKoninklijkeKat_02.jpg">
-                <img data-src="images/projecten/boeken/2022_Masterproef_01.jpg">
-                <img data-src="images/projecten/boeken/2022_Masterproef_06.jpg">
-                <img data-src="images/projecten/boeken/2022_Masterproef_05.jpg">
-                <img data-src="images/projecten/boeken/2022_Masterproef_03.jpg">
-                <img data-src="images/projecten/boeken/2022_Masterproef_02.jpg">
-                <img data-src="images/projecten/boeken/2021_Papa_01_2021.jpg">
-                <img data-src="images/projecten/boeken/2021_Papa_05_2021.jpg">
-                <img data-src="images/projecten/boeken/2021_Papa_04_2021.jpg">
-                <img data-src="images/projecten/boeken/2021_Papa_03_2021.jpg">
-                <img data-src="images/projecten/boeken/2021_Papa_02_2021.jpg">
+                <img data-src="images/projecten/boeken/2025_DeKoninklijkeKat_01.jpg"
+                    alt="De Koninklijke Kat illustratie 1">
+                <img data-src="images/projecten/boeken/2025_DeKoninklijkeKat_05.jpg"
+                    alt="De Koninklijke Kat illustratie 5">
+                <img data-src="images/projecten/boeken/2025_DeKoninklijkeKat_04.jpg"
+                    alt="De Koninklijke Kat illustratie 4">
+                <img data-src="images/projecten/boeken/2025_DeKoninklijkeKat_03.jpg"
+                    alt="De Koninklijke Kat illustratie 3">
+                <img data-src="images/projecten/boeken/2025_DeKoninklijkeKat_02.jpg"
+                    alt="De Koninklijke Kat illustratie 2">
+                <img data-src="images/projecten/boeken/2022_Masterproef_01.jpg" alt="Masterproef E19 1">
+                <img data-src="images/projecten/boeken/2022_Masterproef_06.jpg" alt="Masterproef E19 6">
+                <img data-src="images/projecten/boeken/2022_Masterproef_05.jpg" alt="Masterproef E19 5">
+                <img data-src="images/projecten/boeken/2022_Masterproef_03.jpg" alt="Masterproef E19 3">
+                <img data-src="images/projecten/boeken/2022_Masterproef_02.jpg" alt="Masterproef E19 2">
+                <img data-src="images/projecten/boeken/2021_Papa_01_2021.jpg" alt="Bachelorproef Papa 1">
+                <img data-src="images/projecten/boeken/2021_Papa_05_2021.jpg" alt="Bachelorproef Papa 5">
+                <img data-src="images/projecten/boeken/2021_Papa_04_2021.jpg" alt="Bachelorproef Papa 4">
+                <img data-src="images/projecten/boeken/2021_Papa_03_2021.jpg" alt="Bachelorproef Papa 3">
+                <img data-src="images/projecten/boeken/2021_Papa_02_2021.jpg" alt="Bachelorproef Papa 2">
             </div>
         </main>
 
         <footer class="site-footer">
-            <p>
-                &copy;
-                <script>document.write(new Date().getFullYear())</script>
-                Charlotte Vandeputte
-            </p>
+            <p>&copy; <span id="year"></span> Charlotte Vandeputte</p>
         </footer>
     </div>
 
-    <div id="lightbox" class="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <div class="lightbox-nav lightbox-prev">&#10094;</div>
-
-        <div class="lightbox-inner">
-            <img class="lightbox-image" src="" alt="Boek">
-        </div>
-
-        <div class="lightbox-nav lightbox-next">&#10095;</div>
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+        <button class="lightbox-close" aria-label="Sluiten">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Vorige afbeelding">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <img class="lightbox-image" src="" alt="">
+        <button class="lightbox-nav lightbox-next" aria-label="Volgende afbeelding">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
     </div>
 
     <script src="script.js"></script>
-
 </body>
 
 </html>

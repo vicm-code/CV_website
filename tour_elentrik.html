@@ -7,38 +7,41 @@
 
     <title>Tour Elentrik – Charlotte Vandeputte</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="style.css">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
 
     <!-- SEO -->
     <meta name="description"
         content="Ontwerpen voor nutskastjes in Tervuren, Kraainem en Sint-Agatha-Berchem in het kader van Tour Elentrik, in samenwerking met Treepack.">
+    <meta name="author" content="Charlotte Vandeputte">
     <link rel="canonical" href="https://charlottevandeputte.com/tour_elentrik.html">
 </head>
 
 <body>
 
-    <nav class="sidebar">
-        <a href="./">
-            <img src="images/menu/cvdp2.png" alt="Portfolio Logo" class="sidebar-logo">
+    <nav class="sidebar" aria-label="Hoofdnavigatie">
+        <a href="./" class="logo-link">
+            <img src="images/menu/cvdp2.png" alt="Charlotte Vandeputte Logo" class="sidebar-logo">
         </a>
 
         <div class="mobile-name">Charlotte Vandeputte</div>
-        <button class="menu-toggle"></button>
+        <button class="menu-toggle" aria-label="Menu openen" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
         <ul class="nav-links">
-            <li><a href="portfolio.html"><span>Portfolio</span></a></li>
+            <li><a href="./"><span>Portfolio</span></a></li>
             <li><a href="schetsen.html"><span>Schetsen</span></a></li>
             <li class="active"><a href="projecten.html"><span>Projecten</span></a></li>
             <li><a href="over-mij.html"><span>Over mij</span></a></li>
@@ -46,14 +49,16 @@
         </ul>
 
         <div class="social-links">
-            <a href="mailto:vandeputtecharlotte@outlook.com">
-                <img src="images/icons/mail.png" alt="Email">
+            <a href="mailto:vandeputtecharlotte@outlook.com" target="_blank" aria-label="E-mail sturen">
+                <img src="images/icons/mail.png" alt="Email icon">
             </a>
-            <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank">
-                <img src="images/icons/linkedin.png" alt="LinkedIn">
+            <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank" rel="noopener"
+                aria-label="LinkedIn Profiel">
+                <img src="images/icons/linkedin.png" alt="LinkedIn icon">
             </a>
-            <a href="https://www.instagram.com/charlotteillustratie" target="_blank">
-                <img src="images/icons/instagram.png" alt="Instagram">
+            <a href="https://www.instagram.com/charlotteillustratie" target="_blank" rel="noopener"
+                aria-label="Instagram Profiel">
+                <img src="images/icons/instagram.png" alt="Instagram icon">
             </a>
         </div>
     </nav>
@@ -61,67 +66,76 @@
     <div class="main-container">
         <main class="content">
 
-            <!-- Intro -->
             <div class="text-box-wrapper">
-
-
                 <h2>Tour Elentrik</h2>
                 <p>
                     Ontwerpen voor nutskastjes in Tervuren, Kraainem en Sint-Agatha-Berchem. In samenwerking met
                     Treepack.
                 </p>
                 <p>
-                    <br>2023 Boekenkast<br> Arthur Dezangrélaan x Lijsterbessenbomenlaan, 1950 Kraainem <br><br>
-                    2023 Wilde bloemen<br> Emile Van Overstraetenstraat x Groot-Bijgaardenstraat, 1082
-                    Sint-Agatha-Berchem <br><br>
-                    2021 Dierenrace<br> Paardenmarktstraat x Peercouriniestraat, 3080 Tervuren
-                </p>
-                <p>
-                    <br>
+                    <strong>2023</strong> Boekenkast – Arthur Dezangrélaan x Lijsterbessenbomenlaan, 1950 Kraainem<br>
+                    <strong>2023</strong> Wilde bloemen – Emile Van Overstraetenstraat x Groot-Bijgaardenstraat, 1082
+                    Sint-Agatha-Berchem<br>
+                    <strong>2021</strong> Dierenrace – Paardenmarktstraat x Peercouriniestraat, 3080 Tervuren
                 </p>
             </div>
 
-            <!-- Image grid -->
             <div class="image-grid" id="image-grid-container" data-source="html">
-                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_St-Agatha-Berchem_03.jpg">
-                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_St-Agatha-Berchem_02.jpg">
-                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_St-Agatha-Berchem_01.jpg">
-                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_Kraainem_05.jpg">
-                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_Kraainem_04.jpg">
-                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_Kraainem_03.jpg">
-                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_Kraainem_02.jpg">
-                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_Kraainem_01.jpg">
-                <img data-src="images/projecten/tour_elentrik/2022_TourElentrik_Tervuren_04.jpg">
-                <img data-src="images/projecten/tour_elentrik/2022_TourElentrik_Tervuren_02.jpg">
-                <img data-src="images/projecten/tour_elentrik/2022_TourElentrik_Tervuren_01.jpg">
+                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_St-Agatha-Berchem_03.jpg"
+                    alt="Tour Elentrik Sint-Agatha-Berchem 3">
+                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_St-Agatha-Berchem_02.jpg"
+                    alt="Tour Elentrik Sint-Agatha-Berchem 2">
+                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_St-Agatha-Berchem_01.jpg"
+                    alt="Tour Elentrik Sint-Agatha-Berchem 1">
+                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_Kraainem_05.jpg"
+                    alt="Tour Elentrik Kraainem 5">
+                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_Kraainem_04.jpg"
+                    alt="Tour Elentrik Kraainem 4">
+                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_Kraainem_03.jpg"
+                    alt="Tour Elentrik Kraainem 3">
+                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_Kraainem_02.jpg"
+                    alt="Tour Elentrik Kraainem 2">
+                <img data-src="images/projecten/tour_elentrik/2023_TourElentrik_Kraainem_01.jpg"
+                    alt="Tour Elentrik Kraainem 1">
+                <img data-src="images/projecten/tour_elentrik/2022_TourElentrik_Tervuren_04.jpg"
+                    alt="Tour Elentrik Tervuren 4">
+                <img data-src="images/projecten/tour_elentrik/2022_TourElentrik_Tervuren_02.jpg"
+                    alt="Tour Elentrik Tervuren 2">
+                <img data-src="images/projecten/tour_elentrik/2022_TourElentrik_Tervuren_01.jpg"
+                    alt="Tour Elentrik Tervuren 1">
             </div>
 
         </main>
 
         <footer class="site-footer">
-            <p>
-                &copy;
-                <script>document.write(new Date().getFullYear())</script>
-                Charlotte Vandeputte
-            </p>
+            <p>&copy; <span id="year"></span> Charlotte Vandeputte</p>
         </footer>
     </div>
 
-    <!-- Lightbox -->
-    <div id="lightbox" class="lightbox">
-        <span class="lightbox-close">&times;</span>
-        <div class="lightbox-nav lightbox-prev">&#10094;</div>
-
-        <div class="lightbox-inner">
-            <img class="lightbox-image" src="" alt="Tour Elentrik">
-        </div>
-
-        <div class="lightbox-nav lightbox-next">&#10095;</div>
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+        <button class="lightbox-close" aria-label="Sluiten">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Vorige afbeelding">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </button>
+        <img class="lightbox-image" src="" alt="">
+        <button class="lightbox-nav lightbox-next" aria-label="Volgende afbeelding">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
     </div>
 
-    <!-- Script -->
     <script src="script.js"></script>
-
 </body>
 
 </html>

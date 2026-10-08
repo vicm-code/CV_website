@@ -1,28 +1,28 @@
 /* -----------------------
-   Variables & Global Settings
-   ----------------------- */
+   Variables & Global Settings
+   ----------------------- */
 :root {
     /* Colors */
     --bg-color: #ffffff;
     --text-color: #111111;
     --text-color-light: #888888;
     --accent-color: #333333;
-    --overlay-bg: rgba(0, 0, 0, 0.8);
+    --overlay-bg: rgba(0, 0, 0, 0.85);
 
     /* Dimensions & Layout */
     --sidebar-width: clamp(300px, 28vw, 480px);
     --sidebar-padding: 2rem 1rem;
 
     /* Typography */
-    --font-main: 'Arial', serif;
+    --font-main: 'Arial', sans-serif;
 
     /* Transitions */
     --trans-std: 0.3s ease;
 }
 
 /* -----------------------
-   Reset & Base Styles
-   ----------------------- */
+   Reset & Base Styles
+   ----------------------- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -41,6 +41,10 @@ body {
     display: flex;
 }
 
+body.menu-open {
+    overflow: hidden;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -50,11 +54,15 @@ img {
     display: block;
     max-width: 100%;
     height: auto;
+    /* Artwork protection */
+    pointer-events: none;
+    -webkit-user-drag: none;
+    user-select: none;
 }
 
 /* -----------------------
-   Sidebar (Left)
-   ----------------------- */
+   Sidebar (Left Desktop Navigation)
+   ----------------------- */
 .sidebar {
     position: fixed;
     left: 0;
@@ -87,7 +95,7 @@ img {
     max-width: 300px;
 }
 
-/* Navigation */
+/* Navigation Links */
 .nav-links {
     list-style: none;
     width: 100%;
@@ -115,65 +123,14 @@ img {
     transition: none;
 }
 
-/* Mobile Toggle (Hamburger) */
+/* Mobile Toggle (Hamburger Button - Hidden on Desktop) */
 .menu-toggle {
     display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #555;
-    position: relative;
-    width: 2rem;
-    height: 2rem;
 }
 
-/* thinner lines and slightly rounded ends */
-.menu-toggle::before,
-.menu-toggle::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100%;
-    height: 2px;
-    /* reduced from 3px */
-    background-color: var(--text-color);
-    border-radius: 1px;
-    transition: transform var(--trans-std);
-}
-
-.menu-toggle::before {
-    transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.menu-toggle::after {
-    transform: translate(-50%, -50%);
-}
-
-.menu-toggle.active::before {
-    transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.menu-toggle.active::after {
-    transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-/* Mobile Name Text */
+/* Mobile Name Text (Hidden on Desktop) */
 .mobile-name {
     display: none;
-    /* Hidden on Desktop */
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--text-color);
-    text-align: center;
-    /* Allows text to take up space between logo and toggle */
-    flex-grow: 1;
-    /* Ensure text doesn't wrap and handles overflow gracefully */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /* Small padding to prevent touching logo/toggle */
-    margin: 0 10px;
 }
 
 /* Social Icons (Desktop) */
@@ -203,8 +160,8 @@ img {
 }
 
 /* -----------------------
-   Main Content Area
-   ----------------------- */
+   Main Content Area
+   ----------------------- */
 .main-container {
     display: flex;
     flex-direction: column;
@@ -218,15 +175,12 @@ img {
     width: 100%;
 }
 
-/* Max width container for text flow, now left-aligned */
 .text-box-wrapper {
     max-width: 520px;
-    /* Align to the left instead of centering */
     margin: 0;
     width: 100%;
 }
 
-/* Typography and Spacing Fixes */
 .text-box-wrapper h2 {
     margin-bottom: 2rem;
 }
@@ -240,28 +194,30 @@ img {
     margin-bottom: 2rem;
 }
 
-/* About & Contact Image - added margin-top for spacing from text */
 .about-photo {
     margin-top: 1rem;
-    /* Existing */
     margin-bottom: 2rem;
-    /* Added for consistency with previous text layout */
 }
-
 
 /* Image Grid (Masonry Layout) */
 .image-grid {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
-    gap: 1.5rem;
+    gap: 5px;
 }
 
 .image-column {
-    width: calc(33.333% - 1rem);
+    flex: 1 1 0;
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 5px;
+}
+
+.image-item img.lazy {
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    background-color: #f3f3f3;
 }
 
 .image-item {
@@ -269,17 +225,17 @@ img {
 }
 
 .image-item img {
+    width: 100%;
     transition: transform 0.3s ease;
 }
 
 .image-item:hover img {
-    transform: translateY(-5px);
+    transform: translateY(-2px);
 }
 
 /* Projects Grid */
 .projects-grid {
     display: grid;
-    /* Aantal kolommen */
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-top: 1.5rem;
@@ -292,13 +248,11 @@ img {
 .project-item img {
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .project-item img:hover {
     transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0);
-    /* Keep 0 alpha as per original */
 }
 
 .project-item h3 {
@@ -319,17 +273,16 @@ img {
 
 .project-images {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    align-items: start;
 }
 
 .project-images img {
     object-fit: cover;
 }
 
-/* About & Contact */
-/* .about-photo styling is above */
-
+/* Contact Form */
 .contact-form {
     max-width: 600px;
     margin-top: 2rem;
@@ -383,99 +336,122 @@ img {
 }
 
 /* -----------------------
-   Lightbox / Modal
-   ----------------------- */
+   Lightbox / Modal
+   ----------------------- */
 .lightbox {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background-color: var(--overlay-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     display: none;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-    padding: 40px 40px 40px;
-    /* top | sides | bottom */
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.25s ease;
 }
 
 .lightbox.active {
     display: flex;
+    opacity: 1;
 }
-
-.lightbox-caption {
-    margin-top: 14px;
-    color: #ffffff;
-    font-size: 0.85rem;
-    text-align: center;
-    opacity: 0.75;
-    pointer-events: none;
-}
-
 
 .lightbox-content {
     position: relative;
-    max-width: calc(100vw - 100px);
-    max-height: calc(100vh - 100px);
-    padding: 100px;
+    max-width: calc(100vw - 120px);
+    max-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .lightbox-image {
-    max-width: calc(100vw - 80px);
-    max-height: calc(100vh - 80px);
+    max-width: calc(100vw - 120px);
+    max-height: calc(100vh - 120px);
     object-fit: contain;
+    border-radius: 2px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* Shared styles for Lightbox Controls */
+.lightbox-caption {
+    margin-top: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    text-align: center;
+}
+
+/* Shared Control Base Styles */
 .lightbox-close,
 .lightbox-nav {
     position: absolute;
-    color: #ffffff;
-    background-color: rgba(0, 0, 0, 0.7);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
+    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: color 0.3s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
     user-select: none;
+    outline: none;
 }
 
 .lightbox-close:hover,
 .lightbox-nav:hover {
-    color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
 }
 
+.lightbox-close:active,
+.lightbox-nav:active {
+    transform: scale(0.95);
+}
+
+/* Close Button (Top-Right) */
 .lightbox-close {
-    top: 50px;
-    right: 50px;
-    font-size: 32px;
-    font-weight: 300;
-    width: 62px;
-    height: 62px;
+    top: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
 }
 
+/* Navigation Buttons (Sides) */
 .lightbox-nav {
     top: 50%;
     transform: translateY(-50%);
-    font-size: 48px;
-    font-weight: 100;
-    width: 96px;
-    height: 96px;
+    width: 52px;
+    height: 52px;
+}
+
+.lightbox-nav:hover {
+    transform: translateY(-50%) scale(1.08);
+}
+
+.lightbox-nav:active {
+    transform: translateY(-50%) scale(0.95);
 }
 
 .lightbox-prev {
-    left: 40px;
+    left: 2rem;
 }
 
 .lightbox-next {
-    right: 40px;
+    right: 2rem;
 }
 
 /* -----------------------
-   Footer
-   ----------------------- */
+   Footer
+   ----------------------- */
 .site-footer {
     padding: 2rem 0;
     text-align: center;
@@ -494,8 +470,67 @@ img {
 }
 
 /* -----------------------
-   Responsive (Mobile)
-   ----------------------- */
+   Projects Page Refinements
+   ----------------------- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-top: 1rem;
+}
+
+.project-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.project-image-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 2px;
+}
+
+.project-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.project-item:hover .project-image-wrapper img {
+    transform: scale(1.04);
+}
+
+.project-item h3 {
+    margin-top: 1rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: color 0.2s ease;
+}
+
+.project-item:hover h3 {
+    color: var(--text-color-light);
+}
+
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+/* -----------------------
+   Responsive (Mobile Viewport <= 768px)
+   ----------------------- */
 @media (max-width: 768px) {
 
     body {
@@ -503,21 +538,22 @@ img {
         min-height: 100vh;
     }
 
-    /* Reset Sidebar for Mobile Header */
+    /* Fixed top header bar */
     .sidebar {
         width: 100%;
-        height: auto;
+        height: 60px;
         min-height: 0;
-        /*border-bottom: 1px solid #ddd;*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        align-content: flex-start;
-        padding: 0.625rem 0.5rem;
-        flex-wrap: wrap;
-        z-index: 999;
-        /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
-        transition: transform 0.3s ease-out;
+        padding: 0 1rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000;
     }
 
     .sidebar.hidden {
@@ -528,118 +564,191 @@ img {
         display: flex;
         align-items: center;
         width: auto;
-        flex-shrink: 0;
+        height: 100%;
     }
 
     .sidebar-logo {
         width: auto;
-        max-height: 28px;
+        max-height: 26px;
         margin: 0;
     }
 
-    /* Show and center the mobile name */
     .mobile-name {
         display: block;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--text-color);
         text-align: center;
-        flex-shrink: 1;
-        min-width: 0;
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding: 0 0.5rem;
     }
 
+    /* Explicit Hamburger / X Button Styling */
     .menu-toggle {
-        display: block;
-        width: 28px;
-        height: 28px;
-        flex-shrink: 0;
+        display: flex !important;
+        /* Force visible on mobile */
+        flex-direction: column;
+        justify-content: space-between;
+        width: 26px;
+        height: 20px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1002;
+        position: relative;
     }
 
-    .nav-links {
-        display: none;
-        flex-direction: column;
+    /* Remove legacy pseudo-element lines */
+    .menu-toggle::before,
+    .menu-toggle::after {
+        display: none !important;
+    }
+
+    /* Style the 3 spans as visible lines */
+    .menu-toggle span {
+        display: block;
         width: 100%;
-        margin: 1.5rem 0;
-        padding: 0;
+        height: 2px;
+        background-color: #111111;
+        /* Dark visible line color */
+        border-radius: 2px;
+        transition: transform 0.3s ease-in-out, opacity 0.25s ease-in-out;
+        transform-origin: left center;
+    }
+
+    /* Hamburger to X Animation */
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg);
+    }
+
+    /* Mobile Overlay Menu - Moved to Top */
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        /* Align menu items to top */
+        align-items: center;
+        /* Center text horizontally */
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 60px);
+        height: calc(100dvh - 60px);
+        background-color: var(--bg-color);
+        padding: 3rem 1.5rem;
+        /* Top spacing from header bar */
+        margin: 0;
+        overflow-y: auto;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.25s ease,
+            visibility 0.3s ease;
+        z-index: 999;
     }
 
     .nav-links.active {
-        display: flex;
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
     }
 
     .nav-links li {
-        margin: 0;
-        position: relative;
+        width: 100%;
+        margin-bottom: 1.5rem;
+        text-align: center;
     }
 
-    /* ✔ Fix alignment */
     .nav-links a {
-        padding: 0.5rem 1rem 0.5rem 2.2rem;
-        font-size: 0.95rem;
-        position: relative;
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        font-size: 1.2rem;
+        font-weight: 400;
+        color: var(--text-color);
+        border-bottom: none;
+        text-align: center;
     }
-
 
     .social-links {
         display: none;
     }
 
-    /* For mobile, remove max-width constraints on wrapper inside content */
     .text-box-wrapper {
         max-width: none;
         margin: 0;
     }
 
-    /* Main Content Adjustments */
     .main-container {
         margin-left: 0;
     }
 
     .content {
         padding: 1rem;
-        padding-top: 4rem;
+        padding-top: 80px;
     }
 
     .image-grid {
         flex-direction: column;
-        gap: 1rem;
+        gap: 5px;
     }
 
     .image-column {
+        flex: none;
         width: 100%;
-        gap: 1rem;
+        gap: 5px;
     }
 
-    .image-item:hover {
+    .image-item:hover img {
         transform: none;
     }
 
-    .projects-grid {
+    .projects-grid,
+    .project-images {
         grid-template-columns: 1fr;
     }
 
-    /* Lightbox Adjustments */
+    /* Lightbox Mobile Overrides */
+    .lightbox {
+        padding: 1rem;
+    }
+
+    .lightbox-image {
+        max-width: 100vw;
+        max-height: calc(100vh - 100px);
+    }
+
     .lightbox-close {
-        top: 20px;
-        right: 20px;
-        font-size: 20px;
-        width: 40px;
-        height: 40px;
+        top: 1rem;
+        right: 1rem;
+        width: 38px;
+        height: 38px;
     }
 
     .lightbox-nav {
-        font-size: 28px;
-        width: 60px;
-        height: 60px;
+        width: 42px;
+        height: 42px;
     }
 
     .lightbox-prev {
-        left: 20px;
+        left: 0.75rem;
     }
 
     .lightbox-next {
-        right: 20px;
-    }
-
-    .image-grid-hover .hover-info::after,
-    .image-grid-hover .hover-text {
-        display: none;
+        right: 0.75rem;
     }
 }
