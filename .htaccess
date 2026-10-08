@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Redirect /page.html to /page
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Resolve /page request to /page.html internally
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^ %{REQUEST_URI}.html [L]
