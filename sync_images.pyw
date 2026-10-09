@@ -1,76 +1,105 @@
 import os
-import customtkinter as ctk
+import re
 from bs4 import BeautifulSoup
+import customtkinter as ctk
 
-ctk.set_appearance_mode("Dark")
+ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("blue")
 
-VALID_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".avif"}
 
-class AutoGallerySyncApp(ctk.CTk):
+class ImageSyncApp(ctk.CTk):
+    EXCLUDE_FOLDERS = {
+        "contact",
+        "over-mij",
+        "projecten",
+        "icons",
+        "menu",
+        "other",
+        "favicon",
+    }
+
+    # Custom folder-to-HTML mapping for subprojects or shortened names
+    FOLDER_ALIASES = {
+        "schilder": "schilderijen.html",
+        "schilderijen": "schilderijen.html",
+        "boeken": "boeken.html",
+        "muurschildering": "kuleuven_muurschildering.html",
+    }
+
     def __init__(self):
         super().__init__()
 
-        self.title("Auto Gallery Sync Tool")
-        self.geometry("680x520")
-        self.minsize(580, 420)
+        self.title("Portfolio Image Auto-Sync")
+        self.geometry("620x480")
+        self.resizable(True, True)
 
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
         self.images_dir = os.path.join(self.base_dir, "images")
 
+        self.create_widgets()
+
+    def create_widgets(self):
         self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure(2, weight=1)
+        self.grid_rowconfigure(1, weight=1)
 
-        # Header Frame
-        self.header_frame = ctk.CTkFrame(self)
-        self.header_frame.grid(row=0, column=0, padx=20, pady=(20, 10), sticky="ew")
-
-        self.title_label = ctk.CTkLabel(
-            self.header_frame, 
-            text="Dynamic Folder-to-HTML Synchronizer", 
-            font=ctk.CTkFont(size=18, weight="bold")
+        self.header_label = ctk.CTkLabel(
+            self,
+            text="Portfolio Gallery Image Auto-Sync",
+            font=ctk.CTkFont(size=18, weight="bold"),
         )
-        self.title_label.pack(padx=15, pady=12, anchor="w")
+        self.header_label.grid(row=0, column=0, padx=20, pady=(15, 10), sticky="ew")
 
-        # Action Button Frame
-        self.action_frame = ctk.CTkFrame(self)
-        self.action_frame.grid(row=1, column=0, padx=20, pady=10, sticky="ew")
+        self.log_textbox = ctk.CTkTextbox(
+            self, font=ctk.CTkFont(family="Consolas", size=12), wrap="word"
+        )
+        self.log_textbox.grid(row=1, column=0, padx=20, pady=10, sticky="nsew")
 
         self.sync_button = ctk.CTkButton(
-            self.action_frame, 
-            text="Auto-Detect & Sync Galleries", 
+            self,
+            text="Sync All Galleries",
             font=ctk.CTkFont(size=14, weight="bold"),
-            command=self.run_auto_sync
+            height=40,
+            command=self.run_auto_sync,
         )
-        self.sync_button.pack(padx=15, pady=12, fill="x")
+        self.sync_button.grid(row=2, column=0, padx=20, pady=(10, 15), sticky="ew")
 
-        # Log Output Console
-        self.log_textbox = ctk.CTkTextbox(self, font=ctk.CTkFont(family="Consolas", size=12))
-        self.log_textbox.grid(row=2, column=0, padx=20, pady=(10, 20), sticky="nsew")
+        self.log("Ready. Click 'Sync All Galleries' to update HTML pages.")
 
-        self.log("Ready. Click button to scan 'images/' and match root HTML files...\n")
-
-    def log(self, message):
-        self.log_textbox.insert("end", message + "\n")
+    def log(self, text):
+        self.log_textbox.configure(state="normal")
+        self.log_textbox.insert("end", text + "\n")
         self.log_textbox.see("end")
+        self.log_textbox.configure(state="disabled")
+
+    def clean_alt_text(self, filename):
+        name, _ = os.path.splitext(filename)
+        cleaned = re.sub(r"^\d{4}[_-]?", "", name)
+        cleaned = re.sub(r"^IMG[_-]?", "", cleaned, flags=re.IGNORECASE)
+        cleaned = cleaned.replace("_", " ").replace("-", " ").strip()
+        return cleaned.capitalize() if cleaned else "Illustratie"
 
     def discover_image_folders(self):
-        """Recursively scan images/ and return a dict mapping html_name -> relative_folder_path."""
+        """Scans images/ recursively for subfolders and maps them to HTML pages."""
         matched_map = {}
 
         if not os.path.exists(self.images_dir):
-            self.log("[ERROR] 'images/' directory not found in root.")
+            self.log("[ERROR] 'images/' folder directory not found.")
             return matched_map
 
         for root_path, dirs, _ in os.walk(self.images_dir):
             for dir_name in dirs:
+                dir_lower = dir_name.lower()
+
+                if dir_lower in self.EXCLUDE_FOLDERS:
+                    continue
+
                 folder_full_path = os.path.join(root_path, dir_name)
-                
-                # Relative path from root dir (e.g. "images/projecten/boeken")
-                rel_folder_path = os.path.relpath(folder_full_path, self.base_dir).replace("\\", "/")
-                
-                # Corresponding expected HTML filename (e.g. "boeken.html")
-                target_html = f"{dir_name}.html"
+                rel_folder_path = os.path.relpath(
+                    folder_full_path, self.base_dir
+                ).replace("\\", "/")
+
+                # Check alias mapping first, fallback to exact name match
+                target_html = self.FOLDER_ALIASES.get(dir_lower, f"{dir_name}.html")
                 target_html_path = os.path.join(self.base_dir, target_html)
 
                 if os.path.exists(target_html_path):
@@ -78,58 +107,90 @@ class AutoGallerySyncApp(ctk.CTk):
 
         return matched_map
 
-    def run_auto_sync(self):
-        self.log("--- Starting Dynamic Folder Discovery ---")
-        matches = self.discover_image_folders()
+    def create_img_tag(self, soup, img_rel_path, alt_text):
+        img_tag = soup.new_tag("img")
+        img_tag["src"] = img_rel_path
+        img_tag["data-src"] = img_rel_path
+        img_tag["alt"] = alt_text
+        img_tag["loading"] = "lazy"
+        return img_tag
 
-        if not matches:
-            self.log("[WARNING] No matching HTML files found for subfolders in 'images/'.")
-            self.log("Ensure folder names match HTML filenames (e.g., 'images/schetsen' -> 'schetsen.html').\n")
+    def run_auto_sync(self):
+        self.log_textbox.configure(state="normal")
+        self.log_textbox.delete("1.0", "end")
+        self.log_textbox.configure(state="disabled")
+
+        self.log("--- Scanning images/ directory for page folders ---")
+        folder_map = self.discover_image_folders()
+
+        if not folder_map:
+            self.log("[INFO] No matching HTML and image folder pairs found.")
             return
 
-        self.log(f"Discovered {len(matches)} folder-to-HTML pairings:")
-        for html_file, folder in matches.items():
-            self.log(f"  • {folder}  ==>  {html_file}")
+        for html_file, rel_img_dir in folder_map.items():
+            self.log(f"  • {rel_img_dir}  ==>  {html_file}")
+
         self.log("")
+        updated_count = 0
+        valid_extensions = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 
-        total_updated = 0
-        for html_filename, img_folder_path in matches.items():
-            full_html_path = os.path.join(self.base_dir, html_filename)
-            full_img_folder = os.path.join(self.base_dir, img_folder_path)
+        for html_file, rel_img_dir in folder_map.items():
+            html_path = os.path.join(self.base_dir, html_file)
+            img_dir_path = os.path.join(self.base_dir, rel_img_dir)
 
-            images = sorted([
-                f for f in os.listdir(full_img_folder)
-                if os.path.splitext(f)[1].lower() in VALID_EXTENSIONS
-            ])
-
-            with open(full_html_path, "r", encoding="utf-8") as f:
-                soup = BeautifulSoup(f.read(), "html.parser")
-
-            gallery_div = soup.find(id="gallery")
-            if not gallery_div:
-                self.log(f"[SKIP] <div id='gallery'></div> missing in {html_filename}")
+            try:
+                with open(html_path, "r", encoding="utf-8") as f:
+                    soup = BeautifulSoup(f.read(), "html.parser")
+            except Exception as e:
+                self.log(f"[ERROR] Could not read {html_file}: {e}")
                 continue
 
-            gallery_div.clear()
-            for img_filename in images:
-                rel_img_path = f"{img_folder_path}/{img_filename}"
-                clean_alt = os.path.splitext(img_filename)[0].replace("-", " ").replace("_", " ").capitalize()
+            # Target gallery container without touching sibling text elements
+            container = soup.find(id="image-grid-container") or soup.find(id="gallery")
 
-                img_tag = soup.new_tag("img", **{
-                    "src": rel_img_path,
-                    "alt": clean_alt,
-                    "loading": "lazy"
-                })
-                gallery_div.append(img_tag)
+            if not container:
+                self.log(f"[SKIP] No valid gallery container in {html_file}")
+                continue
 
-            with open(full_html_path, "w", encoding="utf-8") as f:
-                f.write(soup.prettify())
+            container["id"] = "image-grid-container"
+            container.clear()
 
-            self.log(f"[SUCCESS] {html_filename} updated with {len(images)} images.")
-            total_updated += 1
+            try:
+                image_files = sorted(
+                    [
+                        f
+                        for f in os.listdir(img_dir_path)
+                        if os.path.splitext(f)[1].lower() in valid_extensions
+                    ],
+                    reverse=True,
+                )
+            except Exception as e:
+                self.log(f"[ERROR] Could not read directory {rel_img_dir}: {e}")
+                continue
 
-        self.log(f"\n--- Batch Sync Finished: {total_updated} page(s) updated ---\n")
+            for img_file in image_files:
+                img_rel_path = f"{rel_img_dir}/{img_file}"
+                alt_text = self.clean_alt_text(img_file)
+                img_tag = self.create_img_tag(soup, img_rel_path, alt_text)
+                container.append(img_tag)
+                container.append("\n                ")
+
+            if container.contents:
+                container.contents[-1] = "\n            "
+
+            try:
+                with open(html_path, "w", encoding="utf-8") as f:
+                    f.write(str(soup))
+                self.log(
+                    f"[SUCCESS] {html_file} updated with {len(image_files)} images from '{rel_img_dir}'."
+                )
+                updated_count += 1
+            except Exception as e:
+                self.log(f"[ERROR] Could not write updates to {html_file}: {e}")
+
+        self.log(f"\n--- Batch Sync Completed: {updated_count} file(s) updated ---")
+
 
 if __name__ == "__main__":
-    app = AutoGallerySyncApp()
+    app = ImageSyncApp()
     app.mainloop()
