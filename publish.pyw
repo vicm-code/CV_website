@@ -72,11 +72,11 @@ class PortfolioUpdater(ctk.CTk):
         btn_container = ctk.CTkFrame(self.bottom_frame, fg_color="transparent")
         btn_container.pack(pady=10)
 
-        ctk.CTkButton(btn_container, text="Update 'Illustraties'", fg_color="#1f6aa5", 
-                      command=lambda: self.update_files(["portfolio.html", "index.html"])).pack(side="left", padx=5)
+        ctk.CTkButton(btn_container, text="Update 'Portfolio'", fg_color="#1f6aa5",
+                      command=lambda: self.update_files(["index.html"])).pack(side="left", padx=5)
         
         ctk.CTkButton(btn_container, text="Update 'Schetsen'", fg_color="#2c3e50", 
-                      command=lambda: self.update_files(["schetsen.html"])).pack(side="left", padx=5)
+                      command=lambda: self.update_files(["schetsen/index.html"])).pack(side="left", padx=5)
         
         ctk.CTkButton(btn_container, text="Generate & Copy Code", fg_color="#00774f", hover_color="#005c3d",
                       command=self.generate_and_copy).pack(side="left", padx=5)
@@ -130,14 +130,15 @@ class PortfolioUpdater(ctk.CTk):
         self.refresh_selected_ui(); self.selected_listbox.selection_set(index)
 
     def get_path_prefix(self):
-        if not self.img_dir: return "images/projecten/unknown/"
-        # Logic to find path relative to 'images' or just use folder name
-        folder_name = os.path.basename(self.img_dir)
-        # If the parent is 'projecten', it builds 'images/projecten/name/'
-        parent_name = os.path.basename(os.path.dirname(self.img_dir))
-        if parent_name == "projecten":
-            return f"images/projecten/{folder_name}/"
-        return f"images/{folder_name}/"
+        if not self.img_dir:
+            return "/images/"
+        try:
+            relative_dir = os.path.relpath(self.img_dir, self.html_dir)
+        except ValueError:
+            return f"/images/{os.path.basename(self.img_dir)}/"
+        if relative_dir == os.pardir or relative_dir.startswith(os.pardir + os.sep):
+            return f"/images/{os.path.basename(self.img_dir)}/"
+        return "/" + relative_dir.replace("\\", "/").strip("/") + "/"
 
     def generate_and_copy(self):
         if not self.selected_images:

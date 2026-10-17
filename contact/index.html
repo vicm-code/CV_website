@@ -10,69 +10,68 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
-    <link rel="manifest" href="favicon/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="../favicon/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="manifest" href="../favicon/site.webmanifest">
 
     <!-- SEO -->
     <meta name="description"
         content="Neem contact op met illustrator Charlotte Vandeputte voor opdrachten, geboortekaartjes, schilderijen of samenwerkingen.">
     <meta name="author" content="Charlotte Vandeputte">
-    <link rel="canonical" href="https://charlottevandeputte.com/contact.html">
+    <link rel="canonical" href="https://charlottevandeputte.com/contact/">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Contact – Charlotte Vandeputte">
     <meta property="og:description"
         content="Neem contact op met illustrator Charlotte Vandeputte voor creatieve samenwerkingen en opdrachten.">
-    <meta property="og:image" content="images/other/pf1.jpg">
-    <meta property="og:url" content="https://charlottevandeputte.com/contact.html">
+    <meta property="og:image" content="https://charlottevandeputte.com/images/other/pf1.jpg">
+    <meta property="og:url" content="https://charlottevandeputte.com/contact/">
     <meta property="og:type" content="website">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Contact – Charlotte Vandeputte">
     <meta name="twitter:description" content="Stuur een bericht voor illustraties, projecten of vragen.">
-    <meta name="twitter:image" content="images/other/pf1.jpg">
+    <meta name="twitter:image" content="https://charlottevandeputte.com/images/other/pf1.jpg">
 </head>
 
 <body>
 
     <nav class="sidebar" aria-label="Hoofdnavigatie">
-        <a href="./" class="logo-link">
-            <img src="images/menu/cvdp2.png" alt="Charlotte Vandeputte Logo" class="sidebar-logo">
+        <a href="../" class="logo-link">
+            <img src="../images/menu/cvdp2.png" alt="Charlotte Vandeputte Logo" class="sidebar-logo">
         </a>
 
         <div class="mobile-name">Charlotte Vandeputte</div>
         <button class="menu-toggle" aria-label="Menu openen" aria-expanded="false">
             <span></span>
             <span></span>
-            <span></span>
         </button>
 
         <ul class="nav-links">
-            <li><a href="./"><span>Portfolio</span></a></li>
-            <li><a href="schetsen.html"><span>Schetsen</span></a></li>
-            <li><a href="projecten.html"><span>Projecten</span></a></li>
-            <li><a href="over-mij.html"><span>Over mij</span></a></li>
-            <li class="active"><a href="contact.html"><span>Contact</span></a></li>
+            <li><a href="../"><span>Portfolio</span></a></li>
+            <li><a href="../schetsen/"><span>Schetsen</span></a></li>
+            <li><a href="../projecten/"><span>Projecten</span></a></li>
+            <li><a href="../over-mij/"><span>Over mij</span></a></li>
+            <li class="active"><a href="./"><span>Contact</span></a></li>
         </ul>
 
         <div class="social-links">
             <a href="mailto:vandeputtecharlotte@outlook.com" target="_blank" aria-label="E-mail sturen">
-                <img src="images/icons/mail.png" alt="Email icon">
+                <img src="../images/icons/mail.png" alt="Email icon">
             </a>
             <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank" rel="noopener"
                 aria-label="LinkedIn Profiel">
-                <img src="images/icons/linkedin.png" alt="LinkedIn icon">
+                <img src="../images/icons/linkedin.png" alt="LinkedIn icon">
             </a>
             <a href="https://www.instagram.com/charlotteillustratie" target="_blank" rel="noopener"
                 aria-label="Instagram Profiel">
-                <img src="images/icons/instagram.png" alt="Instagram icon">
+                <img src="../images/icons/instagram.png" alt="Instagram icon">
             </a>
         </div>
     </nav>
@@ -95,35 +94,6 @@
                     </p>
                 </div>
 
-                <form class="contact-form" action="https://formsubmit.co/vandeputtecharlotte@outlook.com" method="POST">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
-
-                    <div class="form-group">
-                        <label for="name">Naam:</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="email">E-mail:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Bericht:</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-
-                    <button type="submit" class="submit-button">Verstuur</button>
-
-                    <p id="form-sending" style="display:none; margin-top:1rem; color: #666;">
-                        Een moment, je bericht wordt verzonden...
-                    </p>
-
-                    <p id="form-success" style="display:none; margin-top:1rem; font-weight: bold;">
-                        Bedankt voor je bericht :)<br>Ik bekijk het zo snel mogelijk.
-                    </p>
-                </form>
             </div>
         </main>
 
@@ -132,7 +102,7 @@
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="../script.js"></script>
 </body>
 
 </html>

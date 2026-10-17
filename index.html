@@ -54,18 +54,18 @@
     <meta content="Charlotte Vandeputte | Illustrator" property="og:title" />
     <meta content="Digitale illustraties, schetsen &amp; creatieve projecten van illustrator Charlotte Vandeputte."
         property="og:description" />
-    <meta content="images/other/pf1.jpg" property="og:image" />
+    <meta content="https://charlottevandeputte.com/images/other/pf1.jpg" property="og:image" />
     <meta content="https://charlottevandeputte.com/" property="og:url" />
     <meta content="website" property="og:type" />
     <meta content="summary_large_image" name="twitter:card" />
     <meta content="Charlotte Vandeputte" name="twitter:title" />
     <meta content="Digitale illustraties en kunst." name="twitter:description" />
-    <meta content="images/other/pf1.jpg" name="twitter:image" />
+    <meta content="https://charlottevandeputte.com/images/other/pf1.jpg" name="twitter:image" />
 </head>
 
 <body>
     <nav aria-label="Hoofdnavigatie" class="sidebar">
-        <a class="logo-link" href="index.html">
+        <a class="logo-link" href="./">
             <img alt="Charlotte Vandeputte Logo" class="sidebar-logo" src="images/menu/cvdp2.png" />
         </a>
         <div class="mobile-name">
@@ -76,40 +76,38 @@
             </span>
             <span>
             </span>
-            <span>
-            </span>
         </button>
         <ul class="nav-links">
             <li class="active">
-                <a href="index.html">
+                <a href="./">
                     <span>
                         Portfolio
                     </span>
                 </a>
             </li>
             <li>
-                <a href="schetsen.html">
+                <a href="schetsen/">
                     <span>
                         Schetsen
                     </span>
                 </a>
             </li>
             <li>
-                <a href="projecten.html">
+                <a href="projecten/">
                     <span>
                         Projecten
                     </span>
                 </a>
             </li>
             <li>
-                <a href="over-mij.html">
+                <a href="over-mij/">
                     <span>
                         Over mij
                     </span>
                 </a>
             </li>
             <li>
-                <a href="contact.html">
+                <a href="contact/">
                     <span>
                         Contact
                     </span>
@@ -238,7 +236,7 @@
             </p>
         </footer>
     </div>
-    <div aria-hidden="true" aria-modal="true" class="lightbox" id="lightbox" role="dialog">
+    <dialog aria-label="Afbeelding vergroten" class="lightbox" id="lightbox">
         <button aria-label="Sluiten" class="lightbox-close">
             <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewbox="0 0 24 24" width="20">
@@ -251,7 +249,9 @@
         <button aria-label="Vorige afbeelding" class="lightbox-nav lightbox-prev">
             <svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewbox="0 0 24 24" width="22">
-                <polyline points="15 18 9 12 15 6">
+                <line x1="19" y1="12" x2="5" y2="12">
+                </line>
+                <polyline points="12 5 5 12 12 19">
                 </polyline>
             </svg>
         </button>
@@ -259,11 +259,13 @@
         <button aria-label="Volgende afbeelding" class="lightbox-nav lightbox-next">
             <svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" viewbox="0 0 24 24" width="22">
-                <polyline points="9 18 15 12 9 6">
+                <line x1="5" y1="12" x2="19" y2="12">
+                </line>
+                <polyline points="12 5 19 12 12 19">
                 </polyline>
             </svg>
         </button>
-    </div>
+    </dialog>
     <script src="script.js">
     </script>
 </body>

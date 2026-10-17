@@ -1,10 +1,16 @@
+DirectoryIndex index.html
 RewriteEngine On
 
-# Redirect /page.html to /page
-RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
-RewriteRule ^ /%1 [R=301,L]
-
-# Resolve /page request to /page.html internally
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.html -f
-RewriteRule ^ %{REQUEST_URI}.html [L]
+RewriteRule ^index\.html$ / [R=301,L]
+RewriteRule ^boeken/?$ /projecten/boeken/ [R=301,L]
+RewriteRule ^boeken\.html$ /projecten/boeken/ [R=301,L]
+RewriteRule ^schilderijen/?$ /projecten/schilderijen/ [R=301,L]
+RewriteRule ^schilderijen\.html$ /projecten/schilderijen/ [R=301,L]
+RewriteRule ^tour_elentrik/?$ /projecten/tour_elentrik/ [R=301,L]
+RewriteRule ^tour_elentrik\.html$ /projecten/tour_elentrik/ [R=301,L]
+RewriteRule ^kuleuven_muurschildering/?$ /projecten/kuleuven_muurschildering/ [R=301,L]
+RewriteRule ^kuleuven_muurschildering\.html$ /projecten/kuleuven_muurschildering/ [R=301,L]
+RewriteRule ^projecten\.html$ /projecten/ [R=301,L]
+RewriteRule ^schetsen\.html$ /schetsen/ [R=301,L]
+RewriteRule ^over-mij\.html$ /over-mij/ [R=301,L]
+RewriteRule ^contact\.html$ /contact/ [R=301,L]

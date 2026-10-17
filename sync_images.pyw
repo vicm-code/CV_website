@@ -18,20 +18,32 @@ GALLERY_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
 METADATA_EXTENSIONS = GALLERY_EXTENSIONS | {".tif", ".tiff", ".bmp"}
 GALLERY_ID = "image-grid-container"
 PAGE_IMAGE_FOLDERS = {
-    "index.html": "images/index",
-    "boeken.html": "images/boeken",
-    "kuleuven_muurschildering.html": "images/kuleuven_muurschildering",
-    "schetsen.html": "images/schetsen",
-    "schilderijen.html": "images/schilderijen",
-    "tour_elentrik.html": "images/tour_elentrik",
+    "/": ("index.html", "images/index"),
+    "/schetsen/": ("schetsen/index.html", "schetsen/images"),
+    "/projecten/": ("projecten/index.html", "projecten/images"),
+    "/projecten/boeken/": ("projecten/boeken/index.html", "projecten/boeken/images"),
+    "/projecten/schilderijen/": (
+        "projecten/schilderijen/index.html",
+        "projecten/schilderijen/images",
+    ),
+    "/projecten/tour_elentrik/": (
+        "projecten/tour_elentrik/index.html",
+        "projecten/tour_elentrik/images",
+    ),
+    "/projecten/kuleuven_muurschildering/": (
+        "projecten/kuleuven_muurschildering/index.html",
+        "projecten/kuleuven_muurschildering/images",
+    ),
+    "/over-mij/": ("over-mij/index.html", "over-mij/images"),
+    "/contact/": ("contact/index.html", "contact/images"),
 }
 PROJECT_THUMBNAILS = {
-    "Schilderijen": ("schilderijen.html", "images/schilderijen"),
-    "Boeken": ("boeken.html", "images/boeken"),
-    "Tour Elentrik": ("tour_elentrik.html", "images/tour_elentrik"),
+    "Schilderijen": ("/projecten/schilderijen/", "projecten/schilderijen/images"),
+    "Boeken": ("/projecten/boeken/", "projecten/boeken/images"),
+    "Tour Elentrik": ("/projecten/tour_elentrik/", "projecten/tour_elentrik/images"),
     "KU Leuven Muurschildering": (
-        "kuleuven_muurschildering.html",
-        "images/kuleuven_muurschildering",
+        "/projecten/kuleuven_muurschildering/",
+        "projecten/kuleuven_muurschildering/images",
     ),
 }
 
@@ -138,6 +150,7 @@ class ImageSyncApp(ctk.CTk):
         self.current_page = ""
         self.project_images = {}
         self.thumbnail_dirty = False
+        self.pending_thumbnails = {}
         self.info_visible = False
 
         self.create_widgets()
@@ -272,7 +285,7 @@ class ImageSyncApp(ctk.CTk):
         thumbnail_frame.grid_columnconfigure(3, weight=1)
         ctk.CTkLabel(
             thumbnail_frame,
-            text="Project-card thumbnail (projecten.html)",
+            text="Project-card thumbnail (/projecten/)",
             font=ctk.CTkFont(weight="bold"),
         ).grid(row=0, column=0, columnspan=4, padx=12, pady=(9, 5), sticky="w")
         ctk.CTkLabel(thumbnail_frame, text="Project:").grid(
@@ -348,7 +361,7 @@ class ImageSyncApp(ctk.CTk):
 
     def load_gallery_pages(self):
         pages = []
-        for page in PAGE_IMAGE_FOLDERS:
+        for route, (page, _image_folder) in PAGE_IMAGE_FOLDERS.items():
             path = os.path.join(self.base_dir, page)
             try:
                 with open(path, "r", encoding="utf-8") as html_file:
@@ -357,7 +370,7 @@ class ImageSyncApp(ctk.CTk):
                 self.set_status(f"Could not read {page}: {error}")
                 continue
             if self.find_gallery_container(soup):
-                pages.append(page)
+                pages.append(route)
 
         if not pages:
             self.page_menu.configure(values=["No matching galleries"])
@@ -365,9 +378,7 @@ class ImageSyncApp(ctk.CTk):
             self.set_status(f"No pages contain div.image-grid#{GALLERY_ID}.")
             return
 
-        self.gallery_pages = {
-            page: PAGE_IMAGE_FOLDERS[page] for page in pages
-        }
+        self.gallery_pages = {route: PAGE_IMAGE_FOLDERS[route][1] for route in pages}
         self.page_menu.configure(values=pages)
         self.page_menu.set(pages[0])
         self.current_page = pages[0]
@@ -376,8 +387,9 @@ class ImageSyncApp(ctk.CTk):
         self.load_project_thumbnail_options(next(iter(PROJECT_THUMBNAILS)))
 
     def load_gallery(self, page):
+        html_path = os.path.join(self.base_dir, PAGE_IMAGE_FOLDERS[page][0])
         try:
-            with open(os.path.join(self.base_dir, page), "r", encoding="utf-8") as f:
+            with open(html_path, "r", encoding="utf-8") as f:
                 soup = BeautifulSoup(f.read(), "html.parser")
         except (OSError, UnicodeError) as error:
             self.set_status(f"Could not read {page}: {error}")
@@ -487,9 +499,9 @@ class ImageSyncApp(ctk.CTk):
                     if temp_path and os.path.exists(temp_path):
                         os.remove(temp_path)
 
-            relative_path = os.path.relpath(target_path, self.base_dir).replace(
-                "\\", "/"
-            )
+            relative_path = "/" + os.path.relpath(
+                target_path, self.base_dir
+            ).replace("\\", "/")
             if relative_path in existing_sources:
                 continue
 
@@ -582,7 +594,7 @@ class ImageSyncApp(ctk.CTk):
     def save_gallery(self):
         if not self.current_page:
             return False
-        path = os.path.join(self.base_dir, self.current_page)
+        path = os.path.join(self.base_dir, PAGE_IMAGE_FOLDERS[self.current_page][0])
         temp_path = None
         try:
             with open(path, "r", encoding="utf-8") as html_file:
@@ -618,21 +630,16 @@ class ImageSyncApp(ctk.CTk):
         return True
 
     def change_project_thumbnail(self, project):
-        if self.thumbnail_dirty and not self.save_project_thumbnail():
-            self.project_menu.set(self.current_project)
-            return
         self.load_project_thumbnail_options(project)
 
     def load_project_thumbnail_options(self, project):
         self.current_project = project
         page, image_folder = PROJECT_THUMBNAILS[project]
-        html_path = os.path.join(self.base_dir, "projecten.html")
+        html_path = os.path.join(self.base_dir, "projecten", "index.html")
         try:
             with open(html_path, "r", encoding="utf-8") as html_file:
                 soup = BeautifulSoup(html_file.read(), "html.parser")
-            link = soup.find("a", href=page, class_="project-link")
-            wrapper = link.find("div", class_="project-image-wrapper") if link else None
-            card_image = wrapper.find("img") if wrapper else None
+            card_image = self.find_project_card_image(soup, page)
             if not card_image:
                 raise ValueError(f"Could not find the project card for {project}.")
             self.current_thumbnail_src = card_image.get("src", "")
@@ -664,16 +671,28 @@ class ImageSyncApp(ctk.CTk):
         if not options:
             options = ["No images found"]
         self.thumbnail_menu.configure(values=options)
-        self.thumbnail_menu.set(
-            self.current_thumbnail_src
-            if self.current_thumbnail_src in options
-            else options[0]
-        )
-        self.thumbnail_dirty = False
+        selected = self.pending_thumbnails.get(project, self.current_thumbnail_src)
+        if selected not in options:
+            selected = options[0]
+        self.thumbnail_menu.set(selected)
+        self.thumbnail_dirty = selected != self.current_thumbnail_src
         self.set_status(f"Choose a thumbnail image for {project}.")
+
+    @staticmethod
+    def find_project_card_image(soup, route):
+        for link in soup.find_all("a", class_="project-link", href=True):
+            href = "/" + link["href"].strip("/") + "/"
+            if href != route:
+                continue
+            wrapper = link.find("div", class_="project-image-wrapper")
+            image = wrapper.find("img") if wrapper else None
+            if image:
+                return image
+        return None
 
     def select_thumbnail_image(self, source):
         if source != "No images found":
+            self.pending_thumbnails[self.current_project] = source
             self.thumbnail_dirty = source != self.current_thumbnail_src
 
     def save_project_thumbnail(self):
@@ -681,15 +700,13 @@ class ImageSyncApp(ctk.CTk):
         if not source or source == "No images found":
             self.set_status("No thumbnail image is selected.")
             return False
-        page, _ = PROJECT_THUMBNAILS[self.current_project]
-        path = os.path.join(self.base_dir, "projecten.html")
+        route, _ = PROJECT_THUMBNAILS[self.current_project]
+        path = os.path.join(self.base_dir, "projecten", "index.html")
         temp_path = None
         try:
             with open(path, "r", encoding="utf-8") as html_file:
                 soup = BeautifulSoup(html_file.read(), "html.parser")
-            link = soup.find("a", href=page, class_="project-link")
-            wrapper = link.find("div", class_="project-image-wrapper") if link else None
-            image = wrapper.find("img") if wrapper else None
+            image = self.find_project_card_image(soup, route)
             if not image:
                 raise ValueError(f"Could not find the project card for {self.current_project}.")
             image["src"] = source
@@ -708,11 +725,14 @@ class ImageSyncApp(ctk.CTk):
 
         self.current_thumbnail_src = source
         self.thumbnail_dirty = False
-        self.set_status(f"Saved {self.current_project} thumbnail to projecten.html.")
+        self.pending_thumbnails[self.current_project] = source
+        self.set_status(
+            f"Saved {self.current_project} thumbnail to /projecten/."
+        )
         return True
 
     def relative_site_path(self, path):
-        return os.path.relpath(path, self.base_dir).replace("\\", "/")
+        return "/" + os.path.relpath(path, self.base_dir).replace("\\", "/")
 
     def close_app(self):
         if self.gallery_dirty and not self.save_gallery():

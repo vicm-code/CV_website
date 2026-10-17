@@ -4,7 +4,6 @@
    - Masonry grid (3 columns desktop / 1 column mobile) + lazy loading
    - Lightbox (desktop) + accessibility (aria attributes)
    - Projects detail view
-   - Contact form (FormSubmit.co)
    - Mobile menu, scroll-hide sidebar, clickable logo, body scroll-lock
    - Artwork protection (right-click, drag, save shortcut, printscreen)
    =================================================================== */
@@ -36,15 +35,21 @@ function generateAltText(src) {
    Active navigation
    ------------------------- */
 function setActiveNav() {
-    const pageOf = href => (href || '').split('/').pop() || 'index.html';
-    const projectPages = ['kuleuven_muurschildering.html', 'boeken.html', 'schilderijen.html', 'tour_elentrik.html'];
+    if (window.location.protocol === 'file:') return;
 
-    const current = pageOf(window.location.pathname);
-    const target = projectPages.includes(current) ? 'projecten.html' : current;
+    const normalizePath = path => {
+        const normalized = `/${(path || '').split('/').filter(Boolean).join('/')}`;
+        return normalized === '/' ? normalized : `${normalized}/`;
+    };
+    const current = normalizePath(window.location.pathname);
+    const target = current.startsWith('/projecten/') && current !== '/projecten/'
+        ? '/projecten/'
+        : current;
 
     document.querySelectorAll('.nav-links li').forEach(li => {
         const link = li.querySelector('a');
-        li.classList.toggle('active', !!link && pageOf(link.getAttribute('href')) === target);
+        const linkPath = link ? normalizePath(new URL(link.href, window.location.origin).pathname) : '';
+        li.classList.toggle('active', !!link && linkPath === target);
     });
 }
 
@@ -81,18 +86,14 @@ function showLightboxImage() {
 }
 
 function openLightbox(index = 0) {
-    if (!lightbox || !lightboxImage) return;
+    if (!lightbox || !lightboxImage || lightbox.open) return;
     currentIndex = index;
-    lightbox.classList.add('active');
-    lightbox.setAttribute('aria-hidden', 'false');
     showLightboxImage();
+    lightbox.showModal();
 }
 
 function closeLightbox() {
-    if (lightbox) {
-        lightbox.classList.remove('active');
-        lightbox.setAttribute('aria-hidden', 'true');
-    }
+    if (lightbox?.open) lightbox.close();
 }
 
 function stepLightbox(direction) {
@@ -102,7 +103,7 @@ function stepLightbox(direction) {
 }
 
 function initLightbox() {
-    if (!lightbox || !lightboxImage) return;
+    if (!lightbox || !lightboxImage || typeof lightbox.showModal !== 'function') return;
 
     lightbox.querySelector('.lightbox-close')?.addEventListener('click', closeLightbox);
     lightbox.querySelector('.lightbox-prev')?.addEventListener('click', () => stepLightbox(-1));
@@ -113,8 +114,11 @@ function initLightbox() {
     });
 
     document.addEventListener('keydown', e => {
-        if (!lightbox.classList.contains('active')) return;
-        if (e.key === 'Escape') closeLightbox();
+        if (!lightbox.open) return;
+        if (e.key === 'Escape') {
+            closeLightbox();
+            return;
+        }
         if (e.key === 'ArrowRight') stepLightbox(1);
         if (e.key === 'ArrowLeft') stepLightbox(-1);
     });
@@ -223,69 +227,12 @@ function setupProjectDetails() {
 }
 
 /* -------------------------
-   Contact form
-   ------------------------- */
-function setupContactForm() {
-    const form = document.querySelector('.contact-form');
-    if (!form) return;
-
-    const sendingMsg = document.getElementById('form-sending');
-    const successMsg = document.getElementById('form-success');
-    const submitBtn = form.querySelector('button[type="submit"]');
-
-    const show = (el, visible) => { if (el) el.style.display = visible ? 'block' : 'none'; };
-    const setBusy = busy => {
-        if (!submitBtn) return;
-        submitBtn.disabled = busy;
-        submitBtn.style.opacity = busy ? '0.6' : '1';
-        submitBtn.textContent = busy ? 'Verzenden...' : 'Verstuur';
-    };
-
-    form.addEventListener('submit', async e => {
-        e.preventDefault();
-        show(sendingMsg, true);
-        show(successMsg, false);
-        setBusy(true);
-
-        try {
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: { 'Accept': 'application/json' }
-            });
-            show(sendingMsg, false);
-
-            if (response.ok) {
-                form.reset();
-                show(successMsg, true);
-            } else {
-                alert('Oeps, er ging iets mis bij de server. Probeer het later opnieuw.');
-            }
-        } catch (err) {
-            show(sendingMsg, false);
-            alert('Er ging iets mis met de verbinding: ' + err.message);
-        } finally {
-            setBusy(false);
-        }
-    });
-}
-
-/* -------------------------
    Sidebar: Menu toggle, logo, scroll-hide (Mobile)
    ------------------------- */
 function setupSidebar() {
     const sidebar = document.querySelector('.sidebar');
-    const logo = document.querySelector('.sidebar-logo');
     const toggle = document.querySelector('.menu-toggle');
     const links = document.querySelector('.nav-links');
-
-    // Clickable logo handler
-    if (logo) {
-        logo.style.cursor = 'pointer';
-        logo.addEventListener('click', () => {
-            window.location.href = 'index.html';
-        });
-    }
 
     // Mobile menu toggle & Body Scroll Lock
     if (toggle && links) {
@@ -342,6 +289,18 @@ function setupSidebar() {
     });
 }
 
+function setupLocalDirectoryLinks() {
+    if (window.location.protocol !== 'file:') return;
+
+    document.querySelectorAll('a[href]').forEach(link => {
+        const target = new URL(link.href, document.baseURI);
+        if (target.protocol !== 'file:' || !target.pathname.endsWith('/')) return;
+
+        target.pathname += 'index.html';
+        link.href = target.href;
+    });
+}
+
 /* -------------------------
    Artwork protection
    ------------------------- */
@@ -361,11 +320,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+    setupLocalDirectoryLinks();
     setActiveNav();
     initGrid();
     initLightbox();
     setupProjectDetails();
-    setupContactForm();
     setupSidebar();
     enableArtworkProtection();
 });
