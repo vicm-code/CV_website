@@ -1,122 +1,113 @@
 <!DOCTYPE html>
+
 <html lang="nl">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projecten – Charlotte Vandeputte</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="../style.css">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../favicon/favicon.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
-    <link rel="manifest" href="../favicon/site.webmanifest">
-
-    <!-- SEO -->
-    <meta name="description"
-        content="Creatieve projecten, boeken en muurschilderingen van illustrator Charlotte Vandeputte.">
-    <link rel="canonical" href="https://charlottevandeputte.com/projecten/">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Projecten – Charlotte Vandeputte</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="../style.css" rel="stylesheet"/>
+<!-- Favicon -->
+<link href="../favicon/favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="../favicon/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="../favicon/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="../favicon/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="../favicon/site.webmanifest" rel="manifest"/>
+<!-- SEO -->
+<meta content="Creatieve projecten, boeken en muurschilderingen van illustrator Charlotte Vandeputte." name="description"/>
+<link href="https://charlottevandeputte.com/projecten/" rel="canonical"/>
 </head>
-
 <body>
-
-    <nav class="sidebar" aria-label="Hoofdnavigatie">
-        <a href="../" class="logo-link">
-            <img src="../images/menu/cvdp2.png" alt="Charlotte Vandeputte Logo" class="sidebar-logo">
-        </a>
-
-        <div class="mobile-name">Charlotte Vandeputte</div>
-        <button class="menu-toggle" aria-label="Menu openen" aria-expanded="false">
-            <span></span>
-            <span></span>
-        </button>
-
-        <ul class="nav-links">
-            <li><a href="../"><span>Portfolio</span></a></li>
-            <li><a href="../schetsen/"><span>Schetsen</span></a></li>
-            <li class="active"><a href="./"><span>Projecten</span></a></li>
-            <li><a href="../over-mij/"><span>Over mij</span></a></li>
-            <li><a href="../contact/"><span>Contact</span></a></li>
-        </ul>
-
-        <div class="social-links">
-            <a href="mailto:vandeputtecharlotte@outlook.com" target="_blank" aria-label="E-mail sturen">
-                <img src="../images/icons/mail.png" alt="Email icon">
-            </a>
-            <a href="https://www.linkedin.com/in/charlottevandeputte" target="_blank" rel="noopener"
-                aria-label="LinkedIn Profiel">
-                <img src="../images/icons/linkedin.png" alt="LinkedIn icon">
-            </a>
-            <a href="https://www.instagram.com/charlotteillustratie" target="_blank" rel="noopener"
-                aria-label="Instagram Profiel">
-                <img src="../images/icons/instagram.png" alt="Instagram icon">
-            </a>
-        </div>
-    </nav>
-
-    <div class="main-container">
-        <main class="content">
-
-            <div class="projects-grid">
-
-                <!-- Schilderijen -->
-                <div class="project-item">
-                    <a href="schilderijen/" class="project-link">
-                        <div class="project-image-wrapper">
-                            <img src="schilderijen/images/preview.webp" alt="Schilderijen van Charlotte Vandeputte">
-                        </div>
-                        <h3>Schilderijen</h3>
-                    </a>
-                </div>
-
-                <!-- Boeken -->
-                <div class="project-item">
-                    <a href="boeken/" class="project-link">
-                        <div class="project-image-wrapper">
-                            <img src="boeken/images/preview.webp" alt="Geïllustreerde boeken van Charlotte Vandeputte">
-                        </div>
-                        <h3>Boeken</h3>
-                    </a>
-                </div>
-
-                <!-- Tour Elentrik -->
-                <div class="project-item">
-                    <a href="tour_elentrik/" class="project-link">
-                        <div class="project-image-wrapper">
-                            <img src="tour_elentrik/images/preview.webp" alt="Tour Elentrik straatkunst project">
-                        </div>
-                        <h3>Tour Elentrik</h3>
-                    </a>
-                </div>
-
-                <!-- KULeuven muurschildering -->
-                <div class="project-item">
-                    <a href="kuleuven_muurschildering/" class="project-link">
-                        <div class="project-image-wrapper">
-                            <img src="kuleuven_muurschildering/images/preview.webp" alt="KU Leuven muurschildering">
-                        </div>
-                        <h3>KU Leuven Muurschildering</h3>
-                    </a>
-                </div>
-
-            </div>
-
-        </main>
-
-        <footer class="site-footer">
-            <p>&copy; <span id="year"></span> Charlotte Vandeputte</p>
-        </footer>
+<nav aria-label="Hoofdnavigatie" class="sidebar">
+<a class="logo-link" href="../">
+<img alt="Charlotte Vandeputte Logo" class="sidebar-logo" src="../images/menu/cvdp2.png"/>
+</a>
+<div class="mobile-name">Charlotte Vandeputte</div>
+<button aria-expanded="false" aria-label="Menu openen" class="menu-toggle">
+<span></span>
+<span></span>
+</button>
+<ul class="nav-links">
+    <li><a href="../"><span>Portfolio</span></a></li>
+    <li class="active"><a href="./"><span>Projecten</span></a></li>
+    <li><a href="../schetsen/"><span>Schetsen</span></a></li>
+    <li><a href="../over-mij/"><span>Over mij</span></a></li>
+    <li><a href="../contact/"><span>Contact</span></a></li>
+</ul>
+<div class="social-links">
+<a aria-label="E-mail sturen" href="mailto:vandeputtecharlotte@outlook.com" target="_blank">
+<img alt="Email icon" src="../images/icons/mail.png"/>
+</a>
+<a aria-label="LinkedIn Profiel" href="https://www.linkedin.com/in/charlottevandeputte" rel="noopener" target="_blank">
+<img alt="LinkedIn icon" src="../images/icons/linkedin.png"/>
+</a>
+<a aria-label="Instagram Profiel" href="https://www.instagram.com/charlotteillustratie" rel="noopener" target="_blank">
+<img alt="Instagram icon" src="../images/icons/instagram.png"/>
+</a>
+</div>
+</nav>
+<div class="main-container">
+<main class="content">
+<div class="projects-grid">
+    <div class="project-item">
+     <a class="project-link" href="schilderijen/">
+      <div class="project-image-wrapper">
+       <img alt="Schilderijen van Charlotte Vandeputte" src="schilderijen/images/preview.webp"/>
+      </div>
+      <h3>
+       Schilderijen
+      </h3>
+     </a>
     </div>
-
-    <script src="../script.js"></script>
+    <div class="project-item">
+     <a class="project-link" href="geboortekaartjes/">
+      <div class="project-image-wrapper">
+       <img alt="Geboortekaartjes project thumbnail" src="geboortekaartjes/images/Geboortekaartje_foto_2024.webp"/>
+      </div>
+      <h3>
+       Geboortekaartjes
+      </h3>
+     </a>
+    </div>
+    <div class="project-item">
+     <a class="project-link" href="boeken/">
+      <div class="project-image-wrapper">
+       <img alt="Geïllustreerde boeken van Charlotte Vandeputte" src="boeken/images/preview.webp"/>
+      </div>
+      <h3>
+       Boeken
+      </h3>
+     </a>
+    </div>
+    <div class="project-item">
+     <a class="project-link" href="kuleuven_muurschildering/">
+      <div class="project-image-wrapper">
+       <img alt="KU Leuven muurschildering" src="kuleuven_muurschildering/images/preview.webp"/>
+      </div>
+      <h3>
+       KU Leuven Muurschildering
+      </h3>
+     </a>
+    </div>
+    <div class="project-item">
+     <a class="project-link" href="tour_elentrik/">
+      <div class="project-image-wrapper">
+       <img alt="Tour Elentrik straatkunst project" src="tour_elentrik/images/preview.webp"/>
+      </div>
+      <h3>
+       Tour Elentrik
+      </h3>
+     </a>
+    </div>
+</div>
+</main>
+<footer class="site-footer">
+<p>© <span id="year"></span> Charlotte Vandeputte</p>
+</footer>
+</div>
+<script src="../script.js"></script>
 </body>
-
 </html>

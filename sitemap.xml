@@ -36,4 +36,8 @@
         <loc>https://charlottevandeputte.com/contact/</loc>
         <priority>0.50</priority>
     </url>
+    <url>
+        <loc>https://charlottevandeputte.com/projecten/geboortekaartjes/</loc>
+        <priority>0.80</priority>
+    </url>
 </urlset>
