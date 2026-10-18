@@ -551,8 +551,8 @@ img {
         /* Force visible on mobile */
         flex-direction: column;
         justify-content: space-between;
-        width: 26px;
-        height: 14px;
+        width: 24px;
+        height: 11px;
         background: transparent;
         border: none;
         cursor: pointer;

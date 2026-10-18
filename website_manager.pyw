@@ -31,6 +31,15 @@ PAGE_IMAGE_FOLDERS = {
 }
 
 
+def image_year_sort_key(source):
+    """Sort images by the first year in their filename, newest year first."""
+    filename = os.path.basename(unquote(urlsplit(source).path))
+    match = re.search(r"(?<!\d)(?:19|20)\d{2}(?!\d)", filename)
+    if not match:
+        return (1, 0)
+    return (0, -int(match.group()))
+
+
 def strip_image_metadata(file_path):
     """Strip image metadata, replacing the original only after a successful write."""
     extension = os.path.splitext(file_path)[1].lower()
@@ -1034,19 +1043,32 @@ class ImageSyncApp(ctk.CTk):
             ):
                 missing_sources.append(source)
             self.gallery_images.append((source, image.get("alt", "")))
+        original_images = list(self.gallery_images)
+        self.gallery_images.sort(key=lambda image: image_year_sort_key(image[0]))
+        year_order_changed = self.gallery_images != original_images
         self.current_page = page
-        self.gallery_dirty = normalized_sources
+        self.gallery_dirty = normalized_sources or year_order_changed
         self.render_gallery()
         self.gallery_heading.configure(
             text=f"{page} — {len(self.gallery_images)} image(s) "
             "(Ctrl/Shift-click to select multiple)"
         )
-        if normalized_sources:
+        if year_order_changed:
+            self.set_status(
+                "Gallery images ordered by year, newest first. "
+                "Save gallery changes to apply the order."
+            )
+        elif normalized_sources:
             self.set_status("Local image URLs were corrected. Save gallery changes to apply them.")
         if missing_sources:
+            order_note = (
+                " Gallery order also changed; save gallery changes to apply it."
+                if year_order_changed
+                else ""
+            )
             self.set_status(
                 f"{len(missing_sources)} gallery image file(s) could not be found. "
-                "Check the image paths in the list."
+                f"Check the image paths in the list.{order_note}"
             )
         return True
 
@@ -1172,10 +1194,19 @@ class ImageSyncApp(ctk.CTk):
             self.gallery_images.append(
                 (relative_path, self.clean_alt_text(os.path.basename(target_path)))
             )
-            added_indices.append(len(self.gallery_images) - 1)
+            added_indices.append(relative_path)
             existing_sources.add(relative_path)
 
         if added_indices:
+            added_sources = set(added_indices)
+            self.gallery_images.sort(
+                key=lambda image: image_year_sort_key(image[0])
+            )
+            added_indices = [
+                index
+                for index, image in enumerate(self.gallery_images)
+                if image[0] in added_sources
+            ]
             self.gallery_dirty = True
             self.render_gallery(added_indices)
             if not self.save_gallery():
@@ -1355,7 +1386,7 @@ class ImageSyncApp(ctk.CTk):
                     for filename in os.listdir(directory)
                     if os.path.splitext(filename)[1].lower() in GALLERY_EXTENSIONS
                 ),
-                key=lambda path: os.path.basename(path).lower(),
+                key=image_year_sort_key,
             )
         except OSError as error:
             self.set_status(f"Could not read {image_folder}: {error}")
