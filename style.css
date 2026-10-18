@@ -549,10 +549,10 @@ img {
     .menu-toggle {
         display: flex !important;
         /* Force visible on mobile */
-        flex-direction: column;
-        justify-content: space-between;
+        align-items: center;
+        justify-content: center;
         width: 24px;
-        height: 11px;
+        height: 24px;
         background: transparent;
         border: none;
         cursor: pointer;
@@ -569,31 +569,45 @@ img {
 
     /* Style the two spans as visible lines */
     .menu-toggle span {
-        display: block;
+        position: absolute;
+        left: 0;
         width: 100%;
         height: 2px;
         background-color: #111111;
         /* Dark visible line color */
         border-radius: 2px;
-        transition: transform 0.3s ease-in-out, opacity 0.25s ease-in-out;
+        transition: translate 0.3s ease-in-out, transform 0.3s ease-in-out,
+            opacity 0.25s ease-in-out;
         transform-origin: center;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .menu-toggle span:nth-child(1) {
+        translate: 0 -4px;
+    }
+
+    .menu-toggle span:nth-child(2) {
+        translate: 0 4px;
     }
 
     /* Hamburger to X Animation */
     .menu-toggle.active span:nth-child(1) {
-        transform: translateY(6px) rotate(45deg);
+        translate: 0 0;
+        transform: translateY(-50%) rotate(45deg);
     }
 
     .menu-toggle.active span:nth-child(2) {
-        transform: translateY(-6px) rotate(-45deg);
+        translate: 0 0;
+        transform: translateY(-50%) rotate(-45deg);
     }
 
     /* Mobile Overlay Menu - Moved to Top */
     .nav-links {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
-        /* Align menu items to top */
+        justify-content: center;
+        /* Center menu items vertically */
         align-items: center;
         /* Center text horizontally */
         position: fixed;
